@@ -1,0 +1,25 @@
+---
+version: 2.1
+
+jobs:
+  test:
+    working_directory: /tmp/project
+    docker:
+    - image: cimg/rust:1.81
+    resource_class: small
+    steps:
+    - checkout
+    - run:
+        name: lint
+        command: cargo fmt -- --check
+    - run:
+        name: build
+        command: cargo build
+    - run:
+        name: test
+        command: cargo test -- --show-output
+
+workflows:
+  execute_tests:
+    jobs:
+    - test
