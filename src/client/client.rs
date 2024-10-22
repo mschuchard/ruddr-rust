@@ -1,5 +1,5 @@
-use std::env;
 use log;
+use std::env;
 
 use reqwest;
 
@@ -18,8 +18,10 @@ pub async fn client_build(
         Some(token) => format!("Bearer {token}"),
         None => match env::var("RUDDR_TOKEN") {
             Ok(value) => value,
-            Err(_) => return Err(Box::from("ruddr api token was not input through code or RUDDR_TOKEN environment variable")),
-        }
+            Err(_) => return Err(Box::from(
+                "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
+            )),
+        },
     };
     // establish authentication and mark as sensitive
     let mut auth_token = reqwest::header::HeaderValue::from_str(&bearer_token)?;

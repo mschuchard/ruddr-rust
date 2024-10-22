@@ -1,5 +1,5 @@
-use reqwest;
 use log;
+use reqwest;
 
 use crate::client::request;
 use crate::model::member;

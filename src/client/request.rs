@@ -1,5 +1,5 @@
-use reqwest;
 use log;
+use reqwest;
 
 pub(crate) async fn request(
     client: &reqwest::Client,

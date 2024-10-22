@@ -1,5 +1,5 @@
-use reqwest;
 use log;
+use reqwest;
 
 use crate::client::request;
 use crate::interface::util;
@@ -75,10 +75,13 @@ mod tests {
     fn test_time_entry() {
         let test = async {
             assert_eq!(
-                time_entry(&reqwest::Client::new(), "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
-                    .await
-                    .unwrap_err()
-                    .to_string(),
+                time_entry(
+                    &reqwest::Client::new(),
+                    "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"
+                )
+                .await
+                .unwrap_err()
+                .to_string(),
                 "error decoding response body",
                 "member retrieval did not fail on json decoding",
             )

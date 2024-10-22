@@ -1,13 +1,13 @@
 use serde::Deserialize;
 
 #[derive(PartialEq, Deserialize, Debug)]
-pub(crate) struct Members {
-    results: Vec<Member>,
+pub struct Members {
+    pub results: Vec<Member>,
 }
 
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Member {
+pub struct Member {
     pub id: String,
     pub name: String,
     pub email: String,
@@ -46,77 +46,77 @@ pub(crate) struct Member {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct SecurityRole {
+pub struct SecurityRole {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct JobTitle {
+pub struct JobTitle {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Discipline {
+pub struct Discipline {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Practice {
+pub struct Practice {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Location {
+pub struct Location {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Manager {
+pub struct Manager {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeOffApprover {
+pub struct TimeOffApprover {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct HolidaySchedule {
+pub struct HolidaySchedule {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Tag {
+pub struct Tag {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Skill {
+pub struct Skill {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct AvailabilityPeriod {
+pub struct AvailabilityPeriod {
     pub id: String,
     pub start: String,
     pub end: String,
@@ -125,7 +125,7 @@ pub(crate) struct AvailabilityPeriod {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct CostPeriod {
+pub struct CostPeriod {
     pub id: String,
     pub start: String,
     pub end: String,
@@ -137,7 +137,7 @@ pub(crate) struct CostPeriod {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct UtilizationTargetPeriod {
+pub struct UtilizationTargetPeriod {
     pub id: String,
     pub start: String,
     pub end: String,

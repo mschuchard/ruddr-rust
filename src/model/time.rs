@@ -2,13 +2,13 @@ use serde::Deserialize;
 
 // time entry
 #[derive(Eq, PartialEq, Deserialize, Debug)]
-pub(crate) struct TimeEntries {
-    results: Vec<TimeEntry>,
+pub struct TimeEntries {
+    pub results: Vec<TimeEntry>,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeEntry {
+pub struct TimeEntry {
     pub id: String,
     pub type_id: String,
     pub status_id: String,
@@ -29,14 +29,14 @@ pub(crate) struct TimeEntry {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Member {
+pub struct Member {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Project {
+pub struct Project {
     pub id: String,
     pub name: String,
     pub client: Client,
@@ -44,35 +44,35 @@ pub(crate) struct Project {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Client {
+pub struct Client {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Role {
+pub struct Role {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Task {
+pub struct Task {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeOffType {
+pub struct TimeOffType {
     pub id: String,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Invoice {
+pub struct Invoice {
     pub id: String,
     pub number: String,
 }

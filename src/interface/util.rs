@@ -1,5 +1,5 @@
-use regex::Regex;
 use log;
+use regex::Regex;
 
 pub(crate) fn validate_date(date: &str) -> Result<&str, Box<dyn std::error::Error>> {
     let date_validator = Regex::new(r"\d{4}-\d{2}-\d{2}").unwrap();
@@ -46,7 +46,8 @@ mod tests {
     #[test]
     fn test_validate_uuid() {
         assert_eq!(
-            validate_uuid("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("uuid validation errored unexpectedly"),
+            validate_uuid("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+                .expect("uuid validation errored unexpectedly"),
             "095e0780-48bf-472c-8deb-2fc3ebc7d90c",
             "expected uuid string not returned",
         )
@@ -55,7 +56,9 @@ mod tests {
     #[test]
     fn test_validate_uuid_err() {
         assert_eq!(
-            validate_uuid("095e0780-48bf-472c-8deb-2fc3ebc7d90").unwrap_err().to_string(),
+            validate_uuid("095e0780-48bf-472c-8deb-2fc3ebc7d90")
+                .unwrap_err()
+                .to_string(),
             "invalid uuid",
             "invalid uuid did not return expected error",
         )

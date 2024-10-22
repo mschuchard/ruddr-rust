@@ -1,3 +1,3 @@
-mod client;
-mod interface;
-mod model;
+pub mod client;
+pub mod interface;
+pub mod model;
