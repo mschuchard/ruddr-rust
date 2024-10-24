@@ -17,15 +17,15 @@ pub struct Member {
     pub is_active: bool,
     pub is_billable: bool,
     pub login_enabled: bool,
-    pub invitation_status_id: String,
-    pub employment_type_id: String,
-    pub cost_method_id: String,
+    pub invitation_status_id: InvitationStatus,
+    pub employment_type_id: EmploymentType,
+    pub cost_method_id: CostMethod,
     pub default_rate: f64,
     pub default_rate_currency: String,
     pub active_start_date: String,
     pub active_end_date: String,
     pub time_off_allowed: bool,
-    pub time_off_approval_mode: String,
+    pub time_off_approval_mode: TimeOffApprovalMode,
     pub receive_missing_time_reminders: bool,
     pub unsubmitted_timesheet_reminders: bool,
     pub forbid_timesheet_submission_when_below_capacity: bool,
@@ -145,6 +145,37 @@ pub struct UtilizationTargetPeriod {
     pub start: String,
     pub end: String,
     pub target_percentage: i64,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum InvitationStatus {
+    NotInvited,
+    Invited,
+    Accepted,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum EmploymentType {
+    Employee,
+    Contractor,
+    Other,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum CostMethod {
+    Hourly,
+    Fixed,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum TimeOffApprovalMode {
+    Auto,
+    Manager,
+    Member,
 }
 
 #[cfg(test)]
@@ -277,15 +308,15 @@ mod tests {
             is_active: true,
             is_billable: true,
             login_enabled: true,
-            invitation_status_id: String::from("accepted"),
-            employment_type_id: String::from("employee"),
-            cost_method_id: String::from("fixed"),
+            invitation_status_id: InvitationStatus::Accepted,
+            employment_type_id: EmploymentType::Employee,
+            cost_method_id: CostMethod::Fixed,
             default_rate: 100.0,
             default_rate_currency: String::from("USD"),
             active_start_date: String::from("2020-08-03"),
             active_end_date: String::from("2022-02-01"),
             time_off_allowed: true,
-            time_off_approval_mode: String::from("member"),
+            time_off_approval_mode: TimeOffApprovalMode::Member,
             receive_missing_time_reminders: true,
             unsubmitted_timesheet_reminders: true,
             forbid_timesheet_submission_when_below_capacity: false,

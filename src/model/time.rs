@@ -12,8 +12,8 @@ pub struct TimeEntries {
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntry {
     pub id: String,
-    pub type_id: String,
-    pub status_id: String,
+    pub type_id: Type,
+    pub status_id: Status,
     pub date: String,
     pub minutes: i64,
     pub timer_started_at: Option<String>,
@@ -79,6 +79,22 @@ pub struct Invoice {
     pub number: String,
 }
 
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum Type {
+    ProjectTime,
+    TimeOff,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum Status {
+    NotSubmitted,
+    PendingApproval,
+    Approved,
+    Rejected,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -130,8 +146,8 @@ mod tests {
             .expect("time entry could not be deserialized");
         let time_entry = TimeEntry {
             id: String::from("4497fa99-27a4-4509-9748-83e4399296e3"),
-            type_id: String::from("project_time"),
-            status_id: String::from("approved"),
+            type_id: Type::ProjectTime,
+            status_id: Status::Approved,
             date: String::from("2022-03-08"),
             minutes: 120,
             timer_started_at: Some(String::from("2022-03-10T17:50:48.808Z")),

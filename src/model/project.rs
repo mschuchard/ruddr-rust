@@ -15,27 +15,27 @@ pub struct Project {
     pub key: String,
     pub name: String,
     pub notes: String,
-    pub status_id: String,
+    pub status_id: Status,
     pub start: Option<String>,
     pub end: Option<String>,
     pub code: String,
     pub po_number: String,
-    pub billing_type_id: String,
+    pub billing_type_id: BillingType,
     pub is_billable: bool,
     pub currency: String,
-    pub revenue_recognition_method: Option<String>,
+    pub revenue_recognition_method: Option<RevenueRecognitionMethod>,
     pub fixed_fee: Option<i64>,
     pub fixed_recurring_fee: Option<i64>,
     pub fixed_recurring_start: Option<String>,
     pub fixed_recurring_end: Option<String>,
     pub use_roles: bool,
     pub use_budget: bool,
-    pub budget_mode: Option<String>,
+    pub budget_mode: Option<BudgetMode>,
     pub use_monthly_budget: bool,
-    pub monthly_budget_mode: String,
+    pub monthly_budget_mode: Option<MonthlyBudgetMode>,
     pub requires_notes: bool,
     pub requires_tasks: bool,
-    pub record_status_id: String,
+    pub record_status_id: RecordStatus,
     pub is_productive: Option<bool>,
     pub created_at: String,
     pub client: Client,
@@ -98,8 +98,58 @@ pub struct MonthlyBudget {
     pub non_billable_hours: i64,
 }
 
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum Status {
+    Tentative,
+    NotStarted,
+    InProgress,
+    Paused,
+    Completed,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum BillingType {
+    TimeAndMaterials,
+    Fixed,
+    FixedRecurring,
+    NonBillable,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum RevenueRecognitionMethod {
+    Invoiced,
+    Manual,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum BudgetMode {
+    Summary,
+    Detailed,
+    Aggregated,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum MonthlyBudgetMode {
+    Summary,
+    Detailed,
+}
+
+#[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum RecordStatus {
+    Active,
+    Archived,
+}
+
 #[cfg(test)]
 mod tests {
+    use log::Record;
+
     use super::*;
 
     #[test]
@@ -181,27 +231,27 @@ mod tests {
               key: String::from("vendor-portal"),
               name: String::from("Vendor Portal"),
               notes: String::from("The client would like to develop a mobile app that rewards its customers for repeat purchases."),
-              status_id: String::from("in_progress"),
+              status_id: Status::InProgress,
               start: Some(String::from("2021-09-01")),
               end: Some(String::from("2022-01-31")),
               code: String::from("P-2021-00068"),
               po_number: String::from("DM-2021-02059"),
-              billing_type_id: String::from("fixed_recurring"),
+              billing_type_id: BillingType::FixedRecurring,
               is_billable: true,
               currency: String::from("USD"),
-              revenue_recognition_method: Some(String::from("manual")),
+              revenue_recognition_method: Some(RevenueRecognitionMethod::Manual),
               fixed_fee: None,
               fixed_recurring_fee: None,
               fixed_recurring_start: None,
               fixed_recurring_end: None,
               use_roles: true,
               use_budget: true,
-              budget_mode: Some(String::from("detailed")),
+              budget_mode: Some(BudgetMode::Detailed),
               use_monthly_budget: true,
-              monthly_budget_mode: String::from("detailed"),
+              monthly_budget_mode: Some(MonthlyBudgetMode::Detailed),
               requires_notes: true,
               requires_tasks: true,
-              record_status_id: String::from("active"),
+              record_status_id: RecordStatus::Active,
               is_productive: None,
               created_at: String::from("2022-03-15T14:59:18.825Z"),
               client: Client{
