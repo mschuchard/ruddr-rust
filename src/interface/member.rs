@@ -1,18 +1,18 @@
 use log;
-use reqwest;
 
-use crate::client::request;
+use crate::client::client;
 use crate::model::member;
 
 // retrieve member GET
 pub async fn member(
-    client: &reqwest::Client,
+    client: &client::Client,
     id: &str,
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
     log::debug!("retrieving member for {id}");
 
     // retrieve member and deser
-    let member = request::request(client, "members", &format!("/{id}"))
+    let member = client
+        .request("members", &format!("/{id}"))
         .await?
         .json::<member::Member>()
         .await?;
@@ -23,12 +23,13 @@ pub async fn member(
 
 // retrieve members LIST
 pub async fn members(
-    client: &reqwest::Client,
+    client: &client::Client,
 ) -> Result<member::Members, Box<dyn std::error::Error>> {
     log::debug!("retrieving members");
 
     // retrieve members and deser
-    let members = request::request(client, "members", "?limit=100")
+    let members = client
+        .request("members", "?limit=100")
         .await?
         .json::<member::Members>()
         .await?;
@@ -44,8 +45,11 @@ mod tests {
     #[test]
     fn test_member() {
         let test = async {
+            let client = client::Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
             assert_eq!(
-                member(&reqwest::Client::new(), "1")
+                member(&client, "3f3df320-dd95-4a42-8eae-99243fb2ea86")
                     .await
                     .unwrap_err()
                     .to_string(),
@@ -60,11 +64,11 @@ mod tests {
     #[test]
     fn test_members() {
         let test = async {
+            let client = client::Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
             assert_eq!(
-                members(&reqwest::Client::new())
-                    .await
-                    .unwrap_err()
-                    .to_string(),
+                members(&client).await.unwrap_err().to_string(),
                 "error decoding response body",
                 "member retrieval did not fail on json decoding",
             )

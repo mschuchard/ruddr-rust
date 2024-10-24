@@ -1,19 +1,19 @@
 use log;
-use reqwest;
 
-use crate::client::request;
+use crate::client::client;
 use crate::interface::util;
 use crate::model::time;
 
 // retrieve time entry GET
 pub async fn time_entry(
-    client: &reqwest::Client,
+    client: &client::Client,
     id: &str,
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
     log::debug!("retrieving time entry for {id}");
 
     // retrieve time entry and deser
-    let time_entry = request::request(client, "time-entries", &format!("/{id}"))
+    let time_entry = client
+        .request("time-entries", &format!("/{id}"))
         .await?
         .json::<time::TimeEntry>()
         .await?;
@@ -24,7 +24,7 @@ pub async fn time_entry(
 
 // retrieve time entries LIST
 pub async fn time_entries(
-    client: &reqwest::Client,
+    client: &client::Client,
     member: Option<&str>,
     project: Option<&str>,
     date: Option<&str>,
@@ -58,7 +58,8 @@ pub async fn time_entries(
     log::debug!("retrieving time entries with parameters {params}");
 
     // retrieve time entries and deser
-    let time_entries = request::request(client, "time-entries", &params)
+    let time_entries = client
+        .request("time-entries", &params)
         .await?
         .json::<time::TimeEntries>()
         .await?;
@@ -74,14 +75,14 @@ mod tests {
     #[test]
     fn test_time_entry() {
         let test = async {
-            assert_eq!(
-                time_entry(
-                    &reqwest::Client::new(),
-                    "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"
-                )
+            let client = client::Client::new(Some("abcdefghi123456789"))
                 .await
-                .unwrap_err()
-                .to_string(),
+                .expect("client with token could not be constructed");
+            assert_eq!(
+                time_entry(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                    .await
+                    .unwrap_err()
+                    .to_string(),
                 "error decoding response body",
                 "member retrieval did not fail on json decoding",
             )
@@ -93,9 +94,12 @@ mod tests {
     #[test]
     fn test_time_entries() {
         let test = async {
+            let client = client::Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
             assert_eq!(
                 time_entries(
-                    &reqwest::Client::new(),
+                    &client,
                     Some("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"),
                     Some("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
                     Some("2024-01-01"),
