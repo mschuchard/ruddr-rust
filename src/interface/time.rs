@@ -1,10 +1,16 @@
+//! # Time
+//!
+//! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoint.
 use log;
 
 use crate::client::client;
 use crate::interface::util;
 use crate::model::time;
 
-// retrieve time entry GET
+/// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding struct.
+/// ```ignore
+/// let time_entry = time_entry(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").await?;
+/// ```
 pub async fn time_entry(
     client: &client::Client,
     id: &str,
@@ -22,7 +28,10 @@ pub async fn time_entry(
     Ok(time_entry)
 }
 
-// retrieve time entries LIST
+/// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of structs.
+/// ```ignore
+/// let time_entries = time_entries(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885", "095e0780-48bf-472c-8deb-2fc3ebc7d90c", None, "2024-10-21", "2024-10-25").await?;
+/// ```
 pub async fn time_entries(
     client: &client::Client,
     member: Option<&str>,

@@ -1,3 +1,6 @@
+//! # Member
+//!
+//! `model::member` is a model for the Ruddr Member object.
 use serde::Deserialize;
 
 #[derive(PartialEq, Deserialize, Debug)]

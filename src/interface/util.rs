@@ -1,3 +1,6 @@
+//! # Util
+//!
+//! `interface::util` consists of helper functions for use with the interface modules' functions.
 use log;
 use regex::Regex;
 

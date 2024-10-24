@@ -1,9 +1,15 @@
+//! # Member
+//!
+//! `interface::member` consists of functions for interfacing with the Ruddr Member endpoint.
 use log;
 
 use crate::client::client;
 use crate::model::member;
 
-// retrieve member GET
+/// Retrieves a specific Ruddr Member object by id, and deserializes it to the corresponding struct.
+/// ```ignore
+/// let member = member(&client, "3f3df320-dd95-4a42-8eae-99243fb2ea86").await?;
+/// ```
 pub async fn member(
     client: &client::Client,
     id: &str,
@@ -21,7 +27,10 @@ pub async fn member(
     Ok(member)
 }
 
-// retrieve members LIST
+/// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of structs.
+/// ```ignore
+/// let members = members(&client).await?;
+/// ```
 pub async fn members(
     client: &client::Client,
 ) -> Result<member::Members, Box<dyn std::error::Error>> {

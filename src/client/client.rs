@@ -1,3 +1,6 @@
+//! # Client
+//!
+//! `client::client` consists of functions for initializing Ruddr API clients and requests, and sending requests.
 use log;
 use std::env;
 
@@ -10,7 +13,10 @@ pub struct Client {
 }
 
 impl Client {
-    // initialize client
+    /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error.
+    /// ```ignore
+    /// let client = Client::new(Some("abcdefghi123456789")).await?;
+    /// ```
     pub async fn new(token: Option<&str>) -> Result<Self, Box<dyn std::error::Error>> {
         // initialize headers and establish json encoding
         let mut headers = reqwest::header::HeaderMap::new();
@@ -44,7 +50,10 @@ impl Client {
         Ok(Self { client })
     }
 
-    // return client member reference
+    /// Return a reference to the `reqwest::Client`` type `client`` member of the `Client` struct.
+    /// ```ignore
+    /// let reqwest_client = client.client();
+    /// ```
     pub fn client(&self) -> &reqwest::Client {
         return &self.client;
     }
@@ -108,6 +117,19 @@ mod tests {
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 "attempted client build without token did not error expectedly",
             )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
+    }
+
+    #[test]
+    fn test_client_read() {
+        let test = async {
+            let client = Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
+            let reqwest_client = client.client();
+            println!("reqwest client: {:?}", reqwest_client)
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
         rt.block_on(test);

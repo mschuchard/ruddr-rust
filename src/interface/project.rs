@@ -1,10 +1,16 @@
+//! # Project
+//!
+//! `interface::project` consists of functions for interfacing with the Ruddr Project endpoint.
 use log;
 
 use crate::client::client;
 use crate::interface::util;
 use crate::model::project;
 
-// retrieve project GET
+/// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding struct.
+/// ```ignore
+/// let project = project(&client, "095e0780-48bf-472c-8deb-2fc3ebc7d90c").await?;
+/// ```
 pub async fn project(
     client: &client::Client,
     id: &str,
@@ -22,7 +28,10 @@ pub async fn project(
     Ok(project)
 }
 
-// retrieve projects LIST
+/// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
+/// ```ignore
+/// let time_entries = time_entries(&client, "d5afaffe-09e5-4d73-b02c-905b40fc6c22", "9b0927a6-35a1-4795-a4ca-10167b05f7de", "in_progress").await?;
+/// ```
 pub async fn projects(
     client: &client::Client,
     client_id: Option<&str>,

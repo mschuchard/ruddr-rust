@@ -1,6 +1,8 @@
+//! # Time
+//!
+//! `model::time` is a model for the Ruddr Time Entry object.
 use serde::Deserialize;
 
-// time entry
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 pub struct TimeEntries {
     pub results: Vec<TimeEntry>,

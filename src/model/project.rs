@@ -1,3 +1,6 @@
+//! # Project
+//!
+//! `model::project` is a model for the Ruddr Project object.
 use serde::Deserialize;
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
