@@ -79,6 +79,7 @@ pub struct Invoice {
     pub number: String,
 }
 
+// custom types: enum
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Type {

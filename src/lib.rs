@@ -1,3 +1,14 @@
-pub mod client;
-pub mod interface;
-pub mod model;
+pub mod client {
+    pub mod client;
+}
+pub mod interface {
+    pub mod member;
+    pub mod project;
+    pub mod time;
+    mod util;
+}
+pub(crate) mod model {
+    pub(crate) mod member;
+    pub(crate) mod project;
+    pub(crate) mod time;
+}

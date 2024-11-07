@@ -98,6 +98,7 @@ pub struct MonthlyBudget {
     pub non_billable_hours: i64,
 }
 
+// custom types: enum
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
@@ -148,8 +149,6 @@ pub enum RecordStatus {
 
 #[cfg(test)]
 mod tests {
-    use log::Record;
-
     use super::*;
 
     #[test]

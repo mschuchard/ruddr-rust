@@ -147,6 +147,7 @@ pub struct UtilizationTargetPeriod {
     pub target_percentage: i64,
 }
 
+// custom types: enum
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum InvitationStatus {
