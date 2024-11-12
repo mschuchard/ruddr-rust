@@ -1,6 +1,7 @@
 //! # Types
 //!
 //! `model::types` defines custom type structs with trait implementations for Ruddr API custom types.
+use regex::Regex;
 use serde::Deserializer;
 
 /// Custom type for Ruddr Date type
@@ -10,7 +11,13 @@ pub struct Date(String);
 impl Date {
     // constructor with validation
     fn new(date: String) -> Self {
-        Date(date)
+        let date_validator = Regex::new(r"\d{4}-\d{2}-\d{2}").unwrap();
+        if date_validator.is_match(&date) {
+            Date(date)
+        } else {
+            log::error!("{date} is an invalid date format");
+            panic!("invalid date")
+        }
     }
 }
 
@@ -51,7 +58,13 @@ pub struct UUID(String);
 impl UUID {
     // constructor with validation
     fn new(uuid: String) -> Self {
-        UUID(uuid)
+        let uuid_validator = Regex::new(r"\w{8}-\w{4}-\w{4}-\w{4}-\w{12}").unwrap();
+        if uuid_validator.is_match(&uuid) {
+            UUID(uuid)
+        } else {
+            log::error!("{uuid} is an invalid uuid format");
+            panic!("invalid uuid")
+        }
     }
 }
 
@@ -97,6 +110,12 @@ mod tests {
     }
 
     #[test]
+    fn test_date_new_error() {
+        let test = std::panic::catch_unwind(|| Date::new(String::from("99-99-9999")));
+        assert!(test.is_err())
+    }
+
+    #[test]
     fn test_date_from_str() {
         assert_eq!(Date(String::from("1234-56-78")), Date::from("1234-56-78"))
     }
@@ -139,6 +158,12 @@ mod tests {
             UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
             UUID::new(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
         )
+    }
+
+    #[test]
+    fn test_uuid_new_error() {
+        let test = std::panic::catch_unwind(|| UUID::new(String::from("foo-bar-baz")));
+        assert!(test.is_err())
     }
 
     #[test]
