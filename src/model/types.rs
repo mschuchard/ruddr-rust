@@ -7,15 +7,22 @@ use serde::Deserializer;
 #[derive(PartialEq, Eq, Debug)]
 pub struct Date(String);
 
+impl Date {
+    // constructor with validation
+    fn new(date: String) -> Self {
+        Date(date)
+    }
+}
+
 impl From<String> for Date {
     fn from(date: String) -> Self {
-        Date(date)
+        Date::new(date)
     }
 }
 
 impl From<&str> for Date {
     fn from(date: &str) -> Self {
-        Date(String::from(date))
+        Date::new(String::from(date))
     }
 }
 
@@ -33,7 +40,7 @@ impl<'date> From<&'date Date> for &'date str {
 
 impl<'de> serde::Deserialize<'de> for Date {
     fn deserialize<D: Deserializer<'de>>(date: D) -> Result<Self, D::Error> {
-        Ok(Date(String::deserialize(date)?))
+        Ok(Date::new(String::deserialize(date)?))
     }
 }
 
@@ -41,15 +48,22 @@ impl<'de> serde::Deserialize<'de> for Date {
 #[derive(PartialEq, Eq, Debug)]
 pub struct UUID(String);
 
+impl UUID {
+    // constructor with validation
+    fn new(uuid: String) -> Self {
+        UUID(uuid)
+    }
+}
+
 impl From<String> for UUID {
     fn from(uuid: String) -> Self {
-        UUID(uuid)
+        UUID::new(uuid)
     }
 }
 
 impl From<&str> for UUID {
     fn from(uuid: &str) -> Self {
-        UUID(String::from(uuid))
+        UUID::new(String::from(uuid))
     }
 }
 
@@ -67,7 +81,7 @@ impl<'uuid> From<&'uuid UUID> for &'uuid str {
 
 impl<'de> serde::Deserialize<'de> for UUID {
     fn deserialize<D: Deserializer<'de>>(uuid: D) -> Result<Self, D::Error> {
-        Ok(UUID(String::deserialize(uuid)?))
+        Ok(UUID::new(String::deserialize(uuid)?))
     }
 }
 
@@ -75,8 +89,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn test_date_new() {
+        assert_eq!(
+            Date(String::from("1234-56-78")),
+            Date::new(String::from("1234-56-78"))
+        )
+    }
+
+    #[test]
     fn test_date_from_str() {
-        assert_eq!(Date(String::from("1234-56-78")), Date::from("1234-56-78"),)
+        assert_eq!(Date(String::from("1234-56-78")), Date::from("1234-56-78"))
     }
 
     #[test]
@@ -108,6 +130,14 @@ mod tests {
         assert_eq!(
             Date(String::from("1234-56-78")),
             serde_json::from_str::<Date>("\"1234-56-78\"").expect("date could not be deserialized")
+        )
+    }
+
+    #[test]
+    fn test_uuid_new() {
+        assert_eq!(
+            UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
+            UUID::new(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
         )
     }
 
