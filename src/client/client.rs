@@ -6,7 +6,7 @@ use std::env;
 
 use reqwest;
 
-// client struct for reuse without explicit reqwest type usage
+/// Client struct for reuse without explicit reqwest type usage
 #[derive(Debug)]
 pub struct Client {
     client: reqwest::Client,
