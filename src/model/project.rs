@@ -1,6 +1,7 @@
 //! # Project
 //!
 //! `model::project` is a model for the Ruddr Project object.
+use crate::model::types;
 use serde::Deserialize;
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
@@ -11,13 +12,13 @@ pub struct Projects {
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Project {
-    pub id: String,
+    pub id: types::UUID,
     pub key: String,
     pub name: String,
     pub notes: String,
     pub status_id: Status,
-    pub start: Option<String>,
-    pub end: Option<String>,
+    pub start: Option<types::Date>,
+    pub end: Option<types::Date>,
     pub code: String,
     pub po_number: String,
     pub billing_type_id: BillingType,
@@ -49,28 +50,28 @@ pub struct Project {
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Client {
-    pub id: String,
+    pub id: types::UUID,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Practice {
-    pub id: String,
+    pub id: types::UUID,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ProjectType {
-    pub id: String,
+    pub id: types::UUID,
     pub name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Tag {
-    pub id: String,
+    pub id: types::UUID,
     pub name: String,
 }
 
@@ -226,13 +227,13 @@ mod tests {
         let project_deserialized = serde_json::from_str::<Project>(json_input)
             .expect("time entry could not be deserialized");
         let project = Project {
-              id: String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
+              id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
               key: String::from("vendor-portal"),
               name: String::from("Vendor Portal"),
               notes: String::from("The client would like to develop a mobile app that rewards its customers for repeat purchases."),
               status_id: Status::InProgress,
-              start: Some(String::from("2021-09-01")),
-              end: Some(String::from("2022-01-31")),
+              start: Some(types::Date(String::from("2021-09-01"))),
+              end: Some(types::Date(String::from("2022-01-31"))),
               code: String::from("P-2021-00068"),
               po_number: String::from("DM-2021-02059"),
               billing_type_id: BillingType::FixedRecurring,
@@ -254,24 +255,24 @@ mod tests {
               is_productive: None,
               created_at: String::from("2022-03-15T14:59:18.825Z"),
               client: Client{
-                id: String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22"),
+                id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
                 name: String::from("Acme Company"),
               },
               practice: Practice{
-                id: String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a"),
+                id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
                 name: String::from("Digital Transformation"),
               },
               project_type: ProjectType{
-                id: String::from("9b0927a6-35a1-4795-a4ca-10167b05f7de"),
+                id: types::UUID(String::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
                 name: String::from("Content Management"),
               },
               tags: vec![
                 Tag{
-                  id: String::from("626db436-98bf-40cb-9937-c382af5d818c"),
+                  id: types::UUID(String::from("626db436-98bf-40cb-9937-c382af5d818c")),
                   name: String::from("Atlanta Office"),
                 },
                 Tag{
-                  id: String::from("9f26fb15-23f1-49a6-8558-c19ad4338472"),
+                  id: types::UUID(String::from("9f26fb15-23f1-49a6-8558-c19ad4338472")),
                   name: String::from("Data Analytics"),
                 },
               ],
