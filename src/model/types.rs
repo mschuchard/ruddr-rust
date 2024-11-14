@@ -6,7 +6,7 @@ use serde::Deserializer;
 
 /// Custom type for Ruddr Date type
 #[derive(PartialEq, Eq, Debug)]
-pub struct Date(String);
+pub(crate) struct Date(pub(crate) String);
 
 impl Date {
     // constructor with validation
@@ -53,7 +53,7 @@ impl<'de> serde::Deserialize<'de> for Date {
 
 /// Custom type for Ruddr UUID type
 #[derive(PartialEq, Eq, Debug)]
-pub struct UUID(String);
+pub(crate) struct UUID(pub(crate) String);
 
 impl UUID {
     // constructor with validation
