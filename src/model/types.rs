@@ -51,6 +51,54 @@ impl<'de> serde::Deserialize<'de> for Date {
     }
 }
 
+/// Custom type for Ruddr Timestamp type
+#[derive(PartialEq, Eq, Debug)]
+pub(crate) struct Timestamp(pub(crate) String);
+
+impl Timestamp {
+    // constructor with validation
+    fn new(timestamp: String) -> Self {
+        let timestamp_validator =
+            Regex::new(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z").unwrap();
+        if timestamp_validator.is_match(&timestamp) {
+            Timestamp(timestamp)
+        } else {
+            log::error!("{timestamp} is an invalid date format");
+            panic!("invalid timestamp")
+        }
+    }
+}
+
+impl From<String> for Timestamp {
+    fn from(timestamp: String) -> Self {
+        Timestamp::new(timestamp)
+    }
+}
+
+impl From<&str> for Timestamp {
+    fn from(timestamp: &str) -> Self {
+        Timestamp::new(String::from(timestamp))
+    }
+}
+
+impl From<Timestamp> for String {
+    fn from(timestamp: Timestamp) -> Self {
+        timestamp.0
+    }
+}
+
+impl<'timestamp> From<&'timestamp Timestamp> for &'timestamp str {
+    fn from(timestamp: &'timestamp Timestamp) -> Self {
+        &timestamp.0
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for Timestamp {
+    fn deserialize<D: Deserializer<'de>>(timestamp: D) -> Result<Self, D::Error> {
+        Ok(Timestamp::new(String::deserialize(timestamp)?))
+    }
+}
+
 /// Custom type for Ruddr UUID type
 #[derive(PartialEq, Eq, Debug)]
 pub(crate) struct UUID(pub(crate) String);
@@ -149,6 +197,61 @@ mod tests {
         assert_eq!(
             Date(String::from("1234-56-78")),
             serde_json::from_str::<Date>("\"1234-56-78\"").expect("date could not be deserialized")
+        )
+    }
+
+    #[test]
+    fn test_timestamp_new() {
+        assert_eq!(
+            Timestamp(String::from("1234-56-78T12:34:56.789Z")),
+            Timestamp::new(String::from("1234-56-78T12:34:56.789Z"))
+        )
+    }
+
+    #[test]
+    fn test_timestamp_new_error() {
+        let test = std::panic::catch_unwind(|| Timestamp::new(String::from("99-99-9999")));
+        assert!(test.is_err())
+    }
+
+    #[test]
+    fn test_timestamp_from_str() {
+        assert_eq!(
+            Timestamp(String::from("1234-56-78T12:34:56.789Z")),
+            Timestamp::from("1234-56-78T12:34:56.789Z")
+        )
+    }
+
+    #[test]
+    fn test_timestamp_from_string() {
+        assert_eq!(
+            Timestamp::from(String::from("1234-56-78T12:34:56.789Z")),
+            Timestamp(String::from("1234-56-78T12:34:56.789Z")),
+        )
+    }
+
+    #[test]
+    fn test_timestamp_to_string() {
+        assert_eq!(
+            String::from("1234-56-78T12:34:56.789Z"),
+            String::from(Timestamp(String::from("1234-56-78T12:34:56.789Z")))
+        )
+    }
+
+    #[test]
+    fn test_timestamp_to_str() {
+        assert_eq!(
+            "1234-56-78T12:34:56.789Z",
+            &String::from(Timestamp(String::from("1234-56-78T12:34:56.789Z")))
+        )
+    }
+
+    #[test]
+    fn test_timestamp_deserialize() {
+        assert_eq!(
+            Timestamp(String::from("1234-56-78T12:34:56.789Z")),
+            serde_json::from_str::<Timestamp>("\"1234-56-78T12:34:56.789Z\"")
+                .expect("timestamp could not be deserialized")
         )
     }
 
