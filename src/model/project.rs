@@ -38,7 +38,7 @@ pub struct Project {
     pub requires_tasks: bool,
     pub record_status_id: RecordStatus,
     pub is_productive: Option<bool>,
-    pub created_at: String,
+    pub created_at: types::Timestamp,
     pub client: Client,
     pub practice: Practice,
     pub project_type: ProjectType,
@@ -253,7 +253,7 @@ mod tests {
               requires_tasks: true,
               record_status_id: RecordStatus::Active,
               is_productive: None,
-              created_at: String::from("2022-03-15T14:59:18.825Z"),
+              created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
               client: Client{
                 id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
                 name: String::from("Acme Company"),

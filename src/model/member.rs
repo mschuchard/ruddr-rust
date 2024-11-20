@@ -32,7 +32,7 @@ pub struct Member {
     pub forbid_timesheet_submission_when_below_capacity: bool,
     pub internal_id: String,
     pub internal_notes: String,
-    pub created_at: String,
+    pub created_at: types::Timestamp,
     pub security_role: SecurityRole,
     pub job_title: JobTitle,
     pub discipline: Discipline,
@@ -324,7 +324,7 @@ mod tests {
             forbid_timesheet_submission_when_below_capacity: false,
             internal_id: String::from("12345"),
             internal_notes: String::from("Primary location: Atlanta, GA"),
-            created_at: String::from("2020-08-03T21:00:16.370Z"),
+            created_at: types::Timestamp(String::from("2020-08-03T21:00:16.370Z")),
             security_role: SecurityRole {
                 id: types::UUID(String::from("e31c9f7e-98cb-4ce7-81df-cc46bd9eb94f")),
                 name: String::from("Workspace Admin"),
