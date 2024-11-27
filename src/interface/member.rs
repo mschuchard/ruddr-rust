@@ -5,6 +5,7 @@ use log;
 
 use crate::client::client;
 use crate::model::member;
+use crate::model::types;
 
 /// Retrieves a specific Ruddr Member object by id, and deserializes it to the corresponding struct.
 /// ```ignore
@@ -12,9 +13,9 @@ use crate::model::member;
 /// ```
 pub async fn member(
     client: &client::Client,
-    id: &str,
+    id: types::UUID,
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
-    log::debug!("retrieving member for {id}");
+    log::debug!("retrieving member for {id:?}");
 
     // retrieve member and deser
     let member = client
@@ -23,7 +24,7 @@ pub async fn member(
         .json::<member::Member>()
         .await?;
 
-    log::debug!("member retrieved for {id}");
+    log::debug!("member retrieved for {id:?}");
     Ok(member)
 }
 
@@ -58,10 +59,13 @@ mod tests {
                 .await
                 .expect("client with token could not be constructed");
             assert_eq!(
-                member(&client, "3f3df320-dd95-4a42-8eae-99243fb2ea86")
-                    .await
-                    .unwrap_err()
-                    .to_string(),
+                member(
+                    &client,
+                    types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")
+                )
+                .await
+                .unwrap_err()
+                .to_string(),
                 "error decoding response body",
                 "member retrieval did not fail on json decoding",
             )

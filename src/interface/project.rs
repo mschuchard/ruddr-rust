@@ -4,8 +4,8 @@
 use log;
 
 use crate::client::client;
-use crate::interface::util;
 use crate::model::project;
+use crate::model::types;
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding struct.
 /// ```ignore
@@ -13,7 +13,7 @@ use crate::model::project;
 /// ```
 pub async fn project(
     client: &client::Client,
-    id: &str,
+    id: types::UUID,
 ) -> Result<project::Project, Box<dyn std::error::Error>> {
     log::debug!("retrieving project for {id}");
 
@@ -34,8 +34,8 @@ pub async fn project(
 /// ```
 pub async fn projects(
     client: &client::Client,
-    client_id: Option<&str>,
-    project_type: Option<&str>,
+    client_id: Option<types::UUID>,
+    project_type: Option<types::UUID>,
     status: Option<&str>,
 ) -> Result<project::Projects, Box<dyn std::error::Error>> {
     // construct params
@@ -43,12 +43,10 @@ pub async fn projects(
 
     // optional parameters for LIST
     if client_id.is_some() {
-        let param = util::validate_uuid(client_id.unwrap())?;
-        params = format!("&clientId={param}");
+        params = format!("&clientId={}", client_id.unwrap());
     }
     if project_type.is_some() {
-        let param = util::validate_uuid(project_type.unwrap())?;
-        params = format!("&projectTypeId={param}")
+        params = format!("&projectTypeId={}", project_type.unwrap())
     }
     if status.is_some() {
         let param = status.unwrap();
@@ -78,10 +76,13 @@ mod tests {
                 .await
                 .expect("client with token could not be constructed");
             assert_eq!(
-                project(&client, "095e0780-48bf-472c-8deb-2fc3ebc7d90c")
-                    .await
-                    .unwrap_err()
-                    .to_string(),
+                project(
+                    &client,
+                    types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+                )
+                .await
+                .unwrap_err()
+                .to_string(),
                 "error decoding response body",
                 "project retrieval did not fail on json decoding",
             )
@@ -99,8 +100,8 @@ mod tests {
             assert_eq!(
                 projects(
                     &client,
-                    Some("d5afaffe-09e5-4d73-b02c-905b40fc6c22"),
-                    Some("9b0927a6-35a1-4795-a4ca-10167b05f7de"),
+                    Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
+                    Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
                     Some("in_progress"),
                 )
                 .await

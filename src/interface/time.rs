@@ -6,6 +6,7 @@ use log;
 use crate::client::client;
 use crate::interface::util;
 use crate::model::time;
+use crate::model::types;
 
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding struct.
 /// ```ignore
@@ -13,7 +14,7 @@ use crate::model::time;
 /// ```
 pub async fn time_entry(
     client: &client::Client,
-    id: &str,
+    id: types::UUID,
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
     log::debug!("retrieving time entry for {id}");
 
@@ -34,8 +35,8 @@ pub async fn time_entry(
 /// ```
 pub async fn time_entries(
     client: &client::Client,
-    member: Option<&str>,
-    project: Option<&str>,
+    member: Option<types::UUID>,
+    project: Option<types::UUID>,
     date: Option<&str>,
     begin_date: Option<&str>,
     end_date: Option<&str>,
@@ -45,12 +46,10 @@ pub async fn time_entries(
 
     // optional parameters for LIST
     if member.is_some() {
-        let param = util::validate_uuid(member.unwrap())?;
-        params = format!("&memberId={param}");
+        params = format!("&memberId={}", member.unwrap());
     }
     if project.is_some() {
-        let param = util::validate_uuid(project.unwrap())?;
-        params = format!("&projectId={param}")
+        params = format!("&projectId={}", project.unwrap())
     }
     if date.is_some() {
         let param = util::validate_date(date.unwrap())?;
@@ -88,10 +87,13 @@ mod tests {
                 .await
                 .expect("client with token could not be constructed");
             assert_eq!(
-                time_entry(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
-                    .await
-                    .unwrap_err()
-                    .to_string(),
+                time_entry(
+                    &client,
+                    types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                )
+                .await
+                .unwrap_err()
+                .to_string(),
                 "error decoding response body",
                 "member retrieval did not fail on json decoding",
             )
@@ -109,8 +111,8 @@ mod tests {
             assert_eq!(
                 time_entries(
                     &client,
-                    Some("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"),
-                    Some("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
+                    Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+                    Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
                     Some("2024-01-01"),
                     Some("2024-01-01"),
                     Some("2024-01-01"),
