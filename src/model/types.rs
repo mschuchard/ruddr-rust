@@ -3,6 +3,7 @@
 //! `model::types` defines custom type structs with trait implementations for Ruddr API custom types.
 use regex::Regex;
 use serde::Deserializer;
+use std::fmt;
 
 /// Custom type for Ruddr Date type
 #[derive(PartialEq, Eq, Debug)]
@@ -48,6 +49,12 @@ impl<'date> From<&'date Date> for &'date str {
 impl<'de> serde::Deserialize<'de> for Date {
     fn deserialize<D: Deserializer<'de>>(date: D) -> Result<Self, D::Error> {
         Ok(Date::new(String::deserialize(date)?))
+    }
+}
+
+impl fmt::Display for Date {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "{}", self.0)
     }
 }
 
@@ -99,6 +106,12 @@ impl<'de> serde::Deserialize<'de> for Timestamp {
     }
 }
 
+impl fmt::Display for Timestamp {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "{}", self.0)
+    }
+}
+
 /// Custom type for Ruddr UUID type
 #[derive(PartialEq, Eq, Debug)]
 pub(crate) struct UUID(pub(crate) String);
@@ -143,6 +156,12 @@ impl<'uuid> From<&'uuid UUID> for &'uuid str {
 impl<'de> serde::Deserialize<'de> for UUID {
     fn deserialize<D: Deserializer<'de>>(uuid: D) -> Result<Self, D::Error> {
         Ok(UUID::new(String::deserialize(uuid)?))
+    }
+}
+
+impl fmt::Display for UUID {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "{}", self.0)
     }
 }
 
@@ -197,6 +216,14 @@ mod tests {
         assert_eq!(
             Date(String::from("1234-56-78")),
             serde_json::from_str::<Date>("\"1234-56-78\"").expect("date could not be deserialized")
+        )
+    }
+
+    #[test]
+    fn test_date_display() {
+        assert_eq!(
+            String::from("1234-56-78"),
+            format!("{}", Date(String::from("1234-56-78")))
         )
     }
 
@@ -256,6 +283,14 @@ mod tests {
     }
 
     #[test]
+    fn test_timestamp_display() {
+        assert_eq!(
+            String::from("1234-56-78T12:34:56.789Z"),
+            format!("{}", Timestamp(String::from("1234-56-78T12:34:56.789Z")))
+        )
+    }
+
+    #[test]
     fn test_uuid_new() {
         assert_eq!(
             UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
@@ -307,6 +342,17 @@ mod tests {
             UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
             serde_json::from_str::<UUID>("\"4c8d3f42-6efd-4a7e-85ca-d43164db0ab2\"")
                 .expect("uuid could not be deserialized")
+        )
+    }
+
+    #[test]
+    fn test_uuid_display() {
+        assert_eq!(
+            String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"),
+            format!(
+                "{}",
+                UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
+            )
         )
     }
 }
