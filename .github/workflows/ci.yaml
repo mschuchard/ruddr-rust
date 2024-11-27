@@ -5,12 +5,12 @@ on:
   push:
     branches: [master]
     paths:
-    - 'src/*.rs'
+    - '**.rs'
     - 'Cargo.toml'
   pull_request:
     branches: [master]
     paths:
-    - 'src/*.rs'
+    - '**.rs'
     - 'Cargo.toml'
 
 jobs:

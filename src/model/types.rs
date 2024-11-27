@@ -7,7 +7,7 @@ use std::fmt;
 
 /// Custom type for Ruddr Date type
 #[derive(PartialEq, Eq, Debug)]
-pub(crate) struct Date(pub(crate) String);
+pub struct Date(pub(crate) String);
 
 impl Date {
     // constructor with validation
@@ -60,7 +60,7 @@ impl fmt::Display for Date {
 
 /// Custom type for Ruddr Timestamp type
 #[derive(PartialEq, Eq, Debug)]
-pub(crate) struct Timestamp(pub(crate) String);
+pub struct Timestamp(pub(crate) String);
 
 impl Timestamp {
     // constructor with validation
@@ -114,7 +114,7 @@ impl fmt::Display for Timestamp {
 
 /// Custom type for Ruddr UUID type
 #[derive(PartialEq, Eq, Debug)]
-pub(crate) struct UUID(pub(crate) String);
+pub struct UUID(pub(crate) String);
 
 impl UUID {
     // constructor with validation
