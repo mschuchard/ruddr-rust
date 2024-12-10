@@ -45,19 +45,19 @@ pub async fn time_entries(
 
     // optional parameters for LIST
     if member.is_some() {
-        params = format!("&memberId={}", member.unwrap());
+        params = format!("{params}&memberId={}", member.unwrap())
     }
     if project.is_some() {
-        params = format!("&projectId={}", project.unwrap())
+        params = format!("{params}&projectId={}", project.unwrap())
     }
     if date.is_some() {
-        params = format!("&date={}", date.unwrap())
+        params = format!("{params}&date={}", date.unwrap())
     }
     if begin_date.is_some() {
-        params = format!("&dateOnAfter={}", begin_date.unwrap())
+        params = format!("{params}&dateOnAfter={}", begin_date.unwrap())
     }
     if end_date.is_some() {
-        params = format!("&dataOnBefore={}", end_date.unwrap())
+        params = format!("{params}&dataOnBefore={}", end_date.unwrap())
     }
     log::debug!("retrieving time entries with parameters {params}");
 

@@ -43,14 +43,13 @@ pub async fn projects(
 
     // optional parameters for LIST
     if client_id.is_some() {
-        params = format!("&clientId={}", client_id.unwrap());
+        params = format!("{params}&clientId={}", client_id.unwrap())
     }
     if project_type.is_some() {
-        params = format!("&projectTypeId={}", project_type.unwrap())
+        params = format!("{params}&projectTypeId={}", project_type.unwrap())
     }
     if status.is_some() {
-        let param = status.unwrap();
-        params = format!("&statusId={param}")
+        params = format!("{params}&statusId={}", status.unwrap())
     }
     log::debug!("retrieving projects with parameters {params}");
 
