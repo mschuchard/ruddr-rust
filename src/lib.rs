@@ -5,7 +5,6 @@ pub mod interface {
     pub mod member;
     pub mod project;
     pub mod time;
-    mod util;
 }
 pub(crate) mod model {
     pub(crate) mod member;

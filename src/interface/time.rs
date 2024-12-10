@@ -4,7 +4,6 @@
 use log;
 
 use crate::client::client;
-use crate::interface::util;
 use crate::model::time;
 use crate::model::types;
 
@@ -37,9 +36,9 @@ pub async fn time_entries(
     client: &client::Client,
     member: Option<types::UUID>,
     project: Option<types::UUID>,
-    date: Option<&str>,
-    begin_date: Option<&str>,
-    end_date: Option<&str>,
+    date: Option<types::Date>,
+    begin_date: Option<types::Date>,
+    end_date: Option<types::Date>,
 ) -> Result<time::TimeEntries, Box<dyn std::error::Error>> {
     // construct params
     let mut params = String::from("?limit=100");
@@ -52,16 +51,13 @@ pub async fn time_entries(
         params = format!("&projectId={}", project.unwrap())
     }
     if date.is_some() {
-        let param = util::validate_date(date.unwrap())?;
-        params = format!("&date={param}")
+        params = format!("&date={}", date.unwrap())
     }
     if begin_date.is_some() {
-        let param = util::validate_date(begin_date.unwrap())?;
-        params = format!("&dateOnAfter={param}")
+        params = format!("&dateOnAfter={}", begin_date.unwrap())
     }
     if end_date.is_some() {
-        let param = util::validate_date(end_date.unwrap())?;
-        params = format!("&dataOnBefore={param}")
+        params = format!("&dataOnBefore={}", end_date.unwrap())
     }
     log::debug!("retrieving time entries with parameters {params}");
 
@@ -113,9 +109,9 @@ mod tests {
                     &client,
                     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
                     Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-                    Some("2024-01-01"),
-                    Some("2024-01-01"),
-                    Some("2024-01-01"),
+                    Some(types::Date::from("2024-01-01")),
+                    Some(types::Date::from("2024-01-01")),
+                    Some(types::Date::from("2024-01-01")),
                 )
                 .await
                 .unwrap_err()
