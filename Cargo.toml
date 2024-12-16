@@ -3,8 +3,6 @@ name = "ruddr"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
@@ -12,7 +10,7 @@ log = "0.4"
 env_logger = "0.11"
 regex = "1.0"
 reqwest = { version = "0.12", features = ["json"] }
-tokio = { version = "1.0", features = ["full"] }
+tokio = { version = "1.0", features = ["rt-multi-thread"] }
 
 [profile.release]
 opt-level = 's'     # Optimize for size

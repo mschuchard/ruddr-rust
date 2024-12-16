@@ -165,6 +165,7 @@ impl fmt::Display for UUID {
     }
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 
