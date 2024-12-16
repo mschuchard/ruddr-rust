@@ -6,103 +6,103 @@ use serde::Deserialize;
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 pub struct Projects {
-    pub results: Vec<Project>,
+    pub(crate) results: Vec<Project>,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Project {
-    pub id: types::UUID,
-    pub key: String,
-    pub name: String,
-    pub notes: String,
-    pub status_id: Status,
-    pub start: Option<types::Date>,
-    pub end: Option<types::Date>,
-    pub code: String,
-    pub po_number: String,
-    pub billing_type_id: BillingType,
-    pub is_billable: bool,
-    pub currency: String,
-    pub revenue_recognition_method: Option<RevenueRecognitionMethod>,
-    pub fixed_fee: Option<i64>,
-    pub fixed_recurring_fee: Option<i64>,
-    pub fixed_recurring_start: Option<String>,
-    pub fixed_recurring_end: Option<String>,
-    pub use_roles: bool,
-    pub use_budget: bool,
-    pub budget_mode: Option<BudgetMode>,
-    pub use_monthly_budget: bool,
-    pub monthly_budget_mode: Option<MonthlyBudgetMode>,
-    pub requires_notes: bool,
-    pub requires_tasks: bool,
-    pub record_status_id: RecordStatus,
-    pub is_productive: Option<bool>,
-    pub created_at: types::Timestamp,
-    pub client: Client,
-    pub practice: Practice,
-    pub project_type: ProjectType,
-    pub tags: Vec<Tag>,
-    pub budget: Option<Budget>,
-    pub monthly_budget: Option<MonthlyBudget>,
+    pub(crate) id: types::UUID,
+    pub(crate) key: String,
+    pub(crate) name: String,
+    pub(crate) notes: String,
+    pub(crate) status_id: Status,
+    pub(crate) start: Option<types::Date>,
+    pub(crate) end: Option<types::Date>,
+    pub(crate) code: String,
+    pub(crate) po_number: String,
+    pub(crate) billing_type_id: BillingType,
+    pub(crate) is_billable: bool,
+    pub(crate) currency: String,
+    pub(crate) revenue_recognition_method: Option<RevenueRecognitionMethod>,
+    pub(crate) fixed_fee: Option<i64>,
+    pub(crate) fixed_recurring_fee: Option<i64>,
+    pub(crate) fixed_recurring_start: Option<String>,
+    pub(crate) fixed_recurring_end: Option<String>,
+    pub(crate) use_roles: bool,
+    pub(crate) use_budget: bool,
+    pub(crate) budget_mode: Option<BudgetMode>,
+    pub(crate) use_monthly_budget: bool,
+    pub(crate) monthly_budget_mode: Option<MonthlyBudgetMode>,
+    pub(crate) requires_notes: bool,
+    pub(crate) requires_tasks: bool,
+    pub(crate) record_status_id: RecordStatus,
+    pub(crate) is_productive: Option<bool>,
+    pub(crate) created_at: types::Timestamp,
+    pub(crate) client: Client,
+    pub(crate) practice: Practice,
+    pub(crate) project_type: ProjectType,
+    pub(crate) tags: Vec<Tag>,
+    pub(crate) budget: Option<Budget>,
+    pub(crate) monthly_budget: Option<MonthlyBudget>,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Client {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Client {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Practice {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Practice {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct ProjectType {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct ProjectType {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Tag {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Tag {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Budget {
-    pub revenue: i64,
-    pub services_revenue: i64,
-    pub other_revenue: i64,
-    pub billable_expenses: i64,
-    pub non_billable_expenses: i64,
-    pub billable_hours: i64,
-    pub non_billable_hours: i64,
+pub(crate) struct Budget {
+    pub(crate) revenue: i64,
+    pub(crate) services_revenue: i64,
+    pub(crate) other_revenue: i64,
+    pub(crate) billable_expenses: i64,
+    pub(crate) non_billable_expenses: i64,
+    pub(crate) billable_hours: i64,
+    pub(crate) non_billable_hours: i64,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct MonthlyBudget {
-    pub revenue: i64,
-    pub services_revenue: i64,
-    pub other_revenue: i64,
-    pub billable_expenses: i64,
-    pub non_billable_expenses: i64,
-    pub billable_hours: i64,
-    pub non_billable_hours: i64,
+pub(crate) struct MonthlyBudget {
+    pub(crate) revenue: i64,
+    pub(crate) services_revenue: i64,
+    pub(crate) other_revenue: i64,
+    pub(crate) billable_expenses: i64,
+    pub(crate) non_billable_expenses: i64,
+    pub(crate) billable_hours: i64,
+    pub(crate) non_billable_hours: i64,
 }
 
 // custom types: enum
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum Status {
+pub(crate) enum Status {
     Tentative,
     NotStarted,
     InProgress,
@@ -112,7 +112,7 @@ pub enum Status {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum BillingType {
+pub(crate) enum BillingType {
     TimeAndMaterials,
     Fixed,
     FixedRecurring,
@@ -121,14 +121,14 @@ pub enum BillingType {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum RevenueRecognitionMethod {
+pub(crate) enum RevenueRecognitionMethod {
     Invoiced,
     Manual,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum BudgetMode {
+pub(crate) enum BudgetMode {
     Summary,
     Detailed,
     Aggregated,
@@ -136,14 +136,14 @@ pub enum BudgetMode {
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum MonthlyBudgetMode {
+pub(crate) enum MonthlyBudgetMode {
     Summary,
     Detailed,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum RecordStatus {
+pub(crate) enum RecordStatus {
     Active,
     Archived,
 }

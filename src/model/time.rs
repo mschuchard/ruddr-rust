@@ -6,91 +6,91 @@ use serde::Deserialize;
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 pub struct TimeEntries {
-    pub results: Vec<TimeEntry>,
+    pub(crate) results: Vec<TimeEntry>,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntry {
-    pub id: types::UUID,
-    pub type_id: Type,
-    pub status_id: Status,
-    pub date: types::Date,
-    pub minutes: i64,
-    pub timer_started_at: Option<types::Timestamp>,
-    pub notes: String,
-    pub is_billable: bool,
-    pub invoiced: bool,
-    pub created_at: types::Timestamp,
-    pub member: Member,
-    pub project: Option<Project>,
-    pub role: Option<Role>,
-    pub task: Option<Task>,
-    pub time_off_type: Option<TimeOffType>,
-    pub invoice: Option<Invoice>,
+    pub(crate) id: types::UUID,
+    pub(crate) type_id: Type,
+    pub(crate) status_id: Status,
+    pub(crate) date: types::Date,
+    pub(crate) minutes: i64,
+    pub(crate) timer_started_at: Option<types::Timestamp>,
+    pub(crate) notes: String,
+    pub(crate) is_billable: bool,
+    pub(crate) invoiced: bool,
+    pub(crate) created_at: types::Timestamp,
+    pub(crate) member: Member,
+    pub(crate) project: Option<Project>,
+    pub(crate) role: Option<Role>,
+    pub(crate) task: Option<Task>,
+    pub(crate) time_off_type: Option<TimeOffType>,
+    pub(crate) invoice: Option<Invoice>,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Member {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Member {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Project {
-    pub id: types::UUID,
-    pub name: String,
-    pub client: Client,
+pub(crate) struct Project {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
+    pub(crate) client: Client,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Client {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Client {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Role {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Role {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Task {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct Task {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct TimeOffType {
-    pub id: types::UUID,
-    pub name: String,
+pub(crate) struct TimeOffType {
+    pub(crate) id: types::UUID,
+    pub(crate) name: String,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Invoice {
-    pub id: types::UUID,
-    pub number: String,
+pub(crate) struct Invoice {
+    pub(crate) id: types::UUID,
+    pub(crate) number: String,
 }
 
 // custom types: enum
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum Type {
+pub(crate) enum Type {
     ProjectTime,
     TimeOff,
 }
 
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum Status {
+pub(crate) enum Status {
     NotSubmitted,
     PendingApproval,
     Approved,
