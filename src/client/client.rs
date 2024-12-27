@@ -50,14 +50,6 @@ impl Client {
         Ok(Self { client })
     }
 
-    /// Return a reference to the `reqwest::Client`` type `client`` member of the `Client` struct.
-    /// ```ignore
-    /// let reqwest_client = client.client();
-    /// ```
-    pub fn client(&self) -> &reqwest::Client {
-        return &self.client;
-    }
-
     // execute request
     pub(crate) async fn request(
         &self,
@@ -118,19 +110,6 @@ mod tests {
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 "attempted client build without token did not error expectedly",
             )
-        };
-        let rt = tokio::runtime::Runtime::new().unwrap();
-        rt.block_on(test);
-    }
-
-    #[test]
-    fn test_client_read() {
-        let test = async {
-            let client = Client::new(Some("abcdefghi123456789"))
-                .await
-                .expect("client with token could not be constructed");
-            let reqwest_client = client.client();
-            println!("reqwest client: {:?}", reqwest_client)
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
         rt.block_on(test);
