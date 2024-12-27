@@ -70,6 +70,7 @@ impl Client {
         log::debug!("initiating GET request at {url}");
 
         // TODO: deser on generic struct like in Go?
+        // execute request and receive response
         let response = self.client.get(url).send().await?;
 
         log::debug!("response received for GET request");

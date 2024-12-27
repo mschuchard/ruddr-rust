@@ -4,11 +4,13 @@
 use crate::model::types;
 use serde::Deserialize;
 
+/// Model for Members used with List operations
 #[derive(PartialEq, Deserialize, Debug)]
 pub struct Members {
     pub(crate) results: Vec<Member>,
 }
 
+/// Model for Member used with Read operations
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Member {

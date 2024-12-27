@@ -40,7 +40,7 @@ pub async fn time_entries(
     begin_date: Option<types::Date>,
     end_date: Option<types::Date>,
 ) -> Result<time::TimeEntries, Box<dyn std::error::Error>> {
-    // construct params
+    // initialize params
     let mut params = String::from("?limit=100");
 
     // optional parameters for LIST

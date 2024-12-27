@@ -4,11 +4,13 @@
 use crate::model::types;
 use serde::Deserialize;
 
+/// Model for TimeEntries used with List operations
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 pub struct TimeEntries {
     pub(crate) results: Vec<TimeEntry>,
 }
 
+/// Model for TimeEntry used with Read operations
 #[derive(Eq, PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntry {

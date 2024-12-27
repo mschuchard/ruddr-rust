@@ -38,7 +38,7 @@ pub async fn projects(
     project_type: Option<types::UUID>,
     status: Option<&str>,
 ) -> Result<project::Projects, Box<dyn std::error::Error>> {
-    // construct params
+    // initialize params
     let mut params = String::from("?limit=100");
 
     // optional parameters for LIST

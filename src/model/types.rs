@@ -7,10 +7,11 @@ use std::fmt;
 
 /// Custom type for Ruddr Date type
 #[derive(PartialEq, Eq, Debug)]
+// public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct Date(pub(crate) String);
 
 impl Date {
-    // constructor with validation
+    // constructor with validation used within type converters
     fn new(date: String) -> Self {
         let date_validator = Regex::new(r"\d{4}-\d{2}-\d{2}").unwrap();
         if date_validator.is_match(&date) {
@@ -60,10 +61,11 @@ impl fmt::Display for Date {
 
 /// Custom type for Ruddr Timestamp type
 #[derive(PartialEq, Eq, Debug)]
+// public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct Timestamp(pub(crate) String);
 
 impl Timestamp {
-    // constructor with validation
+    // constructor with validation used within type converters
     fn new(timestamp: String) -> Self {
         let timestamp_validator =
             Regex::new(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z").unwrap();
@@ -114,10 +116,11 @@ impl fmt::Display for Timestamp {
 
 /// Custom type for Ruddr UUID type
 #[derive(PartialEq, Eq, Debug)]
+// public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct UUID(pub(crate) String);
 
 impl UUID {
-    // constructor with validation
+    // constructor with validation used within type converters
     fn new(uuid: String) -> Self {
         let uuid_validator = Regex::new(r"\w{8}-\w{4}-\w{4}-\w{4}-\w{12}").unwrap();
         if uuid_validator.is_match(&uuid) {
