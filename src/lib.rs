@@ -1,5 +1,6 @@
 pub mod client {
     pub mod client;
+    mod request;
 }
 pub mod interface {
     pub mod member;
