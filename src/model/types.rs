@@ -5,7 +5,7 @@ use regex::Regex;
 use serde::Deserializer;
 use std::fmt;
 
-/// Custom type for Ruddr Date type
+/// Custom type for Ruddr Date type in YYYY-MM-DD format
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct Date(pub(crate) String);
@@ -59,7 +59,8 @@ impl fmt::Display for Date {
     }
 }
 
-/// Custom type for Ruddr Timestamp type
+/// Custom type for Ruddr Timestamp type in YYYY-MM-DDThh:mm:ss.msZ format where "T" is literal
+/// This is most similar to ISO 8601 extended format with milliseconds for reference
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct Timestamp(pub(crate) String);
@@ -114,7 +115,7 @@ impl fmt::Display for Timestamp {
     }
 }
 
-/// Custom type for Ruddr UUID type
+/// Custom type for Ruddr UUID type in standard format
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
 pub struct UUID(pub(crate) String);

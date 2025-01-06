@@ -9,7 +9,7 @@ use crate::model::types;
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding struct.
 /// ```ignore
-/// let project = project(&client, "095e0780-48bf-472c-8deb-2fc3ebc7d90c").await?;
+/// let project = project(&client, types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")).await?;
 /// ```
 pub async fn project(
     client: &client::Client,
@@ -30,7 +30,12 @@ pub async fn project(
 
 /// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
 /// ```ignore
-/// let time_entries = time_entries(&client, "d5afaffe-09e5-4d73-b02c-905b40fc6c22", "9b0927a6-35a1-4795-a4ca-10167b05f7de", "in_progress").await?;
+/// let time_entries = time_entries(
+///     &client,
+///     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
+///     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
+///     Some("in_progress"),
+/// ).await?;
 /// ```
 pub async fn projects(
     client: &client::Client,

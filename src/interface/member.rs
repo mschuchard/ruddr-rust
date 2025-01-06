@@ -9,7 +9,7 @@ use crate::model::types;
 
 /// Retrieves a specific Ruddr Member object by id, and deserializes it to the corresponding struct.
 /// ```ignore
-/// let member = member(&client, "3f3df320-dd95-4a42-8eae-99243fb2ea86").await?;
+/// let member = member(&client, types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")).await?;
 /// ```
 pub async fn member(
     client: &client::Client,

@@ -9,7 +9,7 @@ use crate::model::types;
 
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding struct.
 /// ```ignore
-/// let time_entry = time_entry(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").await?;
+/// let time_entry = time_entry(&client, Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"))).await?;
 /// ```
 pub async fn time_entry(
     client: &client::Client,
@@ -30,7 +30,14 @@ pub async fn time_entry(
 
 /// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of structs.
 /// ```ignore
-/// let time_entries = time_entries(&client, "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885", "095e0780-48bf-472c-8deb-2fc3ebc7d90c", None, "2024-10-21", "2024-10-25").await?;
+/// let time_entries = time_entries(
+///     &client,
+///     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+///     Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
+///     Some(types::Date::from("2024-01-01")),
+///     Some(types::Date::from("2024-01-01")),
+///     Some(types::Date::from("2024-01-01")),
+/// ).await?;
 /// ```
 pub async fn time_entries(
     client: &client::Client,
