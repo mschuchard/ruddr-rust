@@ -19,7 +19,7 @@ pub async fn member(
 
     // retrieve member and deser
     let member = client
-        .request("members", &format!("/{id}"))
+        .execute("members", &format!("/{id}"))
         .await?
         .json::<member::Member>()
         .await?;
@@ -39,7 +39,7 @@ pub async fn members(
 
     // retrieve members and deser
     let members = client
-        .request("members", "?limit=100")
+        .execute("members", "?limit=100")
         .await?
         .json::<member::Members>()
         .await?;

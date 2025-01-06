@@ -4,14 +4,15 @@
 use log;
 
 // request struct for composing request structures
-struct Request {
-    url: String,
+#[derive(Debug)]
+pub(super) struct Request {
+    pub(super) url: String,
 }
 
 impl Request {
     // request constructor with endpoint and params
-    fn new(endpoint: &str, params: &str) -> Self {
-        log::debug!("request endpoint is {endpoint} and params us {params}");
+    pub(super) fn new(endpoint: &str, params: &str) -> Self {
+        log::debug!("request endpoint is {endpoint} and params is {params}");
 
         Self {
             url: format!("https://www.ruddr.io/api/workspace/{endpoint}{params}"),

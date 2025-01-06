@@ -1,10 +1,10 @@
 //! # Client
 //!
 //! `client::client` consists of functions for initializing Ruddr API clients and requests, and sending requests.
+use crate::client::request;
 use log;
-use std::env;
-
 use reqwest;
+use std::env;
 
 /// Client struct for reuse without explicit reqwest type usage
 #[derive(Debug)]
@@ -50,20 +50,19 @@ impl Client {
         Ok(Self { client })
     }
 
-    // execute request
-    pub(crate) async fn request(
+    // execute request with client
+    pub(crate) async fn execute(
         &self,
         endpoint: &str,
         params: &str,
     ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
-        // establish full url
-        let url = format!("https://www.ruddr.io/api/workspace/{endpoint}{params}");
+        // construct and assign client request
+        let request = request::Request::new(endpoint, params);
 
-        log::debug!("initiating GET request at {url}");
-
-        // TODO: deser on generic struct like in Go?
         // execute request and receive response
-        let response = self.client.get(url).send().await?;
+        log::debug!("initiating GET request at {}", request.url);
+        // TODO: deser on generic struct like in Go?
+        let response = self.client.get(request.url).send().await?;
 
         log::debug!("response received for GET request");
         Ok(response)
@@ -122,7 +121,7 @@ mod tests {
                 .await
                 .expect("client with env token could not be constructed");
             let response = client
-                .request("members", "/3f3df320-dd95-4a42-8eae-99243fb2ea86")
+                .execute("members", "/3f3df320-dd95-4a42-8eae-99243fb2ea86")
                 .await
                 .expect("request transmission failed to receive a response");
             println!("response: {:?}", response);

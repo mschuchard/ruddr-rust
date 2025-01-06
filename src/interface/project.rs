@@ -19,7 +19,7 @@ pub async fn project(
 
     // retrieve project and deser
     let project = client
-        .request("projects", &format!("/{id}"))
+        .execute("projects", &format!("/{id}"))
         .await?
         .json::<project::Project>()
         .await?;
@@ -55,7 +55,7 @@ pub async fn projects(
 
     // retrieve time entries and deser
     let projects = client
-        .request("projects", &params)
+        .execute("projects", &params)
         .await?
         .json::<project::Projects>()
         .await?;

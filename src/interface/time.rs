@@ -19,7 +19,7 @@ pub async fn time_entry(
 
     // retrieve time entry and deser
     let time_entry = client
-        .request("time-entries", &format!("/{id}"))
+        .execute("time-entries", &format!("/{id}"))
         .await?
         .json::<time::TimeEntry>()
         .await?;
@@ -63,7 +63,7 @@ pub async fn time_entries(
 
     // retrieve time entries and deser
     let time_entries = client
-        .request("time-entries", &params)
+        .execute("time-entries", &params)
         .await?
         .json::<time::TimeEntries>()
         .await?;
