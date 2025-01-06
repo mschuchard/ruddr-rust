@@ -8,7 +8,7 @@ use std::fmt;
 /// Custom type for Ruddr Date type in YYYY-MM-DD format
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
-pub struct Date(pub(crate) String);
+pub struct Date(pub(super) String);
 
 impl Date {
     // constructor with validation used within type converters
@@ -63,7 +63,7 @@ impl fmt::Display for Date {
 /// This is most similar to ISO 8601 extended format with milliseconds for reference
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
-pub struct Timestamp(pub(crate) String);
+pub struct Timestamp(pub(super) String);
 
 impl Timestamp {
     // constructor with validation used within type converters
@@ -118,7 +118,7 @@ impl fmt::Display for Timestamp {
 /// Custom type for Ruddr UUID type in standard format
 #[derive(PartialEq, Eq, Debug)]
 // public access to type should exist, but not to implicit constructor as users are expected to access through type converters with explicit constructor
-pub struct UUID(pub(crate) String);
+pub struct UUID(pub(super) String);
 
 impl UUID {
     // constructor with validation used within type converters
