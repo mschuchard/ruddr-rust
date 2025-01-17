@@ -8,6 +8,7 @@ pub mod interface {
     pub mod time;
 }
 pub(crate) mod model {
+    pub(crate) mod client;
     pub(crate) mod member;
     pub(crate) mod project;
     pub(crate) mod time;
