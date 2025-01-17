@@ -28,7 +28,7 @@ impl Client {
         let bearer_token = match token {
             Some(token) => format!("Bearer {token}"),
             None => match env::var("RUDDR_TOKEN") {
-                Ok(value) => value,
+                Ok(token) => format!("Bearer {token}"),
                 Err(_) => return Err(Box::from(
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 )),
