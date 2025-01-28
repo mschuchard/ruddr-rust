@@ -1,8 +1,7 @@
-//! # Client
+//! # Customer
 //!
-//! `model::client` is a model for the Ruddr Client object
+//! `model::customer` is a model for the Ruddr Client object
 use crate::model::types;
-use log::Record;
 use serde::Deserialize;
 
 /// Model for Clients used with List operations
