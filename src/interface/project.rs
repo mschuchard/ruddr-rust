@@ -96,7 +96,7 @@ mod tests {
     }
 
     #[test]
-    fn test_time_entries() {
+    fn test_projects() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
                 .await
@@ -112,7 +112,7 @@ mod tests {
                 .unwrap_err()
                 .to_string(),
                 "error decoding response body",
-                "project retrieval did not fail on json decoding",
+                "projects retrieval did not fail on json decoding",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();

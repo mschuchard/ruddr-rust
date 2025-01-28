@@ -83,7 +83,7 @@ mod tests {
             assert_eq!(
                 members(&client).await.unwrap_err().to_string(),
                 "error decoding response body",
-                "member retrieval did not fail on json decoding",
+                "members retrieval did not fail on json decoding",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();

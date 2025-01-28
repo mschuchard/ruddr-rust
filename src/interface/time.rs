@@ -98,7 +98,7 @@ mod tests {
                 .unwrap_err()
                 .to_string(),
                 "error decoding response body",
-                "member retrieval did not fail on json decoding",
+                "time entry retrieval did not fail on json decoding",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
@@ -124,7 +124,7 @@ mod tests {
                 .unwrap_err()
                 .to_string(),
                 "error decoding response body",
-                "member retrieval did not fail on json decoding",
+                "time entries retrieval did not fail on json decoding",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
