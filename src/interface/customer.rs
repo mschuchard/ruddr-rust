@@ -9,9 +9,9 @@ use crate::model::types;
 
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding struct.
 /// ```ignore
-/// let customer = client(&client, Some(types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0"))).await?;
+/// let customer = customer(&client, Some(types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0"))).await?;
 /// ```
-pub async fn client(
+pub async fn customer(
     client: &client::Client,
     id: types::UUID,
 ) -> Result<customer::Client, Box<dyn std::error::Error>> {
@@ -30,12 +30,12 @@ pub async fn client(
 
 /// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of structs.
 /// ```ignore
-/// let customers = clients(
+/// let customers = customers(
 ///     &client,
 ///     Some("JOE")),
 /// ).await?;
 /// ```
-pub async fn time_entries(
+pub async fn customers(
     client: &client::Client,
     code: Option<&str>,
 ) -> Result<customer::Clients, Box<dyn std::error::Error>> {
@@ -57,4 +57,50 @@ pub async fn time_entries(
 
     log::debug!("clients retrieved");
     Ok(customers)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_customer() {
+        let test = async {
+            let client = client::Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
+            assert_eq!(
+                customer(
+                    &client,
+                    types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")
+                )
+                .await
+                .unwrap_err()
+                .to_string(),
+                "error decoding response body",
+                "client retrieval did not fail on json decoding",
+            )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
+    }
+
+    #[test]
+    fn test_customers() {
+        let test = async {
+            let client = client::Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with token could not be constructed");
+            assert_eq!(
+                customers(&client, Some("JOE"))
+                    .await
+                    .unwrap_err()
+                    .to_string(),
+                "error decoding response body",
+                "clients retrieval did not fail on json decoding",
+            )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
+    }
 }
