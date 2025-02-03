@@ -6,6 +6,7 @@ pub mod interface {
     pub mod customer;
     pub mod member;
     pub mod project;
+    pub mod read;
     pub mod time;
 }
 pub(crate) mod model {
