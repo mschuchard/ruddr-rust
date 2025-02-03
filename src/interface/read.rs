@@ -12,7 +12,7 @@ use serde::de;
 /// ```ignore
 /// let deser_response = read::<project::Project>(
 ///     &client,
-///     "project",
+///     "projects",
 ///     types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
 ///     project::Project,
 ///     "project",

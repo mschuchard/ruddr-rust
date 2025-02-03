@@ -7,6 +7,8 @@ use crate::client::client;
 use crate::model::time;
 use crate::model::types;
 
+use super::read;
+
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding struct.
 /// ```ignore
 /// let time_entry = time_entry(&client, Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"))).await?;
@@ -15,17 +17,7 @@ pub async fn time_entry(
     client: &client::Client,
     id: types::UUID,
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
-    log::debug!("retrieving time entry for {id}");
-
-    // retrieve time entry and deser
-    let time_entry = client
-        .execute("time-entries", &format!("/{id}"))
-        .await?
-        .json::<time::TimeEntry>()
-        .await?;
-
-    log::debug!("time entry retrieved for {id}");
-    Ok(time_entry)
+    Ok(read::read::<time::TimeEntry>(client, "time-entries", id, "time entry").await?)
 }
 
 /// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of structs.

@@ -7,6 +7,8 @@ use crate::client::client;
 use crate::model::customer;
 use crate::model::types;
 
+use super::read;
+
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding struct.
 /// ```ignore
 /// let customer = customer(&client, Some(types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0"))).await?;
@@ -15,17 +17,7 @@ pub async fn customer(
     client: &client::Client,
     id: types::UUID,
 ) -> Result<customer::Client, Box<dyn std::error::Error>> {
-    log::debug!("retrieving client for {id}");
-
-    // retrieve client and deser
-    let customer = client
-        .execute("clients", &format!("/{id}"))
-        .await?
-        .json::<customer::Client>()
-        .await?;
-
-    log::debug!("client retrieved for {id}");
-    Ok(customer)
+    Ok(read::read::<customer::Client>(client, "clients", id, "client").await?)
 }
 
 /// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of structs.
