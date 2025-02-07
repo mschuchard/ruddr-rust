@@ -6,7 +6,7 @@ use reqwest;
 use serde::de;
 use std::env;
 
-use crate::client::request;
+use super::request;
 use crate::model::types;
 
 /// Client struct for reuse with various requests without explicit reqwest type usage
@@ -56,7 +56,7 @@ impl Client {
     /// Retrieves (GET) a specific Ruddr generic object by id, and deserializes it to the corresponding struct.
     /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists.
     /// ```ignore
-    /// let client =
+    /// let client = Client::new(Some("abcdefghi123456789")).await?;
     /// let deser_response = client.read::<project::Project>(
     ///     "projects",
     ///     types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
@@ -78,6 +78,25 @@ impl Client {
         let deser_response = request.get(&self.client).await?.json::<M>().await?;
 
         log::debug!("{desc} retrieved for {id}");
+        Ok(deser_response)
+    }
+
+    // retrieves (GET) specific ruddr generic objects by id; see above read() for more information as this is very similar
+    pub(crate) async fn list<M: de::DeserializeOwned>(
+        &self,
+        endpoint: &str,
+        params: &str,
+        desc: &str,
+    ) -> Result<M, Box<dyn std::error::Error>> {
+        log::debug!("retrieving {desc}");
+
+        // construct and assign client request
+        let request = request::Request::new(endpoint, params);
+
+        // retrieve object and deser
+        let deser_response = request.get(&self.client).await?.json::<M>().await?;
+
+        log::debug!("{desc} retrieved");
         Ok(deser_response)
     }
 }
