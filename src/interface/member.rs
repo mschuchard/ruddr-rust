@@ -7,8 +7,6 @@ use crate::client::client;
 use crate::model::member;
 use crate::model::types;
 
-use super::read;
-
 /// Retrieves a specific Ruddr Member object by id, and deserializes it to the corresponding struct.
 /// ```ignore
 /// let member = member(&client, types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")).await?;
@@ -17,7 +15,10 @@ pub async fn member(
     client: &client::Client,
     id: types::UUID,
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
-    Ok(read::read::<member::Member>(client, "members", id, "member").await?)
+    // retrieve member
+    Ok(client
+        .read::<member::Member>("members", id, "member")
+        .await?)
 }
 
 /// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of structs.
@@ -27,17 +28,10 @@ pub async fn member(
 pub async fn members(
     client: &client::Client,
 ) -> Result<member::Members, Box<dyn std::error::Error>> {
-    log::debug!("retrieving members");
-
-    // retrieve members and deser
-    let members = client
-        .execute("members", "?limit=100")
-        .await?
-        .json::<member::Members>()
-        .await?;
-
-    log::debug!("members retrieved");
-    Ok(members)
+    // retrieve members
+    Ok(client
+        .list::<member::Members>("members", "?limit=100", "members")
+        .await?)
 }
 
 #[cfg(test)]

@@ -7,8 +7,6 @@ use crate::client::client;
 use crate::model::project;
 use crate::model::types;
 
-use super::read;
-
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding struct.
 /// ```ignore
 /// let project = project(&client, types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")).await?;
@@ -17,7 +15,10 @@ pub async fn project(
     client: &client::Client,
     id: types::UUID,
 ) -> Result<project::Project, Box<dyn std::error::Error>> {
-    Ok(read::read::<project::Project>(client, "projects", id, "project").await?)
+    // retrieve project
+    Ok(client
+        .read::<project::Project>("projects", id, "project")
+        .await?)
 }
 
 /// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
@@ -48,17 +49,11 @@ pub async fn projects(
     if status.is_some() {
         params = format!("{params}&statusId={}", status.unwrap())
     }
-    log::debug!("retrieving projects with parameters {params}");
 
-    // retrieve time entries and deser
-    let projects = client
-        .execute("projects", &params)
-        .await?
-        .json::<project::Projects>()
-        .await?;
-
-    log::debug!("projects retrieved");
-    Ok(projects)
+    // retrieve projects
+    Ok(client
+        .list::<project::Projects>("projects", &params, "projects")
+        .await?)
 }
 
 #[cfg(test)]
