@@ -1,10 +1,13 @@
 //! # Client
 //!
 //! `client::client` consists of functions for initializing Ruddr API clients and requests, and sending requests.
-use crate::client::request;
 use log;
 use reqwest;
+use serde::de;
 use std::env;
+
+use crate::client::request;
+use crate::model::types;
 
 /// Client struct for reuse with various requests without explicit reqwest type usage
 #[derive(Debug)]
@@ -50,22 +53,32 @@ impl Client {
         Ok(Self { client })
     }
 
-    // execute request with client
-    pub(crate) async fn execute(
+    /// Retrieves (GET) a specific Ruddr generic object by id, and deserializes it to the corresponding struct.
+    /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists.
+    /// ```ignore
+    /// let client =
+    /// let deser_response = client.read::<project::Project>(
+    ///     "projects",
+    ///     types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
+    ///     "project",
+    /// ).await?;
+    /// ```
+    pub(crate) async fn read<M: de::DeserializeOwned>(
         &self,
         endpoint: &str,
-        params: &str,
-    ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
+        id: types::UUID,
+        desc: &str,
+    ) -> Result<M, Box<dyn std::error::Error>> {
+        log::debug!("retrieving {desc} for {id}");
+
         // construct and assign client request
-        let request = request::Request::new(endpoint, params);
+        let request = request::Request::new(endpoint, &format!("/{id}"));
 
-        // execute request and receive response
-        log::debug!("initiating GET request at {}", request.url);
-        // TODO: deser on generic struct like in Go?
-        let response = self.client.get(request.url).send().await?;
+        // retrieve object and deser
+        let deser_response = request.get(&self.client).await?.json::<M>().await?;
 
-        log::debug!("response received for GET request");
-        Ok(response)
+        log::debug!("{desc} retrieved for {id}");
+        Ok(deser_response)
     }
 }
 
@@ -108,27 +121,6 @@ mod tests {
                 Client::new(None).await.unwrap_err().to_string(),
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 "attempted client build without token did not error expectedly",
-            )
-        };
-        let rt = tokio::runtime::Runtime::new().unwrap();
-        rt.block_on(test);
-    }
-
-    #[test]
-    fn test_request() {
-        let test = async {
-            let client = Client::new(Some("abcdefghi123456789"))
-                .await
-                .expect("client with env token could not be constructed");
-            let response = client
-                .execute("members", "/3f3df320-dd95-4a42-8eae-99243fb2ea86")
-                .await
-                .expect("request transmission failed to receive a response");
-            println!("response: {:?}", response);
-            assert_eq!(
-                response.status(),
-                401,
-                "the response did not return expected 401 status",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();

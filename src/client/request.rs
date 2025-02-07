@@ -18,6 +18,19 @@ impl Request {
             url: format!("https://www.ruddr.io/api/workspace/{endpoint}{params}"),
         }
     }
+
+    // execute get request with client
+    pub(super) async fn get(
+        self,
+        client: &reqwest::Client,
+    ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
+        // execute request and receive response
+        log::debug!("initiating GET request at {}", self.url);
+        let response = client.get(self.url).send().await?;
+
+        log::debug!("response received for GET request");
+        Ok(response)
+    }
 }
 
 #[cfg(test)]
@@ -30,5 +43,27 @@ mod tests {
             Request::new("endpoint", "?params").url,
             String::from("https://www.ruddr.io/api/workspace/endpoint?params")
         )
+    }
+
+    #[test]
+    fn test_request() {
+        let test = async {
+            let client = reqwest::Client::builder()
+                .build()
+                .expect("client with env token could not be constructed");
+            let request = Request::new("projects", "/095e0780-48bf-472c-8deb-2fc3ebc7d90c");
+            let response = request
+                .get(&client)
+                .await
+                .expect("request transmission failed to receive a response");
+            println!("response: {:?}", response);
+            assert_eq!(
+                response.status(),
+                401,
+                "the response did not return expected 401 status",
+            )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
     }
 }
