@@ -14,9 +14,7 @@ pub async fn time_entry(
     id: types::UUID,
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
     // retrieve time entry
-    Ok(client
-        .read::<time::TimeEntry>("time-entries", id, "time entry")
-        .await?)
+    Ok(client.read::<time::TimeEntry>("time-entries", id).await?)
 }
 
 /// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of structs.
@@ -60,7 +58,7 @@ pub async fn time_entries(
 
     // retrieve time entries
     Ok(client
-        .list::<time::TimeEntries>("time-entries", &params, "time entries")
+        .list::<time::TimeEntries>("time-entries", &params)
         .await?)
 }
 

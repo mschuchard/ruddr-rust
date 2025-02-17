@@ -14,9 +14,7 @@ pub async fn member(
     id: types::UUID,
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
     // retrieve member
-    Ok(client
-        .read::<member::Member>("members", id, "member")
-        .await?)
+    Ok(client.read::<member::Member>("members", id).await?)
 }
 
 /// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of structs.
@@ -28,7 +26,7 @@ pub async fn members(
 ) -> Result<member::Members, Box<dyn std::error::Error>> {
     // retrieve members
     Ok(client
-        .list::<member::Members>("members", "?limit=100", "members")
+        .list::<member::Members>("members", "?limit=100")
         .await?)
 }
 

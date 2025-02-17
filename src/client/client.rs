@@ -67,9 +67,8 @@ impl Client {
         &self,
         endpoint: &str,
         id: types::UUID,
-        desc: &str,
     ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving {desc} for {id}");
+        log::debug!("retrieving {endpoint} for {id}");
 
         // construct and assign client request
         let request = request::Request::new(endpoint, &format!("/{id}"));
@@ -77,7 +76,7 @@ impl Client {
         // retrieve object and deser
         let deser_response = request.get(&self.client).await?.json::<M>().await?;
 
-        log::debug!("{desc} retrieved for {id}");
+        log::debug!("{endpoint} retrieved for {id}");
         Ok(deser_response)
     }
 
@@ -86,9 +85,8 @@ impl Client {
         &self,
         endpoint: &str,
         params: &str,
-        desc: &str,
     ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving {desc}");
+        log::debug!("retrieving {endpoint}");
 
         // construct and assign client request
         let request = request::Request::new(endpoint, params);
@@ -96,7 +94,7 @@ impl Client {
         // retrieve object and deser
         let deser_response = request.get(&self.client).await?.json::<M>().await?;
 
-        log::debug!("{desc} retrieved");
+        log::debug!("{endpoint} retrieved");
         Ok(deser_response)
     }
 }
@@ -158,7 +156,6 @@ mod tests {
                     .read::<project::Project>(
                         "project",
                         types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
-                        "project",
                     )
                     .await
                     .unwrap_err()
@@ -179,7 +176,7 @@ mod tests {
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
-                    .list::<project::Project>("projects", "?limit=100", "projects",)
+                    .list::<project::Project>("projects", "?limit=100")
                     .await
                     .unwrap_err()
                     .to_string(),

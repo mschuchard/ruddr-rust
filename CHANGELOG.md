@@ -1,5 +1,5 @@
 ### 0.2.0 (Next)
-- Second alpha release.
+- Initial beta release.
 
 ### 0.1.0
 - Initial alpha release.
