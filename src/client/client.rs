@@ -104,6 +104,7 @@ impl Client {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::model::project;
 
     #[test]
     fn test_client_new() {
@@ -140,6 +141,30 @@ mod tests {
                 Client::new(None).await.unwrap_err().to_string(),
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 "attempted client build without token did not error expectedly",
+            )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
+    }
+
+    #[test]
+    fn test_client_read() {
+        let test = async {
+            let client = Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with env token could not be constructed");
+            assert_eq!(
+                client
+                    .read::<project::Project>(
+                        "project",
+                        types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
+                        "project",
+                    )
+                    .await
+                    .unwrap_err()
+                    .to_string(),
+                "error decoding response body",
+                "read did not fail on json decoding"
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();

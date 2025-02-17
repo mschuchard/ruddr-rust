@@ -1,8 +1,6 @@
 //! # Project
 //!
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoint.
-use log;
-
 use crate::client::client;
 use crate::model::project;
 use crate::model::types;

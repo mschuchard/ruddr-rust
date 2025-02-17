@@ -1,8 +1,6 @@
 //! # Time
 //!
 //! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoint.
-use log;
-
 use crate::client::client;
 use crate::model::time;
 use crate::model::types;

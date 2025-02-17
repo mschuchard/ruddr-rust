@@ -46,7 +46,7 @@ mod tests {
     }
 
     #[test]
-    fn test_request() {
+    fn test_request_get() {
         let test = async {
             let client = reqwest::Client::builder()
                 .build()

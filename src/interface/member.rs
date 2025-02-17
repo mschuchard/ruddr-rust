@@ -1,8 +1,6 @@
 //! # Member
 //!
 //! `interface::member` consists of functions for interfacing with the Ruddr Member endpoint.
-use log;
-
 use crate::client::client;
 use crate::model::member;
 use crate::model::types;

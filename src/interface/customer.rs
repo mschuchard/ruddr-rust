@@ -1,8 +1,6 @@
 //! # Customer
 //!
 //! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoint.
-use log;
-
 use crate::client::client;
 use crate::model::customer;
 use crate::model::types;
