@@ -170,4 +170,24 @@ mod tests {
         let rt = tokio::runtime::Runtime::new().unwrap();
         rt.block_on(test);
     }
+
+    #[test]
+    fn test_client_list() {
+        let test = async {
+            let client = Client::new(Some("abcdefghi123456789"))
+                .await
+                .expect("client with env token could not be constructed");
+            assert_eq!(
+                client
+                    .list::<project::Project>("projects", "?limit=100", "projects",)
+                    .await
+                    .unwrap_err()
+                    .to_string(),
+                "error decoding response body",
+                "list did not fail on json decoding"
+            )
+        };
+        let rt = tokio::runtime::Runtime::new().unwrap();
+        rt.block_on(test);
+    }
 }

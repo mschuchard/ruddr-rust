@@ -21,7 +21,7 @@ pub async fn project(
 
 /// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
 /// ```ignore
-/// let time_entries = time_entries(
+/// let projects = projects(
 ///     &client,
 ///     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
 ///     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
