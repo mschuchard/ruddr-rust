@@ -14,7 +14,9 @@ pub async fn project(
     id: types::UUID,
 ) -> Result<project::Project, Box<dyn std::error::Error>> {
     // retrieve project
-    Ok(client.read::<project::Project>("projects", id).await?)
+    Ok(client
+        .read::<project::Project>("projects", &format!("/{id}"))
+        .await?)
 }
 
 /// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
@@ -48,7 +50,7 @@ pub async fn projects(
 
     // retrieve projects
     Ok(client
-        .list::<project::Projects>("projects", &params)
+        .read::<project::Projects>("projects", &params)
         .await?)
 }
 

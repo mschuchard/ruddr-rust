@@ -53,40 +53,21 @@ impl Client {
         Ok(Self { client })
     }
 
-    /// Retrieves (GET) a specific Ruddr generic object by id, and deserializes it to the corresponding struct.
-    /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists.
+    /// Retrieves (GET) a specific Ruddr generic object by id, or specific generic objects by filters, and deserializes it/them to the corresponding struct/structs.
+    /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists here.
     /// ```ignore
     /// let client = Client::new(Some("abcdefghi123456789")).await?;
     /// let deser_response = client.read::<project::Project>(
     ///     "projects",
-    ///     types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
-    ///     "project",
+    ///     "/095e0780-48bf-472c-8deb-2fc3ebc7d90c",
     /// ).await?;
     /// ```
     pub(crate) async fn read<M: de::DeserializeOwned>(
         &self,
         endpoint: &str,
-        id: types::UUID,
-    ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving {endpoint} for {id}");
-
-        // construct and assign client request
-        let request = request::Request::new(endpoint, &format!("/{id}"));
-
-        // retrieve object and deser
-        let deser_response = request.get(&self.client).await?.json::<M>().await?;
-
-        log::debug!("{endpoint} retrieved for {id}");
-        Ok(deser_response)
-    }
-
-    // retrieves (GET) specific ruddr generic objects by id; see above read() for more information as this is very similar
-    pub(crate) async fn list<M: de::DeserializeOwned>(
-        &self,
-        endpoint: &str,
         params: &str,
     ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving {endpoint}");
+        log::debug!("retrieving {endpoint} for {params}");
 
         // construct and assign client request
         let request = request::Request::new(endpoint, params);
@@ -94,7 +75,7 @@ impl Client {
         // retrieve object and deser
         let deser_response = request.get(&self.client).await?.json::<M>().await?;
 
-        log::debug!("{endpoint} retrieved");
+        log::debug!("{endpoint} retrieved for {params}");
         Ok(deser_response)
     }
 }
@@ -153,10 +134,7 @@ mod tests {
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
-                    .read::<project::Project>(
-                        "project",
-                        types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c"),
-                    )
+                    .read::<project::Project>("project", "/095e0780-48bf-472c-8deb-2fc3ebc7d90c",)
                     .await
                     .unwrap_err()
                     .to_string(),
@@ -176,7 +154,7 @@ mod tests {
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
-                    .list::<project::Project>("projects", "?limit=100")
+                    .read::<project::Project>("projects", "?limit=100")
                     .await
                     .unwrap_err()
                     .to_string(),

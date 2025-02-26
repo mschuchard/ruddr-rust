@@ -14,7 +14,9 @@ pub async fn customer(
     id: types::UUID,
 ) -> Result<customer::Client, Box<dyn std::error::Error>> {
     // retrieve client
-    Ok(client.read::<customer::Client>("clients", id).await?)
+    Ok(client
+        .read::<customer::Client>("clients", &format!("/{id}"))
+        .await?)
 }
 
 /// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of structs.
@@ -37,7 +39,7 @@ pub async fn customers(
     }
 
     // retrieve clients
-    Ok(client.list::<customer::Clients>("clients", &params).await?)
+    Ok(client.read::<customer::Clients>("clients", &params).await?)
 }
 
 #[cfg(test)]
