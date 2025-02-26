@@ -7,7 +7,6 @@ use serde::de;
 use std::env;
 
 use super::request;
-use crate::model::types;
 
 /// Client struct for reuse with various requests without explicit reqwest type usage
 #[derive(Debug)]

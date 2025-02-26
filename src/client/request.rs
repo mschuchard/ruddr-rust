@@ -12,6 +12,12 @@ pub(super) struct Request {
 impl Request {
     // request constructor with endpoint and params
     pub(super) fn new(endpoint: &str, params: &str) -> Self {
+        // validate endpoint and params are not empty
+        if endpoint.is_empty() || params.is_empty() {
+            log::error!("endpoint '{endpoint}' or params '{params}' is empty");
+            panic!("invalid endpoint or params")
+        }
+
         log::debug!("request endpoint is {endpoint} and params is {params}");
 
         Self {

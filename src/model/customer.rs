@@ -57,6 +57,7 @@ pub(crate) struct Tag {
 // custom types: enum
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
+#[allow(non_camel_case_types)]
 pub(crate) enum PaymentTerms {
     DueOnReceipt,
     Net_10,
