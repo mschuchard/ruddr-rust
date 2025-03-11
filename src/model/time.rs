@@ -6,8 +6,10 @@ use serde::Deserialize;
 
 /// Model for TimeEntries used with List operations
 #[derive(Eq, PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
 pub struct TimeEntries {
     pub(crate) results: Vec<TimeEntry>,
+    pub(crate) has_more: bool,
 }
 
 /// Model for TimeEntry used with Read operations
@@ -195,13 +197,14 @@ mod tests {
 
         let json_inputs = &format!(
             r#"
-        {{"results": [{json_input}]}}
+        {{"results": [{json_input}],"hasMore": false}}
         "#
         );
         let time_entries_deserialized = serde_json::from_str::<TimeEntries>(json_inputs)
             .expect("time_entries could not be deserialized");
         let time_entries = TimeEntries {
             results: vec![time_entry],
+            has_more: false,
         };
         assert_eq!(
             time_entries_deserialized, time_entries,

@@ -6,8 +6,10 @@ use serde::Deserialize;
 
 /// Model for Clients used with List operations
 #[derive(Debug, PartialEq, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Clients {
     pub(crate) results: Vec<Client>,
+    pub(crate) has_more: bool,
 }
 
 /// Model for Client used with Read operations
@@ -165,13 +167,14 @@ mod tests {
 
         let json_inputs = &format!(
             r#"
-        {{"results": [{json_input}]}}
+        {{"results": [{json_input}],"hasMore": false}}
         "#
         );
         let clients_deserialized = serde_json::from_str::<Clients>(json_inputs)
             .expect("clients could not be deserialized");
         let clients = Clients {
             results: vec![client],
+            has_more: false,
         };
         assert_eq!(
             clients_deserialized, clients,
