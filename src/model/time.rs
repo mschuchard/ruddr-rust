@@ -191,6 +191,21 @@ mod tests {
         assert_eq!(
             time_entry_deserialized, time_entry,
             "time entry did not contain the expected values"
-        )
+        );
+
+        let json_inputs = &format!(
+            r#"
+        {{"results": [{json_input}]}}
+        "#
+        );
+        let time_entries_deserialized = serde_json::from_str::<TimeEntries>(json_inputs)
+            .expect("time_entries could not be deserialized");
+        let time_entries = TimeEntries {
+            results: vec![time_entry],
+        };
+        assert_eq!(
+            time_entries_deserialized, time_entries,
+            "time_entries did not contain the expected values"
+        );
     }
 }

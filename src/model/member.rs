@@ -189,120 +189,120 @@ mod tests {
     #[test]
     fn test_member_deserialize() {
         let json_input = r#"
-{
-  "id": "3f3df320-dd95-4a42-8eae-99243fb2ea86",
-  "name": "Brian Lockett",
-  "email": "brian@example.com",
-  "isActive": true,
-  "isBillable": true,
-  "loginEnabled": true,
-  "invitationStatusId": "accepted",
-  "employmentTypeId": "employee",
-  "costMethodId": "fixed",
-  "defaultRate": 100.0,
-  "defaultRateCurrency": "USD",
-  "activeStartDate": "2020-08-03",
-  "activeEndDate": "2022-02-01",
-  "timeOffAllowed": true,
-  "timeOffApprovalMode": "member",
-  "receiveMissingTimeReminders": true,
-  "unsubmittedTimesheetReminders": true,
-  "forbidTimesheetSubmissionWhenBelowCapacity": false,
-  "internalId": "12345",
-  "internalNotes": "Primary location: Atlanta, GA",
-  "createdAt": "2020-08-03T21:00:16.370Z",
-  "securityRole": {
-    "id": "e31c9f7e-98cb-4ce7-81df-cc46bd9eb94f",
-    "name": "Workspace Admin"
-  },
-  "jobTitle": {
-    "id": "5a2537bd-7fc6-4d68-b639-4ec79a7fda58",
-    "name": "HTML Developer"
-  },
-  "discipline": {
-    "id": "996bf40b-d856-4c8c-b14a-f41b3a015c5b",
-    "name": "Software Engineering"
-  },
-  "practice": {
-    "id": "400a0c5c-32f1-41f5-a51d-e90807254965",
-    "name": "Retail"
-  },
-  "location": {
-    "id": "75e6ed16-2cdb-466e-88ad-ceeb0663ddb2",
-    "name": "North America"
-  },
-  "manager": {
-    "id": "5de6d319-ae80-4484-8b3d-0a9ff9580292",
-    "name": "Steven Rodriguez"
-  },
-  "timeOffApprover": {
-    "id": "b6816355-8945-40aa-b798-b0d6fd89e437",
-    "name": "Edna Blumer"
-  },
-  "holidaySchedule": {
-    "id": "321c155b-147e-4bd2-8aab-b9c3a3afeab1",
-    "name": "U.S. Holidays"
-  },
-  "tags": [
-    {
-      "id": "4c8d3f42-6efd-4a7e-85ca-d43164db0ab2",
-      "name": "Atlanta Office"
-    },
-    {
-      "id": "5533897a-450f-42b0-a419-aa3142dd9aad",
-      "name": "Buenos Aires Office"
-    }
-  ],
-  "skills": [
-    {
-      "id": "802c3214-59b4-4f9b-9eb1-4da2674becc3",
-      "name": "JavaScript"
-    },
-    {
-      "id": "efae4ed9-6967-4f76-9946-7b9b1008fe5e",
-      "name": "HTML"
-    },
-    {
-      "id": "828f3a35-1317-49fb-acad-419a62f74d44",
-      "name": "CSS"
-    }
-  ],
-  "availabilityPeriods": [
-    {
-      "id": "6675130f-d975-45ab-9971-4405062a9e92",
-      "start": "2020-08-03",
-      "end": "2022-02-01",
-      "hoursPerDay": [
-        8,
-        8,
-        8,
-        8,
-        8,
-        0,
-        0
-      ]
-    }
-  ],
-  "costPeriods": [
-    {
-      "id": "ae7268fd-2836-4437-b592-86289333e205",
-      "start": "2020-08-03",
-      "end": "2022-02-01",
-      "currency": "USD",
-      "costPerHour": 65,
-      "overheadCostPerHour": 20,
-      "totalCostPerHour": 85
-    }
-  ],
-  "utilizationTargetPeriods": [
-    {
-      "id": "f77df409-f68b-4a98-a6c6-0fa97d523e20",
-      "start": "2020-08-03",
-      "end": "2022-02-01",
-      "targetPercentage": 80
-    }
-  ]
-}"#;
+        {
+          "id": "3f3df320-dd95-4a42-8eae-99243fb2ea86",
+          "name": "Brian Lockett",
+          "email": "brian@example.com",
+          "isActive": true,
+          "isBillable": true,
+          "loginEnabled": true,
+          "invitationStatusId": "accepted",
+          "employmentTypeId": "employee",
+          "costMethodId": "fixed",
+          "defaultRate": 100.0,
+          "defaultRateCurrency": "USD",
+          "activeStartDate": "2020-08-03",
+          "activeEndDate": "2022-02-01",
+          "timeOffAllowed": true,
+          "timeOffApprovalMode": "member",
+          "receiveMissingTimeReminders": true,
+          "unsubmittedTimesheetReminders": true,
+          "forbidTimesheetSubmissionWhenBelowCapacity": false,
+          "internalId": "12345",
+          "internalNotes": "Primary location: Atlanta, GA",
+          "createdAt": "2020-08-03T21:00:16.370Z",
+          "securityRole": {
+            "id": "e31c9f7e-98cb-4ce7-81df-cc46bd9eb94f",
+            "name": "Workspace Admin"
+          },
+          "jobTitle": {
+            "id": "5a2537bd-7fc6-4d68-b639-4ec79a7fda58",
+            "name": "HTML Developer"
+          },
+          "discipline": {
+            "id": "996bf40b-d856-4c8c-b14a-f41b3a015c5b",
+            "name": "Software Engineering"
+          },
+          "practice": {
+            "id": "400a0c5c-32f1-41f5-a51d-e90807254965",
+            "name": "Retail"
+          },
+          "location": {
+            "id": "75e6ed16-2cdb-466e-88ad-ceeb0663ddb2",
+            "name": "North America"
+          },
+          "manager": {
+            "id": "5de6d319-ae80-4484-8b3d-0a9ff9580292",
+            "name": "Steven Rodriguez"
+          },
+          "timeOffApprover": {
+            "id": "b6816355-8945-40aa-b798-b0d6fd89e437",
+            "name": "Edna Blumer"
+          },
+          "holidaySchedule": {
+            "id": "321c155b-147e-4bd2-8aab-b9c3a3afeab1",
+            "name": "U.S. Holidays"
+          },
+          "tags": [
+            {
+              "id": "4c8d3f42-6efd-4a7e-85ca-d43164db0ab2",
+              "name": "Atlanta Office"
+            },
+            {
+              "id": "5533897a-450f-42b0-a419-aa3142dd9aad",
+              "name": "Buenos Aires Office"
+            }
+          ],
+          "skills": [
+            {
+              "id": "802c3214-59b4-4f9b-9eb1-4da2674becc3",
+              "name": "JavaScript"
+            },
+            {
+              "id": "efae4ed9-6967-4f76-9946-7b9b1008fe5e",
+              "name": "HTML"
+            },
+            {
+              "id": "828f3a35-1317-49fb-acad-419a62f74d44",
+              "name": "CSS"
+            }
+          ],
+          "availabilityPeriods": [
+            {
+              "id": "6675130f-d975-45ab-9971-4405062a9e92",
+              "start": "2020-08-03",
+              "end": "2022-02-01",
+              "hoursPerDay": [
+                8,
+                8,
+                8,
+                8,
+                8,
+                0,
+                0
+              ]
+            }
+          ],
+          "costPeriods": [
+            {
+              "id": "ae7268fd-2836-4437-b592-86289333e205",
+              "start": "2020-08-03",
+              "end": "2022-02-01",
+              "currency": "USD",
+              "costPerHour": 65,
+              "overheadCostPerHour": 20,
+              "totalCostPerHour": 85
+            }
+          ],
+          "utilizationTargetPeriods": [
+            {
+              "id": "f77df409-f68b-4a98-a6c6-0fa97d523e20",
+              "start": "2020-08-03",
+              "end": "2022-02-01",
+              "targetPercentage": 80
+            }
+          ]
+        }"#;
         let member_deserialized =
             serde_json::from_str::<Member>(json_input).expect("member could not be deserialized");
         let member = Member {
@@ -408,6 +408,21 @@ mod tests {
         assert_eq!(
             member_deserialized, member,
             "member did not contain the expected values"
-        )
+        );
+
+        let json_inputs = &format!(
+            r#"
+        {{"results": [{json_input}]}}
+        "#
+        );
+        let members_deserialized = serde_json::from_str::<Members>(json_inputs)
+            .expect("members could not be deserialized");
+        let members = Members {
+            results: vec![member],
+        };
+        assert_eq!(
+            members_deserialized, members,
+            "members did not contain the expected values"
+        );
     }
 }

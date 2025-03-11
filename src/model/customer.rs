@@ -161,6 +161,21 @@ mod tests {
         assert_eq!(
             client_deserialized, client,
             "client did not contain the expected values"
-        )
+        );
+
+        let json_inputs = &format!(
+            r#"
+        {{"results": [{json_input}]}}
+        "#
+        );
+        let clients_deserialized = serde_json::from_str::<Clients>(json_inputs)
+            .expect("clients could not be deserialized");
+        let clients = Clients {
+            results: vec![client],
+        };
+        assert_eq!(
+            clients_deserialized, clients,
+            "clients did not contain the expected values"
+        );
     }
 }
