@@ -69,7 +69,7 @@ impl Client {
         log::debug!("retrieving {endpoint} for {params}");
 
         // construct and assign client request
-        let request = request::Request::new(endpoint, params);
+        let request = request::Request::new(endpoint, params)?;
 
         // retrieve object and deser
         let deser_response = request.get(&self.client).await?.json::<M>().await?;
