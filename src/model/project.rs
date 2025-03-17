@@ -106,12 +106,13 @@ pub(crate) struct MonthlyBudget {
 // custom types: enum
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum Status {
+pub enum Status {
     Tentative,
     NotStarted,
     InProgress,
     Paused,
     Completed,
+    Cancelled,
 }
 
 #[derive(PartialEq, Deserialize, Debug)]

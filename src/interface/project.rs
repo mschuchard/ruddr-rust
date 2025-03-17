@@ -25,14 +25,16 @@ pub async fn project(
 ///     &client,
 ///     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
 ///     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
-///     Some("in_progress"),
+///     Some(project::Status::InProgress),
+///     Some("my_project"),
 /// ).await?;
 /// ```
 pub async fn projects(
     client: &client::Client,
     client_id: Option<types::UUID>,
     project_type: Option<types::UUID>,
-    status: Option<&str>,
+    status: Option<project::Status>,
+    name_contains: Option<&str>,
 ) -> Result<project::Projects, Box<dyn std::error::Error>> {
     // initialize params
     let mut params = String::from("?limit=100");
@@ -45,7 +47,10 @@ pub async fn projects(
         params = format!("{params}&projectTypeId={}", project_type.unwrap())
     }
     if status.is_some() {
-        params = format!("{params}&statusId={}", status.unwrap())
+        params = format!("{params}&statusId={:?}", status.unwrap())
+    }
+    if name_contains.is_some() {
+        params = format!("{params}&nameContains={}", name_contains.unwrap())
     }
 
     // retrieve projects
@@ -91,7 +96,8 @@ mod tests {
                     &client,
                     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
                     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
-                    Some("in_progress"),
+                    Some(project::Status::InProgress),
+                    Some("my_project"),
                 )
                 .await
                 .unwrap_err()
