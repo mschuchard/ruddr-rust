@@ -55,7 +55,7 @@ pub async fn time_entries(
         params = format!("{params}&dateOnAfter={}", begin_date.unwrap())
     }
     if end_date.is_some() {
-        params = format!("{params}&dataOnBefore={}", end_date.unwrap())
+        params = format!("{params}&dateOnBefore={}", end_date.unwrap())
     }
 
     // retrieve time entries

@@ -25,11 +25,22 @@ pub async fn member(
 /// ```
 pub async fn members(
     client: &client::Client,
+    name_contains: Option<&str>,
+    email_contains: Option<&str>,
 ) -> Result<member::Members, Box<dyn std::error::Error>> {
+    // initialize params
+    let mut params = String::from("?limit=100");
+
+    // optional parameters for LIST
+    if name_contains.is_some() {
+        params = format!("{params}&nameContains={}", name_contains.unwrap())
+    }
+    if email_contains.is_some() {
+        params = format!("{params}&emailContains={}", email_contains.unwrap())
+    }
+
     // retrieve members
-    Ok(client
-        .read::<member::Members>("members", "?limit=100")
-        .await?)
+    Ok(client.read::<member::Members>("members", &params).await?)
 }
 
 #[cfg(test)]
@@ -65,7 +76,10 @@ mod tests {
                 .await
                 .expect("client with token could not be constructed");
             assert_eq!(
-                members(&client).await.unwrap_err().to_string(),
+                members(&client, Some("Joe"), Some("foo@bar.com"))
+                    .await
+                    .unwrap_err()
+                    .to_string(),
                 "error decoding response body",
                 "members retrieval did not fail on json decoding",
             )
