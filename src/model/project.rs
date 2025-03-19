@@ -2,7 +2,8 @@
 //!
 //! `model::project` is a model for the Ruddr Project object.
 use crate::model::types;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Model for Projects used with List operations
 #[derive(PartialEq, Deserialize, Debug)]
@@ -104,7 +105,7 @@ pub(crate) struct MonthlyBudget {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
     Tentative,
@@ -113,6 +114,17 @@ pub enum Status {
     Paused,
     Completed,
     Cancelled,
+}
+
+impl fmt::Display for Status {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        // use serialize for automatic snake case from trait derivation, but then remove extraneous " chars incurred during JSON formatting
+        write!(
+            format,
+            "{}",
+            serde_json::to_string(self).unwrap().replace("\"", "")
+        )
+    }
 }
 
 #[derive(PartialEq, Deserialize, Debug)]

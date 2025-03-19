@@ -47,7 +47,7 @@ pub async fn projects(
         params = format!("{params}&projectTypeId={}", project_type.unwrap())
     }
     if status.is_some() {
-        params = format!("{params}&statusId={:?}", status.unwrap())
+        params = format!("{params}&statusId={}", status.unwrap());
     }
     if name_contains.is_some() {
         params = format!("{params}&nameContains={}", name_contains.unwrap())
