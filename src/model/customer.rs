@@ -58,16 +58,21 @@ pub(crate) struct Tag {
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Debug)]
-#[serde(rename_all = "snake_case")]
-#[allow(non_camel_case_types)]
 pub(crate) enum PaymentTerms {
+    #[serde(rename = "due_on_receipt")]
     DueOnReceipt,
-    Net_10,
-    Net_15,
-    Net_30,
-    Net_45,
-    Net_60,
-    Net_90,
+    #[serde(rename = "net_10")]
+    Net10,
+    #[serde(rename = "net_15")]
+    Net15,
+    #[serde(rename = "net_30")]
+    Net30,
+    #[serde(rename = "net_45")]
+    Net45,
+    #[serde(rename = "net_60")]
+    Net60,
+    #[serde(rename = "net_90")]
+    Net90,
 }
 
 #[derive(PartialEq, Deserialize, Debug)]
@@ -136,7 +141,7 @@ mod tests {
             ],
             street_address: String::from("500 Main Street \nAtlanta, GA 43003"),
             use_workspace_invoice_details: false,
-            payment_terms_id: PaymentTerms::Net_15,
+            payment_terms_id: PaymentTerms::Net15,
             invoice_notes: String::from("Please remit payment via ACH to Bank: 009235923"),
             is_internal: false,
             record_status_id: RecordStatus::Active,
