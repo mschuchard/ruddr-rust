@@ -17,7 +17,7 @@ pub struct Clients {
 #[serde(rename_all = "camelCase")]
 pub struct Client {
     pub(crate) id: types::UUID,
-    pub(crate) key: String, // slug?
+    pub(crate) key: String,
     pub(crate) name: String,
     pub(crate) code: String,
     pub(crate) currency: String,

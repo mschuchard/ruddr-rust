@@ -5,7 +5,7 @@ use crate::client::client;
 use crate::model::member;
 use crate::model::types;
 
-/// Retrieves a specific Ruddr Member object by id, and deserializes it to the corresponding struct.
+/// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding struct.
 /// ```ignore
 /// let member = member(&client, types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")).await?;
 /// ```

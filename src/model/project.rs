@@ -105,6 +105,7 @@ pub(crate) struct MonthlyBudget {
 }
 
 // custom types: enum
+/// Enum for Project Status
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
