@@ -60,8 +60,8 @@ mod tests {
                 .await
                 .unwrap_err()
                 .to_string(),
-                "error decoding response body",
-                "client retrieval did not fail on json decoding",
+                "client read response failed",
+                "client retrieval did not fail on auth",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
@@ -79,8 +79,8 @@ mod tests {
                     .await
                     .unwrap_err()
                     .to_string(),
-                "error decoding response body",
-                "clients retrieval did not fail on json decoding",
+                "client read response failed",
+                "clients retrieval did not fail on auth",
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();

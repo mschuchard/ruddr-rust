@@ -72,10 +72,20 @@ impl Client {
         let request = request::Request::new(endpoint, params)?;
 
         // retrieve object and deser
-        let deser_response = request.get(&self.client).await?.json::<M>().await?;
+        let response = request.get(&self.client).await?;
+        let deser = match response.error_for_status() {
+            // deser if successful
+            Ok(response) => response.json::<M>().await?,
+            // provide information if failure
+            Err(error) => {
+                log::error!("request failed with status {:?}", error.status().unwrap());
+                log::error!("{error}");
+                return Err(Box::from("client read response failed"));
+            }
+        };
 
         log::debug!("{endpoint} retrieved for {params}");
-        Ok(deser_response)
+        Ok(deser)
     }
 }
 
@@ -137,8 +147,8 @@ mod tests {
                     .await
                     .unwrap_err()
                     .to_string(),
-                "error decoding response body",
-                "read did not fail on json decoding"
+                "client read response failed",
+                "read did not fail on auth"
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
@@ -157,8 +167,8 @@ mod tests {
                     .await
                     .unwrap_err()
                     .to_string(),
-                "error decoding response body",
-                "list did not fail on json decoding"
+                "client read response failed",
+                "list did not fail on auth"
             )
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
