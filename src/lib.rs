@@ -9,6 +9,7 @@ pub mod interface {
     pub mod time;
 }
 pub(crate) mod model {
+    pub(crate) mod allocation;
     pub(crate) mod customer;
     pub(crate) mod member;
     pub(crate) mod project;
