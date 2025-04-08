@@ -23,7 +23,7 @@ pub async fn customer(
 /// ```ignore
 /// let customers = customers(
 ///     &client,
-///     Some("JOE")),
+///     Some("JOE"),
 /// ).await?;
 /// ```
 pub async fn customers(

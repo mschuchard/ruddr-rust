@@ -2,7 +2,8 @@
 //!
 //! `model::allocation` is a model for the Ruddr Allocation object
 use crate::model::types;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Model for Allocations used with List operations
 #[derive(Debug, PartialEq, Deserialize)]
@@ -97,11 +98,23 @@ pub(crate) enum ResourceType {
     Placeholder,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+/// Enum for Allocation Assignment Type
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum AssignmentType {
+pub enum AssignmentType {
     Project,
     TimeOff,
+}
+
+impl fmt::Display for AssignmentType {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        // use serialize for automatic snake case from trait derivation, but then remove extraneous " chars incurred during JSON formatting
+        write!(
+            format,
+            "{}",
+            serde_json::to_string(self).unwrap().replace("\"", "")
+        )
+    }
 }
 
 #[derive(PartialEq, Deserialize, Debug)]

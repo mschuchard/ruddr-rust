@@ -3,6 +3,7 @@ pub mod client {
     mod request;
 }
 pub mod interface {
+    pub mod allocation;
     pub mod customer;
     pub mod member;
     pub mod project;
