@@ -15,7 +15,7 @@ pub async fn time_entry(
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
     // retrieve time entry
     Ok(client
-        .read::<time::TimeEntry>("time-entries", &format!("/{id}"))
+        .read::<time::TimeEntry>(&format!("time-entries/{id}"), "")
         .await?)
 }
 
@@ -39,7 +39,7 @@ pub async fn time_entries(
     end_date: Option<types::Date>,
 ) -> Result<time::TimeEntries, Box<dyn std::error::Error>> {
     // initialize params
-    let mut params = String::from("?limit=100");
+    let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if member.is_some() {

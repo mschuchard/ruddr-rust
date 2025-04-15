@@ -15,7 +15,7 @@ pub async fn allocation(
 ) -> Result<allocation::Allocation, Box<dyn std::error::Error>> {
     // retrieve client
     Ok(client
-        .read::<allocation::Allocation>("allocations", &format!("/{id}"))
+        .read::<allocation::Allocation>(&format!("allocations/{id}"), "")
         .await?)
 }
 
@@ -37,7 +37,7 @@ pub async fn allocations(
     end_date: Option<types::Date>,
 ) -> Result<allocation::Allocations, Box<dyn std::error::Error>> {
     // initialize params
-    let mut params = String::from("?limit=100");
+    let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if assignment_type_id.is_some() {

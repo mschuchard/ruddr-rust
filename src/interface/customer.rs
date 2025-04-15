@@ -15,7 +15,7 @@ pub async fn customer(
 ) -> Result<customer::Client, Box<dyn std::error::Error>> {
     // retrieve client
     Ok(client
-        .read::<customer::Client>("clients", &format!("/{id}"))
+        .read::<customer::Client>(&format!("clients/{id}"), "")
         .await?)
 }
 
@@ -31,7 +31,7 @@ pub async fn customers(
     code: Option<&str>,
 ) -> Result<customer::Clients, Box<dyn std::error::Error>> {
     // initialize params
-    let mut params = String::from("?limit=100");
+    let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if code.is_some() {

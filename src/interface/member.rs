@@ -15,7 +15,7 @@ pub async fn member(
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
     // retrieve member
     Ok(client
-        .read::<member::Member>("members", &format!("/{id}"))
+        .read::<member::Member>(&format!("members/{id}"), "")
         .await?)
 }
 
@@ -29,7 +29,7 @@ pub async fn members(
     email_contains: Option<&str>,
 ) -> Result<member::Members, Box<dyn std::error::Error>> {
     // initialize params
-    let mut params = String::from("?limit=100");
+    let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if name_contains.is_some() {

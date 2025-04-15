@@ -15,7 +15,7 @@ pub async fn project(
 ) -> Result<project::Project, Box<dyn std::error::Error>> {
     // retrieve project
     Ok(client
-        .read::<project::Project>("projects", &format!("/{id}"))
+        .read::<project::Project>(&format!("projects/{id}"), "")
         .await?)
 }
 
@@ -37,7 +37,7 @@ pub async fn projects(
     name_contains: Option<&str>,
 ) -> Result<project::Projects, Box<dyn std::error::Error>> {
     // initialize params
-    let mut params = String::from("?limit=100");
+    let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if client_id.is_some() {

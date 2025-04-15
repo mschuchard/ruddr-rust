@@ -13,15 +13,15 @@ impl Request {
     // request constructor with endpoint and params
     pub(super) fn new(endpoint: &str, params: &str) -> Result<Self, Box<dyn std::error::Error>> {
         // validate endpoint and params are not empty
-        if endpoint.is_empty() || params.is_empty() {
-            log::error!("endpoint '{endpoint}' or params '{params}' is empty");
-            return Err(Box::from("invalid endpoint or params"));
+        if endpoint.is_empty() {
+            log::error!("endpoint '{endpoint}' is empty");
+            return Err(Box::from("invalid empty endpoint"));
         }
 
         log::debug!("request endpoint is {endpoint} and params is {params}");
 
         Ok(Self {
-            url: format!("https://www.ruddr.io/api/workspace/{endpoint}{params}"),
+            url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
         })
     }
 
@@ -46,7 +46,7 @@ mod tests {
     #[test]
     fn test_request_new() {
         assert_eq!(
-            Request::new("endpoint", "?params")
+            Request::new("endpoint", "params")
                 .expect("request could not be constructed")
                 .url,
             String::from("https://www.ruddr.io/api/workspace/endpoint?params")
@@ -59,7 +59,7 @@ mod tests {
             let client = reqwest::Client::builder()
                 .build()
                 .expect("client with env token could not be constructed");
-            let request = Request::new("projects", "/095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+            let request = Request::new("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", "")
                 .expect("request could not be constructed");
             let response = request
                 .get(&client)

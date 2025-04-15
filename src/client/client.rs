@@ -66,7 +66,7 @@ impl Client {
         endpoint: &str,
         params: &str,
     ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving {endpoint} for {params}");
+        log::debug!("retrieving at {endpoint} endpoint with {params} params");
 
         // construct and assign client request
         let request = request::Request::new(endpoint, params)?;
@@ -84,7 +84,7 @@ impl Client {
             }
         };
 
-        log::debug!("{endpoint} retrieved for {params}");
+        log::debug!("{endpoint} endpoint retrieved with {params} params");
         Ok(deser)
     }
 }
@@ -143,7 +143,7 @@ mod tests {
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
-                    .read::<project::Project>("project", "/095e0780-48bf-472c-8deb-2fc3ebc7d90c",)
+                    .read::<project::Project>("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", "",)
                     .await
                     .unwrap_err()
                     .to_string(),
@@ -163,7 +163,7 @@ mod tests {
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
-                    .read::<project::Project>("projects", "?limit=100")
+                    .read::<project::Project>("projects", "limit=100")
                     .await
                     .unwrap_err()
                     .to_string(),
