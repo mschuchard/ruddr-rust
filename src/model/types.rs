@@ -194,7 +194,7 @@ pub struct Slug(pub(super) String);
 impl Slug {
     // constructor with validation used within type converters
     fn new(slug: String) -> Self {
-        let slug_validator = Regex::new(r"[a-z0-9-]+").unwrap();
+        let slug_validator = Regex::new(r"^[a-z0-9-]+$").unwrap();
         if slug_validator.is_match(&slug) {
             Slug(slug)
         } else {
@@ -429,6 +429,69 @@ mod tests {
                 "{}",
                 UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
             )
+        )
+    }
+
+    #[test]
+    fn test_slug_new() {
+        assert_eq!(
+            Slug(String::from("vendor1-portal2")),
+            Slug::new(String::from("vendor1-portal2"))
+        )
+    }
+
+    #[test]
+    fn test_slug_new_error() {
+        let test = std::panic::catch_unwind(|| Slug::new(String::from("Foo-Bar-Baz!")));
+        assert!(test.is_err())
+    }
+
+    #[test]
+    fn test_slug_from_str() {
+        assert_eq!(
+            Slug(String::from("vendor1-portal2")),
+            Slug::from("vendor1-portal2"),
+        )
+    }
+
+    #[test]
+    fn test_slug_from_string() {
+        assert_eq!(
+            Slug::from(String::from("vendor1-portal2")),
+            Slug(String::from("vendor1-portal2")),
+        )
+    }
+
+    #[test]
+    fn test_slug_to_string() {
+        assert_eq!(
+            String::from("vendor1-portal2"),
+            String::from(Slug(String::from("vendor1-portal2")))
+        )
+    }
+
+    #[test]
+    fn test_slug_to_str() {
+        assert_eq!(
+            "vendor1-portal2",
+            &String::from(Slug(String::from("vendor1-portal2")))
+        )
+    }
+
+    #[test]
+    fn test_slug_deserialize() {
+        assert_eq!(
+            Slug(String::from("vendor1-portal2")),
+            serde_json::from_str::<Slug>("\"vendor1-portal2\"")
+                .expect("slug could not be deserialized")
+        )
+    }
+
+    #[test]
+    fn test_slug_display() {
+        assert_eq!(
+            String::from("vendor1-portal2"),
+            format!("{}", Slug(String::from("vendor1-portal2")))
         )
     }
 }
