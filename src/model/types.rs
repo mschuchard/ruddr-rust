@@ -82,7 +82,7 @@ impl Timestamp {
         if timestamp_validator.is_match(&timestamp) {
             Timestamp(timestamp)
         } else {
-            log::error!("{timestamp} is an invalid date format");
+            log::error!("{timestamp} is an invalid timestamp format");
             panic!("invalid timestamp")
         }
     }
@@ -177,6 +177,64 @@ impl<'de> serde::Deserialize<'de> for UUID {
 }
 
 impl fmt::Display for UUID {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "{}", self.0)
+    }
+}
+
+/// Custom type for Ruddr Slug type in standard format
+/// It is expected to instantiate this through type conversion, and not the implicit or explicit constructors:
+/// ```ignore
+/// Slug::from("vendor-portal")
+/// ```
+#[derive(PartialEq, Eq, Debug)]
+// public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
+pub struct Slug(pub(super) String);
+
+impl Slug {
+    // constructor with validation used within type converters
+    fn new(slug: String) -> Self {
+        let slug_validator = Regex::new(r"[a-z0-9-]+").unwrap();
+        if slug_validator.is_match(&slug) {
+            Slug(slug)
+        } else {
+            log::error!("{slug} is an invalid slug format");
+            panic!("invalid slug")
+        }
+    }
+}
+
+impl From<String> for Slug {
+    fn from(slug: String) -> Self {
+        Slug::new(slug)
+    }
+}
+
+impl From<&str> for Slug {
+    fn from(slug: &str) -> Self {
+        Slug::new(String::from(slug))
+    }
+}
+
+impl From<Slug> for String {
+    fn from(slug: Slug) -> Self {
+        slug.0
+    }
+}
+
+impl<'slug> From<&'slug Slug> for &'slug str {
+    fn from(slug: &'slug Slug) -> Self {
+        &slug.0
+    }
+}
+
+impl<'de> serde::Deserialize<'de> for Slug {
+    fn deserialize<D: Deserializer<'de>>(slug: D) -> Result<Self, D::Error> {
+        Ok(Slug::new(String::deserialize(slug)?))
+    }
+}
+
+impl fmt::Display for Slug {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
         write!(format, "{}", self.0)
     }
