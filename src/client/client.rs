@@ -110,11 +110,11 @@ mod tests {
 
     #[test]
     fn test_client_new_env() {
+        // unsafe because tests are multi-threaded
+        unsafe {
+            std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789");
+        }
         let test = async {
-            // supposed to only be safe in single-thread
-            unsafe {
-                std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789");
-            }
             let client = Client::new(None)
                 .await
                 .expect("client with env token could not be constructed");
@@ -122,15 +122,12 @@ mod tests {
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
         rt.block_on(test);
-    }
 
-    #[test]
-    fn test_client_new_env_error() {
+        // unsafe because tests are multi-threaded
+        unsafe {
+            std::env::remove_var("RUDDR_TOKEN");
+        }
         let test = async {
-            // supposed to only be safe in single-thread
-            unsafe {
-                std::env::remove_var("RUDDR_TOKEN");
-            }
             assert_eq!(
                 Client::new(None).await.unwrap_err().to_string(),
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
