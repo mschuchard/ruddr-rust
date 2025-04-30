@@ -18,7 +18,7 @@ pub struct Projects {
 #[serde(rename_all = "camelCase")]
 pub struct Project {
     pub(crate) id: types::UUID,
-    pub(crate) key: String,
+    pub(crate) key: types::Slug,
     pub(crate) name: String,
     pub(crate) notes: String,
     pub(crate) status_id: Status,
@@ -246,7 +246,7 @@ mod tests {
             .expect("time entry could not be deserialized");
         let project = Project {
               id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-              key: String::from("vendor-portal"),
+              key: types::Slug(String::from("vendor-portal")),
               name: String::from("Vendor Portal"),
               notes: String::from("The client would like to develop a mobile app that rewards its customers for repeat purchases."),
               status_id: Status::InProgress,
