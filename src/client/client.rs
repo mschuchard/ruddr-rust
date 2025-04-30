@@ -31,9 +31,11 @@ impl Client {
             Some(token) => format!("Bearer {token}"),
             None => match env::var("RUDDR_TOKEN") {
                 Ok(token) => format!("Bearer {token}"),
-                Err(_) => return Err(Box::from(
-                "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
-                )),
+                Err(_) => {
+                    return Err(Box::from(
+                        "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
+                    ));
+                }
             },
         };
         // establish authentication and mark as sensitive
@@ -110,7 +112,9 @@ mod tests {
     fn test_client_new_env() {
         let test = async {
             // supposed to only be safe in single-thread
-            std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789");
+            unsafe {
+                std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789");
+            }
             let client = Client::new(None)
                 .await
                 .expect("client with env token could not be constructed");
@@ -124,7 +128,9 @@ mod tests {
     fn test_client_new_env_error() {
         let test = async {
             // supposed to only be safe in single-thread
-            std::env::remove_var("RUDDR_TOKEN");
+            unsafe {
+                std::env::remove_var("RUDDR_TOKEN");
+            }
             assert_eq!(
                 Client::new(None).await.unwrap_err().to_string(),
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
