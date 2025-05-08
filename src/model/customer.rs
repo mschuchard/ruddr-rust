@@ -7,7 +7,7 @@ use serde::Deserialize;
 /// Model for Clients used with List operations
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Clients {
+pub(crate) struct Clients {
     pub(crate) results: Vec<Client>,
     pub(crate) has_more: bool,
 }
@@ -15,7 +15,7 @@ pub struct Clients {
 /// Model for Client used with Read operations
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Client {
+pub(crate) struct Client {
     pub(crate) id: types::UUID,
     pub(crate) key: String,
     pub(crate) name: String,

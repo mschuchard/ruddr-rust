@@ -7,7 +7,7 @@ use serde::Deserialize;
 /// Model for TimeEntries used with List operations
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct TimeEntries {
+pub(crate) struct TimeEntries {
     pub(crate) results: Vec<TimeEntry>,
     pub(crate) has_more: bool,
 }
@@ -15,7 +15,7 @@ pub struct TimeEntries {
 /// Model for TimeEntry used with Read operations
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct TimeEntry {
+pub(crate) struct TimeEntry {
     pub(crate) id: types::UUID,
     pub(crate) type_id: Type,
     pub(crate) status_id: Status,

@@ -8,7 +8,7 @@ use std::fmt;
 /// Model for Projects used with List operations
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Projects {
+pub(crate) struct Projects {
     pub(crate) results: Vec<Project>,
     pub(crate) has_more: bool,
 }
@@ -16,7 +16,7 @@ pub struct Projects {
 /// Model for Project used with Read operations
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Project {
+pub(crate) struct Project {
     pub(crate) id: types::UUID,
     pub(crate) key: types::Slug,
     pub(crate) name: String,

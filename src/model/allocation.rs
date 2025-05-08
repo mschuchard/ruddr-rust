@@ -8,7 +8,7 @@ use std::fmt;
 /// Model for Allocations used with List operations
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Allocations {
+pub(crate) struct Allocations {
     pub(crate) results: Vec<Allocation>,
     pub(crate) has_more: bool,
 }
@@ -16,7 +16,7 @@ pub struct Allocations {
 /// Model for Allocation used with Read operations
 #[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Allocation {
+pub(crate) struct Allocation {
     pub(crate) id: types::UUID,
     pub(crate) resource_type_id: ResourceType,
     pub(crate) assignment_type_id: AssignmentType,

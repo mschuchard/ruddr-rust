@@ -9,7 +9,7 @@ pub mod interface {
     pub mod project;
     pub mod time;
 }
-pub(crate) mod model {
+pub mod model {
     pub(crate) mod allocation;
     pub(crate) mod customer;
     pub(crate) mod member;
