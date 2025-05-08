@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// Model for Allocations used with List operations
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Allocations {
     pub(crate) results: Vec<Allocation>,
@@ -14,7 +14,7 @@ pub(crate) struct Allocations {
 }
 
 /// Model for Allocation used with Read operations
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Allocation {
     pub(crate) id: types::UUID,
@@ -40,21 +40,21 @@ pub(crate) struct Allocation {
     pub(crate) time_off_type: Option<TimeOffType>,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Member {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Placeholder {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Project {
     pub(crate) id: types::UUID,
@@ -62,28 +62,28 @@ pub(crate) struct Project {
     pub(crate) client: Client,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Client {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Role {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Task {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct TimeOffType {
     pub(crate) id: types::UUID,
@@ -91,7 +91,7 @@ pub(crate) struct TimeOffType {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum ResourceType {
     Member,
@@ -117,7 +117,7 @@ impl fmt::Display for AssignmentType {
     }
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum Unit {
     Day,
@@ -125,7 +125,7 @@ pub(crate) enum Unit {
     Month,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum Entity {
     Allocation,
