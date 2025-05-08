@@ -2,7 +2,7 @@
 //!
 //! `model::types` defines custom type structs with trait implementations for Ruddr API custom types.
 use regex::Regex;
-use serde::Deserializer;
+use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// Custom type for Ruddr Date type in YYYY-MM-DD format
@@ -10,7 +10,7 @@ use std::fmt;
 /// ```ignore
 /// Date::from("2028-12-31")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Date(pub(super) String);
 
@@ -51,11 +51,17 @@ impl<'date> From<&'date Date> for &'date str {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for Date {
-    fn deserialize<D: Deserializer<'de>>(date: D) -> Result<Self, D::Error> {
-        Ok(Date::new(String::deserialize(date)?))
+/*impl<'de> serde::Deserialize<'de> for Date {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(Date::new(String::deserialize(deserializer)?))
     }
 }
+
+impl serde::Serialize for Date {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(&self.0)
+    }
+}*/
 
 impl fmt::Display for Date {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
@@ -70,7 +76,7 @@ impl fmt::Display for Date {
 /// Timestamp::from("1234-56-78T12:34:56.789Z")
 /// ```
 /// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Timestamp(pub(super) String);
 
@@ -112,11 +118,17 @@ impl<'timestamp> From<&'timestamp Timestamp> for &'timestamp str {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for Timestamp {
-    fn deserialize<D: Deserializer<'de>>(timestamp: D) -> Result<Self, D::Error> {
-        Ok(Timestamp::new(String::deserialize(timestamp)?))
+/*impl<'de> serde::Deserialize<'de> for Timestamp {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(Timestamp::new(String::deserialize(deserializer)?))
     }
 }
+
+impl serde::Serialize for Timestamp {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(&self.0)
+    }
+}*/
 
 impl fmt::Display for Timestamp {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
@@ -129,7 +141,7 @@ impl fmt::Display for Timestamp {
 /// ```ignore
 /// UUID::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct UUID(pub(super) String);
 
@@ -170,11 +182,17 @@ impl<'uuid> From<&'uuid UUID> for &'uuid str {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for UUID {
-    fn deserialize<D: Deserializer<'de>>(uuid: D) -> Result<Self, D::Error> {
-        Ok(UUID::new(String::deserialize(uuid)?))
+/*impl<'de> serde::Deserialize<'de> for UUID {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(UUID::new(String::deserialize(deserializer)?))
     }
 }
+
+impl serde::Serialize for UUID {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(&self.0)
+    }
+}*/
 
 impl fmt::Display for UUID {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
@@ -187,7 +205,7 @@ impl fmt::Display for UUID {
 /// ```ignore
 /// Slug::from("vendor-portal")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Slug(pub(super) String);
 
@@ -228,11 +246,17 @@ impl<'slug> From<&'slug Slug> for &'slug str {
     }
 }
 
-impl<'de> serde::Deserialize<'de> for Slug {
-    fn deserialize<D: Deserializer<'de>>(slug: D) -> Result<Self, D::Error> {
-        Ok(Slug::new(String::deserialize(slug)?))
+/*impl<'de> serde::Deserialize<'de> for Slug {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(Slug::new(String::deserialize(deserializer)?))
     }
 }
+
+impl serde::Serialize for Slug {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(&self.0)
+    }
+}*/
 
 impl fmt::Display for Slug {
     fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
