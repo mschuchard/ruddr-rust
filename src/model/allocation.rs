@@ -1,6 +1,6 @@
 //! # Allocation
 //!
-//! `model::allocation` is a model for the Ruddr Allocation object
+//! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::*` returns.
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 use std::fmt;
@@ -8,92 +8,92 @@ use std::fmt;
 /// Model for Allocations used with List operations
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Allocations {
-    pub(crate) results: Vec<Allocation>,
-    pub(crate) has_more: bool,
+pub struct Allocations {
+    pub results: Vec<Allocation>,
+    pub has_more: bool,
 }
 
 /// Model for Allocation used with Read operations
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Allocation {
-    pub(crate) id: types::UUID,
-    pub(crate) resource_type_id: ResourceType,
-    pub(crate) assignment_type_id: AssignmentType,
-    pub(crate) start: types::Date,
-    pub(crate) end: types::Date,
-    pub(crate) unit: Unit,
-    pub(crate) hours_per_day: Option<i64>,
-    pub(crate) hours_per_week: Option<i64>,
-    pub(crate) hours_per_month: Option<i64>,
-    pub(crate) total_hours: i64,
-    pub(crate) is_billable: bool,
-    pub(crate) notes: String,
-    pub(crate) read_only: bool,
-    pub(crate) entity: Entity,
-    pub(crate) created_at: types::Timestamp,
-    pub(crate) member: Option<Member>,
-    pub(crate) placeholder: Option<Placeholder>,
-    pub(crate) project: Option<Project>,
-    pub(crate) role: Option<Role>,
-    pub(crate) task: Option<Task>,
-    pub(crate) time_off_type: Option<TimeOffType>,
+pub struct Allocation {
+    pub id: types::UUID,
+    pub resource_type_id: ResourceType,
+    pub assignment_type_id: AssignmentType,
+    pub start: types::Date,
+    pub end: types::Date,
+    pub unit: Unit,
+    pub hours_per_day: Option<i64>,
+    pub hours_per_week: Option<i64>,
+    pub hours_per_month: Option<i64>,
+    pub total_hours: i64,
+    pub is_billable: bool,
+    pub notes: String,
+    pub read_only: bool,
+    pub entity: Entity,
+    pub created_at: types::Timestamp,
+    pub member: Option<Member>,
+    pub placeholder: Option<Placeholder>,
+    pub project: Option<Project>,
+    pub role: Option<Role>,
+    pub task: Option<Task>,
+    pub time_off_type: Option<TimeOffType>,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Member {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Member {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Placeholder {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Placeholder {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Project {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
-    pub(crate) client: Client,
+pub struct Project {
+    pub id: types::UUID,
+    pub name: String,
+    pub client: Client,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Client {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Client {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Role {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Role {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Task {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Task {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeOffType {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct TimeOffType {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum ResourceType {
+pub enum ResourceType {
     Member,
     Placeholder,
 }
@@ -119,7 +119,7 @@ impl fmt::Display for AssignmentType {
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum Unit {
+pub enum Unit {
     Day,
     Week,
     Month,
@@ -127,7 +127,7 @@ pub(crate) enum Unit {
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum Entity {
+pub enum Entity {
     Allocation,
     TimeEntry,
     Holiday,

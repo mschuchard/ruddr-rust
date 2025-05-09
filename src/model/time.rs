@@ -1,100 +1,100 @@
 //! # Time
 //!
-//! `model::time` is a model for the Ruddr Time Entry object.
+//! `model::time` is a model for the Ruddr Time Entry object. This module is not publically accessible, but the structs and members are public for reading from `interface::*` returns.
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
 /// Model for TimeEntries used with List operations
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeEntries {
-    pub(crate) results: Vec<TimeEntry>,
-    pub(crate) has_more: bool,
+pub struct TimeEntries {
+    pub results: Vec<TimeEntry>,
+    pub has_more: bool,
 }
 
 /// Model for TimeEntry used with Read operations
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeEntry {
-    pub(crate) id: types::UUID,
-    pub(crate) type_id: Type,
-    pub(crate) status_id: Status,
-    pub(crate) date: types::Date,
-    pub(crate) minutes: i64,
-    pub(crate) timer_started_at: Option<types::Timestamp>,
-    pub(crate) notes: String,
-    pub(crate) is_billable: bool,
-    pub(crate) invoiced: bool,
-    pub(crate) created_at: types::Timestamp,
-    pub(crate) member: Member,
-    pub(crate) project: Option<Project>,
-    pub(crate) role: Option<Role>,
-    pub(crate) task: Option<Task>,
-    pub(crate) time_off_type: Option<TimeOffType>,
-    pub(crate) invoice: Option<Invoice>,
+pub struct TimeEntry {
+    pub id: types::UUID,
+    pub type_id: Type,
+    pub status_id: Status,
+    pub date: types::Date,
+    pub minutes: i64,
+    pub timer_started_at: Option<types::Timestamp>,
+    pub notes: String,
+    pub is_billable: bool,
+    pub invoiced: bool,
+    pub created_at: types::Timestamp,
+    pub member: Member,
+    pub project: Option<Project>,
+    pub role: Option<Role>,
+    pub task: Option<Task>,
+    pub time_off_type: Option<TimeOffType>,
+    pub invoice: Option<Invoice>,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Member {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Member {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Project {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
-    pub(crate) client: Client,
+pub struct Project {
+    pub id: types::UUID,
+    pub name: String,
+    pub client: Client,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Client {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Client {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Role {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Role {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Task {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Task {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct TimeOffType {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct TimeOffType {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Invoice {
-    pub(crate) id: types::UUID,
-    pub(crate) number: String,
+pub struct Invoice {
+    pub id: types::UUID,
+    pub number: String,
 }
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum Type {
+pub enum Type {
     ProjectTime,
     TimeOff,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum Status {
+pub enum Status {
     NotSubmitted,
     PendingApproval,
     Approved,

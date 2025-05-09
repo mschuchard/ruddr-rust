@@ -1,64 +1,64 @@
 //! # Customer
 //!
-//! `model::customer` is a model for the Ruddr Client object
+//! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::*` returns.
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
 /// Model for Clients used with List operations
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Clients {
-    pub(crate) results: Vec<Client>,
-    pub(crate) has_more: bool,
+pub struct Clients {
+    pub results: Vec<Client>,
+    pub has_more: bool,
 }
 
 /// Model for Client used with Read operations
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Client {
-    pub(crate) id: types::UUID,
-    pub(crate) key: String,
-    pub(crate) name: String,
-    pub(crate) code: String,
-    pub(crate) currency: String,
-    pub(crate) notes: String,
-    pub(crate) emails: Vec<String>,
-    pub(crate) street_address: String,
-    pub(crate) use_workspace_invoice_details: bool,
-    pub(crate) payment_terms_id: PaymentTerms,
-    pub(crate) invoice_notes: String,
-    pub(crate) is_internal: bool,
-    pub(crate) record_status_id: RecordStatus,
-    pub(crate) created_at: types::Timestamp,
-    pub(crate) practice: Option<Practice>,
-    pub(crate) owner: Owner,
-    pub(crate) tags: Vec<Tag>,
+pub struct Client {
+    pub id: types::UUID,
+    pub key: String,
+    pub name: String,
+    pub code: String,
+    pub currency: String,
+    pub notes: String,
+    pub emails: Vec<String>,
+    pub street_address: String,
+    pub use_workspace_invoice_details: bool,
+    pub payment_terms_id: PaymentTerms,
+    pub invoice_notes: String,
+    pub is_internal: bool,
+    pub record_status_id: RecordStatus,
+    pub created_at: types::Timestamp,
+    pub practice: Option<Practice>,
+    pub owner: Owner,
+    pub tags: Vec<Tag>,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Practice {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Practice {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Owner {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Owner {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub(crate) struct Tag {
-    pub(crate) id: types::UUID,
-    pub(crate) name: String,
+pub struct Tag {
+    pub id: types::UUID,
+    pub name: String,
 }
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
-pub(crate) enum PaymentTerms {
+pub enum PaymentTerms {
     #[serde(rename = "due_on_receipt")]
     DueOnReceipt,
     #[serde(rename = "net_10")]
@@ -77,7 +77,7 @@ pub(crate) enum PaymentTerms {
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub(crate) enum RecordStatus {
+pub enum RecordStatus {
     Active,
     Archived,
 }
