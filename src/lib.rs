@@ -14,7 +14,6 @@ pub mod model {
     pub(crate) mod customer;
     pub(crate) mod member;
     pub(crate) mod project;
-    pub mod reader;
     pub(crate) mod time;
     pub mod types;
 }

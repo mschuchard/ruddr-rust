@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt;
 
 /// Model for Projects used with List operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Projects {
     pub(crate) results: Vec<Project>,
@@ -14,7 +14,7 @@ pub(crate) struct Projects {
 }
 
 /// Model for Project used with Read operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Project {
     pub(crate) id: types::UUID,
@@ -52,35 +52,35 @@ pub(crate) struct Project {
     pub(crate) monthly_budget: Option<MonthlyBudget>,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Client {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Practice {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct ProjectType {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Tag {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Budget {
     pub(crate) revenue: i64,
@@ -92,7 +92,7 @@ pub(crate) struct Budget {
     pub(crate) non_billable_hours: i64,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct MonthlyBudget {
     pub(crate) revenue: i64,
@@ -128,7 +128,7 @@ impl fmt::Display for Status {
     }
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum BillingType {
     TimeAndMaterials,
@@ -137,14 +137,14 @@ pub(crate) enum BillingType {
     NonBillable,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum RevenueRecognitionMethod {
     Invoiced,
     Manual,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum BudgetMode {
     Summary,
@@ -152,14 +152,14 @@ pub(crate) enum BudgetMode {
     Aggregated,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum MonthlyBudgetMode {
     Summary,
     Detailed,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum RecordStatus {
     Active,

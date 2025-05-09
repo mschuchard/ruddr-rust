@@ -2,10 +2,10 @@
 //!
 //! `model::member` is a model for the Ruddr Member object.
 use crate::model::types;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// Model for Members used with List operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Members {
     pub(crate) results: Vec<Member>,
@@ -13,7 +13,7 @@ pub(crate) struct Members {
 }
 
 /// Model for Member used with Read operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Member {
     pub(crate) id: types::UUID,
@@ -52,77 +52,77 @@ pub(crate) struct Member {
     pub(crate) utilization_target_periods: Vec<UtilizationTargetPeriod>,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct SecurityRole {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct JobTitle {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Discipline {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Practice {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Location {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Manager {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct TimeOffApprover {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct HolidaySchedule {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Tag {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Skill {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct AvailabilityPeriod {
     pub(crate) id: types::UUID,
@@ -131,7 +131,7 @@ pub(crate) struct AvailabilityPeriod {
     pub(crate) hours_per_day: Vec<i64>,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct CostPeriod {
     pub(crate) id: types::UUID,
@@ -143,7 +143,7 @@ pub(crate) struct CostPeriod {
     pub(crate) total_cost_per_hour: i64,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct UtilizationTargetPeriod {
     pub(crate) id: types::UUID,
@@ -153,7 +153,7 @@ pub(crate) struct UtilizationTargetPeriod {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum InvitationStatus {
     NotInvited,
@@ -161,7 +161,7 @@ pub(crate) enum InvitationStatus {
     Accepted,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum EmploymentType {
     Employee,
@@ -169,14 +169,14 @@ pub(crate) enum EmploymentType {
     Other,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum CostMethod {
     Hourly,
     Fixed,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum TimeOffApprovalMode {
     Auto,

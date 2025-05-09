@@ -2,10 +2,10 @@
 //!
 //! `model::time` is a model for the Ruddr Time Entry object.
 use crate::model::types;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// Model for TimeEntries used with List operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct TimeEntries {
     pub(crate) results: Vec<TimeEntry>,
@@ -13,7 +13,7 @@ pub(crate) struct TimeEntries {
 }
 
 /// Model for TimeEntry used with Read operations
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct TimeEntry {
     pub(crate) id: types::UUID,
@@ -34,14 +34,14 @@ pub(crate) struct TimeEntry {
     pub(crate) invoice: Option<Invoice>,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Member {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Project {
     pub(crate) id: types::UUID,
@@ -49,35 +49,35 @@ pub(crate) struct Project {
     pub(crate) client: Client,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Client {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Role {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Task {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct TimeOffType {
     pub(crate) id: types::UUID,
     pub(crate) name: String,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub(crate) struct Invoice {
     pub(crate) id: types::UUID,
@@ -85,14 +85,14 @@ pub(crate) struct Invoice {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum Type {
     ProjectTime,
     TimeOff,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub(crate) enum Status {
     NotSubmitted,
