@@ -2,6 +2,14 @@
 name = "ruddr"
 version = "0.3.0"
 edition = "2024"
+authors = ["Matthew Schuchard"]
+description = "A lightweight Ruddr SDK Rust crate"
+readme = "README.md"
+license-file = "LICENSE"
+repository = "https://github.com/mschuchard/ruddr-rust"
+keywords = ["ruddr"]
+categories = ["api-bindings"]
+exclude = [".circleci", ".github", ".gitignore"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }
