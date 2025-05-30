@@ -3,7 +3,7 @@
 //! `interface::allocation` consists of functions for interfacing with the Ruddr Allocation endpoints.
 use crate::client::client;
 use crate::model::allocation;
-use crate::model::types;
+use crate::model::{enums, types};
 
 /// Retrieves a specific Ruddr Allocation object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-an-allocation
@@ -33,7 +33,7 @@ pub async fn allocation(
 /// ```
 pub async fn allocations(
     client: &client::Client,
-    assignment_type_id: Option<allocation::AssignmentType>,
+    assignment_type_id: Option<enums::AssignmentType>,
     member_id: Option<types::UUID>,
     start_date: Option<types::Date>,
     end_date: Option<types::Date>,
@@ -96,7 +96,7 @@ mod tests {
             assert_eq!(
                 allocations(
                     &client,
-                    Some(allocation::AssignmentType::Project),
+                    Some(enums::AssignmentType::Project),
                     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
                     Some(types::Date::from("2024-01-01")),
                     Some(types::Date::from("2024-01-01")),

@@ -3,7 +3,7 @@
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
 use crate::client::client;
 use crate::model::project;
-use crate::model::types;
+use crate::model::{enums, types};
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-project
@@ -35,7 +35,7 @@ pub async fn projects(
     client: &client::Client,
     client_id: Option<types::UUID>,
     project_type: Option<types::UUID>,
-    status: Option<project::Status>,
+    status: Option<enums::Status>,
     name_contains: Option<&str>,
 ) -> Result<project::Projects, Box<dyn std::error::Error>> {
     // initialize params
@@ -98,7 +98,7 @@ mod tests {
                     &client,
                     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
                     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
-                    Some(project::Status::InProgress),
+                    Some(enums::Status::InProgress),
                     Some("my_project"),
                 )
                 .await

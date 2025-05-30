@@ -2,9 +2,8 @@
 //!
 //! `model::project` is a model for the Ruddr Project object. This module is not publically accessible, but the structs and members are public for reading from `interface::project` returns.
 //! https://ruddr.readme.io/reference/project-object
-use crate::model::types;
+use crate::model::{enums, types};
 use serde::{Deserialize, Serialize};
-use std::fmt;
 
 /// Model for Projects used with List operations
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -22,7 +21,7 @@ pub struct Project {
     pub key: types::Slug,
     pub name: String,
     pub notes: String,
-    pub status_id: Status,
+    pub status_id: enums::Status,
     pub start: Option<types::Date>,
     pub end: Option<types::Date>,
     pub code: String,
@@ -106,29 +105,6 @@ pub struct MonthlyBudget {
 }
 
 // custom types: enum
-/// Enum for Project Status
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum Status {
-    Tentative,
-    NotStarted,
-    InProgress,
-    Paused,
-    Completed,
-    Cancelled,
-}
-
-impl fmt::Display for Status {
-    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
-        // use serialize for automatic snake case from trait derivation, but then remove extraneous " chars incurred during JSON formatting
-        write!(
-            format,
-            "{}",
-            serde_json::to_string(self).unwrap().replace("\"", "")
-        )
-    }
-}
-
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BillingType {
@@ -252,7 +228,7 @@ mod tests {
             notes: String::from(
                 "The client would like to develop a mobile app that rewards its customers for repeat purchases.",
             ),
-            status_id: Status::InProgress,
+            status_id: enums::Status::InProgress,
             start: Some(types::Date(String::from("2021-09-01"))),
             end: Some(types::Date(String::from("2022-01-31"))),
             code: String::from("P-2021-00068"),

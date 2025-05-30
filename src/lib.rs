@@ -12,6 +12,7 @@ pub mod interface {
 pub mod model {
     pub(crate) mod allocation;
     pub(crate) mod customer;
+    pub mod enums;
     pub(crate) mod member;
     pub(crate) mod project;
     pub(crate) mod time;
