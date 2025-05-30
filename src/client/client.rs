@@ -1,6 +1,6 @@
 //! # Client
 //!
-//! `client::client` consists of functions for initializing Ruddr API clients and requests, and sending requests.
+//! `client::client` consists of functions for initializing Ruddr API clients, and initiating requests with those clients.
 use log;
 use reqwest;
 use serde::de;
@@ -8,7 +8,7 @@ use std::env;
 
 use super::request;
 
-/// Client struct for reuse with various requests without explicit reqwest type usage
+/// Client struct for reuse with various and multiple requests without explicit reqwest type usage.
 #[derive(Debug)]
 pub struct Client {
     client: reqwest::Client,
@@ -17,6 +17,10 @@ pub struct Client {
 impl Client {
     /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error.
     /// ```ignore
+    /// // token as environment variable
+    /// unsafe { std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789"); }
+    /// let client = Client::new(None).await?;
+    /// // token as parameter value
     /// let client = Client::new(Some("abcdefghi123456789")).await?;
     /// ```
     pub async fn new(token: Option<&str>) -> Result<Self, Box<dyn std::error::Error>> {

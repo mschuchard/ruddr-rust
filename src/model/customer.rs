@@ -1,6 +1,7 @@
 //! # Customer
 //!
-//! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::*` returns.
+//! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::customer` returns.
+//! https://ruddr.readme.io/reference/client-object
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 

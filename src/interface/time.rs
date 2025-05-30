@@ -1,11 +1,12 @@
 //! # Time
 //!
-//! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoint.
+//! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoints.
 use crate::client::client;
 use crate::model::time;
 use crate::model::types;
 
-/// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding struct.
+/// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
+/// https://ruddr.readme.io/reference/get-a-time-entry
 /// ```ignore
 /// let time_entry = time_entry(&client, Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"))).await?;
 /// ```
@@ -19,7 +20,8 @@ pub async fn time_entry(
         .await?)
 }
 
-/// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of structs.
+/// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs.
+/// https://ruddr.readme.io/reference/list-time-entries
 /// ```ignore
 /// let time_entries = time_entries(
 ///     &client,

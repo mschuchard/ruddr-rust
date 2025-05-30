@@ -1,11 +1,12 @@
 //! # Project
 //!
-//! `interface::project` consists of functions for interfacing with the Ruddr Project endpoint.
+//! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
 use crate::client::client;
 use crate::model::project;
 use crate::model::types;
 
-/// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding struct.
+/// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
+/// https://ruddr.readme.io/reference/get-a-project
 /// ```ignore
 /// let project = project(&client, types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")).await?;
 /// ```
@@ -19,7 +20,8 @@ pub async fn project(
         .await?)
 }
 
-/// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of structs.
+/// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs.
+/// https://ruddr.readme.io/reference/list-projects
 /// ```ignore
 /// let projects = projects(
 ///     &client,

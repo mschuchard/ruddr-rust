@@ -1,6 +1,7 @@
 //! # Allocation
 //!
-//! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::*` returns.
+//! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::allocation` returns.
+//! https://ruddr.readme.io/reference/allocation-object
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 use std::fmt;

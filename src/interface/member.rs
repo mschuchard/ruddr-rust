@@ -1,11 +1,12 @@
 //! # Member
 //!
-//! `interface::member` consists of functions for interfacing with the Ruddr Member endpoint.
+//! `interface::member` consists of functions for interfacing with the Ruddr Member endpoints.
 use crate::client::client;
 use crate::model::member;
 use crate::model::types;
 
-/// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding struct.
+/// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding model struct.
+/// https://ruddr.readme.io/reference/get-a-member
 /// ```ignore
 /// let member = member(&client, types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")).await?;
 /// ```
@@ -19,7 +20,8 @@ pub async fn member(
         .await?)
 }
 
-/// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of structs.
+/// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs.
+/// https://ruddr.readme.io/reference/list-members
 /// ```ignore
 /// let members = members(&client, Some("Joe"), Some("foo@bar.com")).await?;
 /// ```

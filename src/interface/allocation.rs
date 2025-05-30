@@ -1,11 +1,12 @@
 //! # Allocation
 //!
-//! `interface::allocation` consists of functions for interfacing with the Ruddr Allocation endpoint.
+//! `interface::allocation` consists of functions for interfacing with the Ruddr Allocation endpoints.
 use crate::client::client;
 use crate::model::allocation;
 use crate::model::types;
 
-/// Retrieves a specific Ruddr Allocation object by id, and deserializes it to the corresponding struct.
+/// Retrieves a specific Ruddr Allocation object by id, and deserializes it to the corresponding model struct.
+/// https://ruddr.readme.io/reference/get-an-allocation
 /// ```ignore
 /// let allocation = allocation(&client, types::UUID::from("212b8272-ed2a-4a91-950a-8a06b3546144")).await?;
 /// ```
@@ -19,7 +20,8 @@ pub async fn allocation(
         .await?)
 }
 
-/// Retrieves all Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of structs.
+/// Retrieves all Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs.
+/// https://ruddr.readme.io/reference/list-allocations
 /// ```ignore
 /// let allocations = allocations(
 ///     &client,
