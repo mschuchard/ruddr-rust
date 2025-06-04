@@ -53,7 +53,6 @@ mod tests {
     fn test_member() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 member(
@@ -75,7 +74,6 @@ mod tests {
     fn test_members() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 members(&client, Some("Joe"), Some("foo@bar.com"))

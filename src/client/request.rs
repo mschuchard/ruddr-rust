@@ -12,7 +12,7 @@ pub(super) struct Request {
 impl Request {
     // request constructor with endpoint and params
     pub(super) fn new(endpoint: &str, params: &str) -> Result<Self, Box<dyn std::error::Error>> {
-        // validate endpoint and params are not empty
+        // validate endpoint is not empty
         if endpoint.is_empty() {
             log::error!("endpoint '{endpoint}' is empty");
             return Err(Box::from("invalid empty endpoint"));

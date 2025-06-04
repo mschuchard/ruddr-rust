@@ -74,7 +74,6 @@ mod tests {
     fn test_time_entry() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 time_entry(
@@ -96,7 +95,6 @@ mod tests {
     fn test_time_entries() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 time_entries(

@@ -69,7 +69,6 @@ mod tests {
     fn test_allocation() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 allocation(
@@ -91,7 +90,6 @@ mod tests {
     fn test_allocations() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 allocations(

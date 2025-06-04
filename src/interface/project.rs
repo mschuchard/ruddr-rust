@@ -69,7 +69,6 @@ mod tests {
     fn test_project() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 project(
@@ -91,7 +90,6 @@ mod tests {
     fn test_projects() {
         let test = async {
             let client = client::Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             assert_eq!(
                 projects(

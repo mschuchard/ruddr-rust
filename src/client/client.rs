@@ -19,11 +19,11 @@ impl Client {
     /// ```ignore
     /// // token as environment variable
     /// unsafe { std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789"); }
-    /// let client = Client::new(None).await?;
+    /// let client = Client::new(None)?;
     /// // token as parameter value
-    /// let client = Client::new(Some("abcdefghi123456789")).await?;
+    /// let client = Client::new(Some("abcdefghi123456789"))?;
     /// ```
-    pub async fn new(token: Option<&str>) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn new(token: Option<&str>) -> Result<Self, Box<dyn std::error::Error>> {
         // initialize headers and establish json encoding
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
@@ -61,7 +61,7 @@ impl Client {
     /// Retrieves (GET) a specific Ruddr generic object by id, or specific generic objects by filters, and deserializes it/them to the corresponding struct/structs.
     /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists here.
     /// ```ignore
-    /// let client = Client::new(Some("abcdefghi123456789")).await?;
+    /// let client = Client::new(Some("abcdefghi123456789"))?;
     /// let deser_response = client.read::<project::Project>(
     ///     "projects",
     ///     "/095e0780-48bf-472c-8deb-2fc3ebc7d90c",
@@ -104,7 +104,6 @@ mod tests {
     fn test_client_new() {
         let test = async {
             let client = Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with token could not be constructed");
             println!("client: {:?}", client)
         };
@@ -119,9 +118,7 @@ mod tests {
             std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789");
         }
         let test = async {
-            let client = Client::new(None)
-                .await
-                .expect("client with env token could not be constructed");
+            let client = Client::new(None).expect("client with env token could not be constructed");
             println!("client: {:?}", client)
         };
         let rt = tokio::runtime::Runtime::new().unwrap();
@@ -133,7 +130,7 @@ mod tests {
         }
         let test = async {
             assert_eq!(
-                Client::new(None).await.unwrap_err().to_string(),
+                Client::new(None).unwrap_err().to_string(),
                 "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
                 "attempted client build without token did not error expectedly",
             )
@@ -146,7 +143,6 @@ mod tests {
     fn test_client_read() {
         let test = async {
             let client = Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
@@ -166,7 +162,6 @@ mod tests {
     fn test_client_list() {
         let test = async {
             let client = Client::new(Some("abcdefghi123456789"))
-                .await
                 .expect("client with env token could not be constructed");
             assert_eq!(
                 client
