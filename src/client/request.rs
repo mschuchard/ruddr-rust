@@ -20,9 +20,16 @@ impl Request {
 
         log::debug!("request endpoint is {endpoint} and params is {params}");
 
-        Ok(Self {
-            url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
-        })
+        // prefix params with "?" char if they are not empty
+        if params.is_empty() {
+            Ok(Self {
+                url: format!("https://www.ruddr.io/api/workspace/{endpoint}"),
+            })
+        } else {
+            Ok(Self {
+                url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
+            })
+        }
     }
 
     // execute get request with client
@@ -50,6 +57,12 @@ mod tests {
                 .expect("request could not be constructed")
                 .url,
             String::from("https://www.ruddr.io/api/workspace/endpoint?params")
+        );
+        assert_eq!(
+            Request::new("endpoint", "")
+                .expect("request could not be constructed")
+                .url,
+            String::from("https://www.ruddr.io/api/workspace/endpoint")
         )
     }
 
