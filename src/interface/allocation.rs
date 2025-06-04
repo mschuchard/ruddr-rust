@@ -25,7 +25,7 @@ pub async fn allocation(
 /// ```ignore
 /// let allocations = allocations(
 ///     &client,
-///     Some(allocation::AssignmentType::Project),
+///     Some(enums::AssignmentType::Project),
 ///     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
 ///     Some(types::Date::from("2024-01-01")),
 ///     Some(types::Date::from("2024-01-01")),

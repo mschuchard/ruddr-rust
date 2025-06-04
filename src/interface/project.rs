@@ -27,7 +27,7 @@ pub async fn project(
 ///     &client,
 ///     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
 ///     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
-///     Some(project::Status::InProgress),
+///     Some(enums::Status::InProgress),
 ///     Some("my_project"),
 /// ).await?;
 /// ```
