@@ -51,18 +51,30 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_request_new() {
+    fn test_request_new_params() {
         assert_eq!(
             Request::new("endpoint", "params")
                 .expect("request could not be constructed")
                 .url,
             String::from("https://www.ruddr.io/api/workspace/endpoint?params")
-        );
+        )
+    }
+
+    #[test]
+    fn test_request_new_empty_params() {
         assert_eq!(
             Request::new("endpoint", "")
                 .expect("request could not be constructed")
                 .url,
             String::from("https://www.ruddr.io/api/workspace/endpoint")
+        )
+    }
+
+    #[test]
+    fn test_request_new_error() {
+        assert_eq!(
+            Request::new("", "params").unwrap_err().to_string(),
+            "invalid empty endpoint"
         )
     }
 
