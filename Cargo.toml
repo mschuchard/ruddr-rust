@@ -1,6 +1,6 @@
 [package]
 name = "ruddr"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 authors = ["Matthew Schuchard"]
 description = "A lightweight Ruddr SDK Rust crate"
@@ -10,6 +10,9 @@ repository = "https://github.com/mschuchard/ruddr-rust"
 keywords = ["ruddr"]
 categories = ["api-bindings"]
 exclude = [".circleci", ".github", ".gitignore"]
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--document-private-items"]
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }

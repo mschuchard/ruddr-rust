@@ -1,3 +1,6 @@
+### 0.3.1
+- Fixes against second beta release.
+
 ### 0.3.0
 - Second beta release.
 
