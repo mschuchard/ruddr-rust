@@ -2,7 +2,6 @@
 //!
 //! `model::expense` is models for the Ruddr Expense Report and Expense Item objects. This module is not publically accessible, but the structs and members are public for reading from `interface::expense` returns.
 //! https://ruddr.readme.io/reference/expense-report-object
-//! https://ruddr.readme.io/reference/expense-item-object
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
