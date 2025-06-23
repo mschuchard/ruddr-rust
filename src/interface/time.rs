@@ -8,7 +8,7 @@ use crate::model::types;
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-time-entry
 /// ```ignore
-/// let time_entry = time_entry(&client, Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885"))).await?;
+/// let time_entry = time_entry(&client, types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")).await?;
 /// ```
 pub async fn time_entry(
     client: &client::Client,

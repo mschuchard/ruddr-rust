@@ -24,8 +24,7 @@ reqwest = { version = "0.12", features = ["json"] }
 tokio = { version = "1.0", features = ["rt-multi-thread"] }
 
 [profile.release]
-opt-level = 's'     # Optimize for size
+opt-level = 3       # All optimizations
 lto = true          # Enable link-time optimization
 codegen-units = 1   # Reduce number of codegen units to increase optimizations
 panic = 'abort'     # Abort on panic
-strip = true        # Strip symbols from binary*

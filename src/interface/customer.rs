@@ -8,7 +8,7 @@ use crate::model::types;
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-client
 /// ```ignore
-/// let customer = customer(&client, Some(types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0"))).await?;
+/// let customer = customer(&client, types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")).await?;
 /// ```
 pub async fn customer(
     client: &client::Client,
