@@ -1,7 +1,7 @@
 //! # Expense
 //!
 //! `model::expense_item` is a model for the Ruddr Expense Item object. This module is not publically accessible, but the structs and members are public for reading from `interface::expense_item` returns.
-//! https://ruddr.readme.io/reference/expense-item-object
+//! https://ruddr.readme.io/reference/expense-item-object (documentation has `Description` of `statusId` and `vendor` switched)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
@@ -17,8 +17,8 @@ pub struct ExpenseItems {
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseItem {
     pub id: types::UUID,
-    pub status_id: String,
-    pub vendor: Vendor,
+    pub status_id: Status,
+    pub vendor: String,
     pub notes: String,
     pub date: types::Date,
     pub currency: String,
@@ -75,9 +75,12 @@ pub struct Client {
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
-pub enum Vendor {
+pub enum Status {
     NotSubmitted,
     PendingApproval,
     Approved,
     Rejected,
 }
+
+#[cfg(test)]
+mod tests;
