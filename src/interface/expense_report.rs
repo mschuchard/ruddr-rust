@@ -23,13 +23,16 @@ pub async fn expense_report(
 /// Retrieves all Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs.
 /// https://ruddr.readme.io/reference/list-expense-reports
 /// ```ignore
-/// let expense_reports = expense_reports(&client, Some("Joe"), Some("foo@bar.com")).await?;
+/// let expense_reports = expense_reports(&client).await?;
 /// ```
-pub async fn members(
+pub async fn expense_reports(
     client: &client::Client,
 ) -> Result<expense_report::ExpenseReports, Box<dyn std::error::Error>> {
     // retrieve expense reports
     Ok(client
-        .read::<expense_report::ExpenseReports>("members", &"limit=100")
+        .read::<expense_report::ExpenseReports>("expense_reports", &"limit=100")
         .await?)
 }
+
+#[cfg(test)]
+mod tests;
