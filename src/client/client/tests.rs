@@ -66,7 +66,7 @@ fn test_client_list() {
             .expect("client with env token could not be constructed");
         assert_eq!(
             client
-                .read::<project::Project>("projects", "limit=100")
+                .read::<project::Projects>("projects", "limit=100")
                 .await
                 .unwrap_err()
                 .to_string(),

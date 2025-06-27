@@ -62,9 +62,13 @@ impl Client {
     /// This is public only to interface at the moment, but is abstract enough that assistance is super helpful to future me, and so documentation exists here.
     /// ```ignore
     /// let client = Client::new(Some("abcdefghi123456789"))?;
-    /// let deser_response = client.read::<project::Project>(
+    /// let deser_response_read = client.read::<project::Project>(
+    ///     "projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c",
+    ///     "",
+    /// ).await?;
+    /// let deser_response_list = client.read::<project::Projects>(
     ///     "projects",
-    ///     "/095e0780-48bf-472c-8deb-2fc3ebc7d90c",
+    ///     "limit=100",
     /// ).await?;
     /// ```
     pub(crate) async fn read<M: de::DeserializeOwned>(
