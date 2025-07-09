@@ -23,7 +23,7 @@ pub async fn expense_item(
 /// Retrieves all Ruddr Expense Item objects, and deserializes it to the corresponding vector of model structs.
 /// https://ruddr.readme.io/reference/list-expense-items
 /// ```ignore
-/// let expense_reports = expense_reports(&client).await?;
+/// let expense_items = expense_items(&client, Some(types::UUID::from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80"))).await?;
 /// ```
 pub async fn expense_items(
     client: &client::Client,
@@ -42,3 +42,6 @@ pub async fn expense_items(
         .read::<expense_item::ExpenseItems>("expense-items", &params)
         .await?)
 }
+
+#[cfg(test)]
+mod tests;
