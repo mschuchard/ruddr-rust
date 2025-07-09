@@ -5,6 +5,7 @@ pub mod client {
 pub mod interface {
     pub mod allocation;
     pub mod customer;
+    pub mod expense_item;
     pub mod expense_report;
     pub mod member;
     pub mod project;
