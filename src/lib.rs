@@ -13,7 +13,7 @@ pub mod interface {
 }
 pub mod model {
     pub(crate) mod allocation;
-    pub(crate) mod customer;
+    pub(crate) mod client;
     pub mod enums;
     pub(crate) mod expense_item;
     pub(crate) mod expense_report;

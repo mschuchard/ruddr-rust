@@ -1,37 +1,36 @@
 //! # Customer
 //!
-//! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoints.
+//! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoints. This module and base Read function are named differently from the endpoint so as to avoid naming collisions with the API client module in external usage. All other code associated with this endpoint utilizes the endpoint name `client`.
 use crate::client::client;
-use crate::model::customer;
-use crate::model::types;
+use crate::model;
 
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-client
 /// ```ignore
-/// let customer = customer(&client, types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")).await?;
+/// let customer = customer(&client, model::types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")).await?;
 /// ```
 pub async fn customer(
     client: &client::Client,
-    id: types::UUID,
-) -> Result<customer::Client, Box<dyn std::error::Error>> {
+    id: model::types::UUID,
+) -> Result<model::client::Client, Box<dyn std::error::Error>> {
     // retrieve client
     Ok(client
-        .read::<customer::Client>(&format!("clients/{id}"), "")
+        .read::<model::client::Client>(&format!("clients/{id}"), "")
         .await?)
 }
 
 /// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs.
 /// https://ruddr.readme.io/reference/list-clients
 /// ```ignore
-/// let customers = customers(
+/// let clients = clients(
 ///     &client,
 ///     Some("JOE"),
 /// ).await?;
 /// ```
-pub async fn customers(
+pub async fn clients(
     client: &client::Client,
     code: Option<&str>,
-) -> Result<customer::Clients, Box<dyn std::error::Error>> {
+) -> Result<model::client::Clients, Box<dyn std::error::Error>> {
     // initialize params
     let mut params = String::from("limit=100");
 
@@ -41,7 +40,9 @@ pub async fn customers(
     }
 
     // retrieve clients
-    Ok(client.read::<customer::Clients>("clients", &params).await?)
+    Ok(client
+        .read::<model::client::Clients>("clients", &params)
+        .await?)
 }
 
 #[cfg(test)]

@@ -32,7 +32,7 @@ fn test_customers() {
         let client = client::Client::new(Some("abcdefghi123456789"))
             .expect("client with token could not be constructed");
         assert_eq!(
-            customer::customers(&client, Some("JOE"))
+            customer::clients(&client, Some("JOE"))
                 .await
                 .unwrap_err()
                 .to_string(),
