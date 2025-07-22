@@ -10,6 +10,7 @@ pub mod interface {
     pub mod member;
     pub mod project;
     pub mod time;
+    pub mod utilization;
 }
 pub mod model {
     pub(crate) mod allocation;
