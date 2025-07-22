@@ -2,8 +2,7 @@
 //!
 //! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoints.
 use crate::client::client;
-use crate::model::time;
-use crate::model::types;
+use crate::model::{time, types};
 
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-time-entry

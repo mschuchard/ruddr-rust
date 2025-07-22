@@ -2,8 +2,7 @@
 //!
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
 use crate::client::client;
-use crate::model::project;
-use crate::model::{enums, types};
+use crate::model::{enums, project, types};
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-project

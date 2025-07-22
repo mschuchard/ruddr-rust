@@ -2,8 +2,7 @@
 //!
 //! `interface::member` consists of functions for interfacing with the Ruddr Member endpoints.
 use crate::client::client;
-use crate::model::member;
-use crate::model::types;
+use crate::model::{member, types};
 
 /// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-a-member

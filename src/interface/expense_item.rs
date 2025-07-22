@@ -2,8 +2,7 @@
 //!
 //! `interface::expense_item` consists of functions for interfacing with the Ruddr Expense Item endpoints.
 use crate::client::client;
-use crate::model::expense_item;
-use crate::model::types;
+use crate::model::{expense_item, types};
 
 /// Retrieves a specific Ruddr Expense Item object by id, and deserializes it to the corresponding model struct.
 /// https://ruddr.readme.io/reference/get-an-expense-item
