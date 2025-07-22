@@ -21,4 +21,5 @@ pub mod model {
     pub(crate) mod project;
     pub(crate) mod time;
     pub mod types;
+    pub(crate) mod utilization;
 }
