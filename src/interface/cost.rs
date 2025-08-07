@@ -15,7 +15,7 @@ pub async fn cost(
 ) -> Result<cost::Cost, Box<dyn std::error::Error>> {
     // retrieve cost target period
     Ok(client
-        .read::<cost::Cost>(&format!("cost-periods/{id}"), "")
+        .read::<cost::Cost>(&format!("cost-periods/{id}"), None)
         .await?)
 }
 
@@ -40,7 +40,9 @@ pub async fn costs(
     }
 
     // retrieve clients
-    Ok(client.read::<cost::Costs>("cost-periods", &params).await?)
+    Ok(client
+        .read::<cost::Costs>("cost-periods", Some(&params))
+        .await?)
 }
 
 #[cfg(test)]

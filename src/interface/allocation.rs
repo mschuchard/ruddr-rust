@@ -16,7 +16,7 @@ pub async fn allocation(
 ) -> Result<allocation::Allocation, Box<dyn std::error::Error>> {
     // retrieve allocation
     Ok(client
-        .read::<allocation::Allocation>(&format!("allocations/{id}"), "")
+        .read::<allocation::Allocation>(&format!("allocations/{id}"), None)
         .await?)
 }
 
@@ -57,7 +57,7 @@ pub async fn allocations(
 
     // retrieve allocations
     Ok(client
-        .read::<allocation::Allocations>("allocations", &params)
+        .read::<allocation::Allocations>("allocations", Some(&params))
         .await?)
 }
 

@@ -15,7 +15,7 @@ pub async fn customer(
 ) -> Result<model::client::Client, Box<dyn std::error::Error>> {
     // retrieve client
     Ok(client
-        .read::<model::client::Client>(&format!("clients/{id}"), "")
+        .read::<model::client::Client>(&format!("clients/{id}"), None)
         .await?)
 }
 
@@ -41,7 +41,7 @@ pub async fn clients(
 
     // retrieve clients
     Ok(client
-        .read::<model::client::Clients>("clients", &params)
+        .read::<model::client::Clients>("clients", Some(&params))
         .await?)
 }
 

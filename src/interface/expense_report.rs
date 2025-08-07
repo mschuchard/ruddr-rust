@@ -15,7 +15,7 @@ pub async fn expense_report(
 ) -> Result<expense_report::ExpenseReport, Box<dyn std::error::Error>> {
     // retrieve expense report
     Ok(client
-        .read::<expense_report::ExpenseReport>(&format!("expense-reports/{id}"), "")
+        .read::<expense_report::ExpenseReport>(&format!("expense-reports/{id}"), None)
         .await?)
 }
 
@@ -29,7 +29,7 @@ pub async fn expense_reports(
 ) -> Result<expense_report::ExpenseReports, Box<dyn std::error::Error>> {
     // retrieve expense reports
     Ok(client
-        .read::<expense_report::ExpenseReports>("expense_reports", &"limit=100")
+        .read::<expense_report::ExpenseReports>("expense_reports", Some(&"limit=100"))
         .await?)
 }
 

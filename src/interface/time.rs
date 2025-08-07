@@ -15,7 +15,7 @@ pub async fn time_entry(
 ) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
     // retrieve time entry
     Ok(client
-        .read::<time::TimeEntry>(&format!("time-entries/{id}"), "")
+        .read::<time::TimeEntry>(&format!("time-entries/{id}"), None)
         .await?)
 }
 
@@ -61,7 +61,7 @@ pub async fn time_entries(
 
     // retrieve time entries
     Ok(client
-        .read::<time::TimeEntries>("time-entries", &params)
+        .read::<time::TimeEntries>("time-entries", Some(&params))
         .await?)
 }
 

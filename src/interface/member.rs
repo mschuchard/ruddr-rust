@@ -15,7 +15,7 @@ pub async fn member(
 ) -> Result<member::Member, Box<dyn std::error::Error>> {
     // retrieve member
     Ok(client
-        .read::<member::Member>(&format!("members/{id}"), "")
+        .read::<member::Member>(&format!("members/{id}"), None)
         .await?)
 }
 
@@ -41,7 +41,9 @@ pub async fn members(
     }
 
     // retrieve members
-    Ok(client.read::<member::Members>("members", &params).await?)
+    Ok(client
+        .read::<member::Members>("members", Some(&params))
+        .await?)
 }
 
 #[cfg(test)]

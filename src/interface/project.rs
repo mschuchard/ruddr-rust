@@ -15,7 +15,7 @@ pub async fn project(
 ) -> Result<project::Project, Box<dyn std::error::Error>> {
     // retrieve project
     Ok(client
-        .read::<project::Project>(&format!("projects/{id}"), "")
+        .read::<project::Project>(&format!("projects/{id}"), None)
         .await?)
 }
 
@@ -56,7 +56,7 @@ pub async fn projects(
 
     // retrieve projects
     Ok(client
-        .read::<project::Projects>("projects", &params)
+        .read::<project::Projects>("projects", Some(&params))
         .await?)
 }
 

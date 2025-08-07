@@ -15,7 +15,7 @@ pub async fn utilization(
 ) -> Result<utilization::Utilization, Box<dyn std::error::Error>> {
     // retrieve utilization target period
     Ok(client
-        .read::<utilization::Utilization>(&format!("utilization-target-periods/{id}"), "")
+        .read::<utilization::Utilization>(&format!("utilization-target-periods/{id}"), None)
         .await?)
 }
 
@@ -41,7 +41,7 @@ pub async fn utilizations(
 
     // retrieve clients
     Ok(client
-        .read::<utilization::Utilizations>("utilization-target-periods", &params)
+        .read::<utilization::Utilizations>("utilization-target-periods", Some(&params))
         .await?)
 }
 

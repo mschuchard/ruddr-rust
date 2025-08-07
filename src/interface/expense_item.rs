@@ -15,7 +15,7 @@ pub async fn expense_item(
 ) -> Result<expense_item::ExpenseItem, Box<dyn std::error::Error>> {
     // retrieve expense item
     Ok(client
-        .read::<expense_item::ExpenseItem>(&format!("expense-items/{id}"), "")
+        .read::<expense_item::ExpenseItem>(&format!("expense-items/{id}"), None)
         .await?)
 }
 
@@ -38,7 +38,7 @@ pub async fn expense_items(
 
     // retrieve expense items
     Ok(client
-        .read::<expense_item::ExpenseItems>("expense-items", &params)
+        .read::<expense_item::ExpenseItems>("expense-items", Some(&params))
         .await?)
 }
 
