@@ -74,12 +74,11 @@ impl Client {
     pub(crate) async fn read<M: de::DeserializeOwned>(
         &self,
         endpoint: &str,
-        params: &str,
+        params: Option<&str>,
     ) -> Result<M, Box<dyn std::error::Error>> {
-        log::debug!("retrieving at {endpoint} endpoint with {params} params");
-
         // construct and assign client request
         let request = request::Request::new(endpoint, params)?;
+        log::debug!("request is {:?}", request);
 
         // retrieve object and deser
         let response = request.get(&self.client).await?;
@@ -94,7 +93,7 @@ impl Client {
             }
         };
 
-        log::debug!("{endpoint} endpoint retrieved with {params} params");
+        log::debug!("successful read from Ruddr API");
         Ok(deser)
     }
 }

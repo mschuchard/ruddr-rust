@@ -6,29 +6,35 @@ use log;
 // request struct for composing request structures
 #[derive(Debug)]
 pub(super) struct Request {
-    pub(super) url: String,
+    url: String,
 }
 
 impl Request {
     // request constructor with endpoint and params
-    pub(super) fn new(endpoint: &str, params: &str) -> Result<Self, Box<dyn std::error::Error>> {
+    pub(super) fn new(
+        endpoint: &str,
+        params: Option<&str>,
+    ) -> Result<Self, Box<dyn std::error::Error>> {
         // validate endpoint is not empty
         if endpoint.is_empty() {
-            log::error!("endpoint '{endpoint}' is empty");
+            log::error!("endpoint is empty");
             return Err(Box::from("invalid empty endpoint"));
         }
 
-        log::debug!("request endpoint is {endpoint} and params is {params}");
-
-        // prefix params with "?" char if they are not empty
-        if params.is_empty() {
-            Ok(Self {
-                url: format!("https://www.ruddr.io/api/workspace/{endpoint}"),
-            })
-        } else {
-            Ok(Self {
-                url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
-            })
+        // prefix params with "?" char if they are specified
+        match params {
+            Some(params) => {
+                log::debug!("request endpoint is {endpoint} and params is {params}");
+                Ok(Self {
+                    url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
+                })
+            }
+            None => {
+                log::debug!("request endpoint is {endpoint} and params is empty");
+                Ok(Self {
+                    url: format!("https://www.ruddr.io/api/workspace/{endpoint}"),
+                })
+            }
         }
     }
 

@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn test_request_new_params() {
     assert_eq!(
-        Request::new("endpoint", "params")
+        Request::new("endpoint", Some("params"))
             .expect("request could not be constructed")
             .url,
         String::from("https://www.ruddr.io/api/workspace/endpoint?params")
@@ -13,7 +13,7 @@ fn test_request_new_params() {
 #[test]
 fn test_request_new_empty_params() {
     assert_eq!(
-        Request::new("endpoint", "")
+        Request::new("endpoint", None)
             .expect("request could not be constructed")
             .url,
         String::from("https://www.ruddr.io/api/workspace/endpoint")
@@ -23,7 +23,7 @@ fn test_request_new_empty_params() {
 #[test]
 fn test_request_new_error() {
     assert_eq!(
-        Request::new("", "params").unwrap_err().to_string(),
+        Request::new("", Some("params")).unwrap_err().to_string(),
         "invalid empty endpoint"
     )
 }
@@ -34,7 +34,7 @@ fn test_request_get() {
         let client = reqwest::Client::builder()
             .build()
             .expect("client with env token could not be constructed");
-        let request = Request::new("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", "")
+        let request = Request::new("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", None)
             .expect("request could not be constructed");
         let response = request
             .get(&client)
