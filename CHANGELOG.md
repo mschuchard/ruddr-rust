@@ -1,3 +1,6 @@
+### 0.4.0
+- Release candidate.
+
 ### 0.3.1
 - Fixes against second beta release.
 

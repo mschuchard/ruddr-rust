@@ -1,6 +1,6 @@
 [package]
 name = "ruddr"
-version = "0.3.1"
+version = "0.4.0"
 edition = "2024"
 authors = ["Matthew Schuchard"]
 description = "A lightweight Ruddr SDK Rust crate"
@@ -9,7 +9,7 @@ license-file = "LICENSE"
 repository = "https://github.com/mschuchard/ruddr-rust"
 keywords = ["ruddr"]
 categories = ["api-bindings"]
-exclude = [".circleci", ".github", ".gitignore"]
+exclude = [".circleci", ".github", ".gitignore", "tests"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--document-private-items"]
