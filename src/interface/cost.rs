@@ -5,7 +5,7 @@ use crate::client::client;
 use crate::model::{cost, types};
 
 /// Retrieves a specific Ruddr Cost period object by id, and deserializes it to the corresponding model struct.
-/// https://ruddr.readme.io/reference/get-a-cost-period
+/// [API Documentation](https://ruddr.readme.io/reference/get-a-cost-period)
 /// ```ignore
 /// let cost = cost(&client, types::UUID::from("b3a100b0-8e71-4f39-9d96-32f11838aa8c")).await?;
 /// ```
@@ -20,7 +20,7 @@ pub async fn cost(
 }
 
 /// Retrieves all Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs.
-/// https://ruddr.readme.io/reference/list-cost-periods
+/// [API Documentation](https://ruddr.readme.io/reference/list-cost-periods)
 /// ```ignore
 /// let costs = costs(
 ///     &client,

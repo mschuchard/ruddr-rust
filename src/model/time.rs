@@ -1,11 +1,11 @@
 //! # Time
 //!
 //! `model::time` is a model for the Ruddr Time Entry object. This module is not publically accessible, but the structs and members are public for reading from `interface::time` returns.
-//! https://ruddr.readme.io/reference/time-entry-object
+//! [API Documentation](https://ruddr.readme.io/reference/time-entry-object)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
-/// Model for TimeEntries used with List operations
+/// Model for TimeEntries used with List operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntries {
@@ -13,7 +13,7 @@ pub struct TimeEntries {
     pub has_more: bool,
 }
 
-/// Model for TimeEntry used with Read operations
+/// Model for TimeEntry used with Read operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntry {

@@ -1,11 +1,11 @@
 //! # Member
 //!
 //! `model::member` is a model for the Ruddr Member object. This module is not publically accessible, but the structs and members are public for reading from `interface::member` returns.
-//! https://ruddr.readme.io/reference/member-object
+//! [API Documentation](https://ruddr.readme.io/reference/member-object)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
-/// Model for Members used with List operations
+/// Model for Members used with List operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Members {
@@ -13,7 +13,7 @@ pub struct Members {
     pub has_more: bool,
 }
 
-/// Model for Member used with Read operations
+/// Model for Member used with Read operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Member {

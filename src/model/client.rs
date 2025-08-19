@@ -1,11 +1,11 @@
 //! # Customer
 //!
 //! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::customer` returns.
-//! https://ruddr.readme.io/reference/client-object
+//! [API Documentation](https://ruddr.readme.io/reference/client-object)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
-/// Model for Clients used with List operations
+/// Model for Clients used with List operations.
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Clients {
@@ -13,7 +13,7 @@ pub struct Clients {
     pub has_more: bool,
 }
 
-/// Model for Client used with Read operations
+/// Model for Client used with Read operations.
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Client {

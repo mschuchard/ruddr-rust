@@ -5,8 +5,8 @@ use regex::Regex;
 use serde::{Deserialize, Serialize};
 use std::fmt;
 
-/// Custom type for Ruddr Date type in YYYY-MM-DD format
-/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors:
+/// Custom type for Ruddr Date type in YYYY-MM-DD format.
+/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
 /// Date::from("2028-12-31")
 /// ```
@@ -69,9 +69,9 @@ impl fmt::Display for Date {
     }
 }
 
-/// Custom type for Ruddr Timestamp type in YYYY-MM-DDThh:mm:ss.msZ format where "T" is literal
-/// This is most similar to ISO 8601 extended format with milliseconds for reference
-/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors:
+/// Custom type for Ruddr Timestamp type in YYYY-MM-DDThh:mm:ss.msZ format where "T" is literal.
+/// This is most similar to ISO 8601 extended format with milliseconds for reference.
+/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
 /// Timestamp::from("1234-56-78T12:34:56.789Z")
 /// ```
@@ -136,8 +136,8 @@ impl fmt::Display for Timestamp {
     }
 }
 
-/// Custom type for Ruddr UUID type in standard format
-/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors:
+/// Custom type for Ruddr UUID type in standard format.
+/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
 /// UUID::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
 /// ```
@@ -200,8 +200,8 @@ impl fmt::Display for UUID {
     }
 }
 
-/// Custom type for Ruddr Slug type in standard format
-/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors:
+/// Custom type for Ruddr Slug type in standard format.
+/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
 /// Slug::from("vendor-portal")
 /// ```

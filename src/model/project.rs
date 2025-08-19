@@ -1,11 +1,11 @@
 //! # Project
 //!
 //! `model::project` is a model for the Ruddr Project object. This module is not publically accessible, but the structs and members are public for reading from `interface::project` returns.
-//! https://ruddr.readme.io/reference/project-object
+//! [API Documentation](https://ruddr.readme.io/reference/project-object)
 use crate::model::{enums, types};
 use serde::{Deserialize, Serialize};
 
-/// Model for Projects used with List operations
+/// Model for Projects used with List operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Projects {
@@ -13,7 +13,7 @@ pub struct Projects {
     pub has_more: bool,
 }
 
-/// Model for Project used with Read operations
+/// Model for Project used with Read operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Project {

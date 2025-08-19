@@ -1,11 +1,11 @@
 //! # Expense
 //!
 //! `model::expense` is models for the Ruddr Expense Report and Expense Item objects. This module is not publically accessible, but the structs and members are public for reading from `interface::expense` returns.
-//! https://ruddr.readme.io/reference/expense-report-object
+//! [API Documentation](https://ruddr.readme.io/reference/expense-report-object)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 
-/// Model for ExpenseReports used with List operations
+/// Model for ExpenseReports used with List operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseReports {
@@ -13,7 +13,7 @@ pub struct ExpenseReports {
     pub has_more: bool,
 }
 
-/// Model for ExpenseReport used with Read operations
+/// Model for ExpenseReport used with Read operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseReport {

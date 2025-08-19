@@ -5,7 +5,7 @@ use crate::client::client;
 use crate::model;
 
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding model struct.
-/// https://ruddr.readme.io/reference/get-a-client
+/// [API Documentation](https://ruddr.readme.io/reference/get-a-client)
 /// ```ignore
 /// let customer = customer(&client, model::types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")).await?;
 /// ```
@@ -20,7 +20,7 @@ pub async fn customer(
 }
 
 /// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs.
-/// https://ruddr.readme.io/reference/list-clients
+/// [API Documentation](https://ruddr.readme.io/reference/list-clients)
 /// ```ignore
 /// let clients = clients(
 ///     &client,
