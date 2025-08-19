@@ -2,7 +2,7 @@
 //!
 //! `model::expense_item` is a model for the Ruddr Expense Item object. This module is not publically accessible, but the structs and members are public for reading from `interface::expense_item` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/expense-item-object) (documentation has `Description` of `statusId` and `vendor` switched)
-use crate::model::types;
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for ExpenseItems used with List operations.
@@ -32,8 +32,8 @@ pub struct ExpenseItem {
     pub created_at: types::Timestamp,
     pub expense_report: ExpenseReport,
     pub expense_category: ExpenseCategory,
-    pub member: Member,
-    pub project: Project,
+    pub member: shared::Member,
+    pub project: shared::Project,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -49,28 +49,6 @@ pub struct ExpenseCategory {
     pub id: types::UUID,
     pub name: String,
     pub unit_name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Member {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Project {
-    pub id: types::UUID,
-    pub name: String,
-    pub client: Client,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Client {
-    pub id: types::UUID,
-    pub name: String,
 }
 
 // custom types: enum

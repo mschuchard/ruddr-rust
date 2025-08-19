@@ -56,14 +56,14 @@ fn test_time_deserialize() {
         is_billable: true,
         invoiced: true,
         created_at: types::Timestamp(String::from("2022-03-11T16:13:40.715Z")),
-        member: Member {
+        member: shared::Member {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
         },
-        project: Some(Project {
+        project: Some(shared::Project {
             id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
             name: String::from("Vendor Portal"),
-            client: Client {
+            client: shared::Client {
                 id: types::UUID(String::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")),
                 name: String::from("Joe's Shop"),
             },

@@ -2,7 +2,7 @@
 //!
 //! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::allocation` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/allocation-object)
-use crate::model::{enums, types};
+use crate::model::{enums, shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for Allocations used with List operations.
@@ -32,9 +32,9 @@ pub struct Allocation {
     pub read_only: bool,
     pub entity: Entity,
     pub created_at: types::Timestamp,
-    pub member: Option<Member>,
+    pub member: Option<shared::Member>,
     pub placeholder: Option<Placeholder>,
-    pub project: Option<Project>,
+    pub project: Option<shared::Project>,
     pub role: Option<Role>,
     pub task: Option<Task>,
     pub time_off_type: Option<TimeOffType>,
@@ -42,29 +42,7 @@ pub struct Allocation {
 
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Member {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
 pub struct Placeholder {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Project {
-    pub id: types::UUID,
-    pub name: String,
-    pub client: Client,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Client {
     pub id: types::UUID,
     pub name: String,
 }

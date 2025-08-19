@@ -2,7 +2,7 @@
 //!
 //! `model::project` is a model for the Ruddr Project object. This module is not publically accessible, but the structs and members are public for reading from `interface::project` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/project-object)
-use crate::model::{enums, types};
+use crate::model::{enums, shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for Projects used with List operations.
@@ -44,19 +44,12 @@ pub struct Project {
     pub record_status_id: RecordStatus,
     pub is_productive: Option<bool>,
     pub created_at: types::Timestamp,
-    pub client: Client,
+    pub client: shared::Client,
     pub practice: Practice,
     pub project_type: ProjectType,
     pub tags: Vec<Tag>,
     pub budget: Option<Budget>,
     pub monthly_budget: Option<MonthlyBudget>,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Client {
-    pub id: types::UUID,
-    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

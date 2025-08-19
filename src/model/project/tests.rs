@@ -104,7 +104,7 @@ fn test_project_deserialize() {
         record_status_id: RecordStatus::Active,
         is_productive: None,
         created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
-        client: Client {
+        client: shared::Client {
             id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
             name: String::from("Acme Company"),
         },

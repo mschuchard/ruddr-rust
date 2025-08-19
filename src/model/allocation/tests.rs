@@ -22,7 +22,7 @@ fn test_allocation_deserialize() {
           "member": {
             "id": "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885",
             "name": "John Smith"
-          },  
+          },
           "placeholder": {
             "id": "e804cd57-8b98-437d-86f4-90e920a41774",
             "name": "Project Manager"
@@ -66,7 +66,7 @@ fn test_allocation_deserialize() {
         read_only: false,
         entity: Entity::Allocation,
         created_at: types::Timestamp(String::from("2022-03-02T17:40:03.633Z")),
-        member: Some(Member {
+        member: Some(shared::Member {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
         }),
@@ -74,10 +74,10 @@ fn test_allocation_deserialize() {
             id: types::UUID(String::from("e804cd57-8b98-437d-86f4-90e920a41774")),
             name: String::from("Project Manager"),
         }),
-        project: Some(Project {
+        project: Some(shared::Project {
             id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
             name: String::from("Vendor Portal"),
-            client: Client {
+            client: shared::Client {
                 id: types::UUID(String::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")),
                 name: String::from("Joe's Shop"),
             },

@@ -2,7 +2,7 @@
 //!
 //! `model::time` is a model for the Ruddr Time Entry object. This module is not publically accessible, but the structs and members are public for reading from `interface::time` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/time-entry-object)
-use crate::model::types;
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for TimeEntries used with List operations.
@@ -27,34 +27,12 @@ pub struct TimeEntry {
     pub is_billable: bool,
     pub invoiced: bool,
     pub created_at: types::Timestamp,
-    pub member: Member,
-    pub project: Option<Project>,
+    pub member: shared::Member,
+    pub project: Option<shared::Project>,
     pub role: Option<Role>,
     pub task: Option<Task>,
     pub time_off_type: Option<TimeOffType>,
     pub invoice: Option<Invoice>,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Member {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Project {
-    pub id: types::UUID,
-    pub name: String,
-    pub client: Client,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Client {
-    pub id: types::UUID,
-    pub name: String,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

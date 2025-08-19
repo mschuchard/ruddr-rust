@@ -22,6 +22,7 @@ pub mod model {
     pub(crate) mod expense_report;
     pub(crate) mod member;
     pub(crate) mod project;
+    pub(crate) mod shared;
     pub(crate) mod time;
     pub mod types;
     pub(crate) mod utilization;

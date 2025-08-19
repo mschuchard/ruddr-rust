@@ -24,7 +24,7 @@ fn test_expense_report_deserialize() {
         notes: String::from("All of the expenses for my trip to Las Vegas in March."),
         date: types::Date(String::from("2022-03-11")),
         created_at: types::Timestamp(String::from("2022-03-18T15:49:07.486Z")),
-        member: Member {
+        member: shared::Member {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
         },
