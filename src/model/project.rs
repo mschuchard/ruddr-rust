@@ -32,22 +32,32 @@ pub struct Project {
     pub revenue_recognition_method: Option<RevenueRecognitionMethod>,
     pub fixed_fee: Option<i64>,
     pub fixed_recurring_fee: Option<i64>,
-    pub fixed_recurring_start: Option<String>,
-    pub fixed_recurring_end: Option<String>,
+    pub fixed_recurring_start: Option<types::Date>,
+    pub fixed_recurring_end: Option<types::Date>,
     pub use_roles: bool,
     pub use_budget: bool,
     pub budget_mode: Option<BudgetMode>,
     pub use_monthly_budget: bool,
     pub monthly_budget_mode: Option<MonthlyBudgetMode>,
+    pub cap_max_member_hours_per_day: bool,
+    pub max_member_hours_per_day: Option<i32>,
+    pub cap_max_member_hours_per_week: bool,
+    pub max_member_hours_per_week: Option<i32>,
+    pub cap_max_member_hours_per_month: bool,
+    pub max_member_hours_per_month: Option<i32>,
     pub requires_notes: bool,
     pub requires_tasks: bool,
     pub record_status_id: RecordStatus,
     pub is_productive: Option<bool>,
+    pub lock_time_and_expenses: bool,
+    pub track_time_to_assigned_roles: bool,
     pub created_at: types::Timestamp,
     pub client: shared::Client,
     pub practice: Practice,
     pub project_type: ProjectType,
     pub tags: Vec<Tag>,
+    pub sales_representative: Option<SalesRepresentative>,
+    pub business_unit: Option<BusinessUnit>,
     pub budget: Option<Budget>,
     pub monthly_budget: Option<MonthlyBudget>,
 }
@@ -69,6 +79,20 @@ pub struct ProjectType {
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Tag {
+    pub id: types::UUID,
+    pub name: String,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct SalesRepresentative {
+    pub id: types::UUID,
+    pub name: String,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct BusinessUnit {
     pub id: types::UUID,
     pub name: String,
 }
@@ -101,6 +125,7 @@ pub struct MonthlyBudget {
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BillingType {
+    #[serde(rename = "tm")]
     TimeAndMaterials,
     Fixed,
     FixedRecurring,

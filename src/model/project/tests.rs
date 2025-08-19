@@ -26,10 +26,18 @@ fn test_project_deserialize() {
           "budgetMode": "detailed",
           "useMonthlyBudget": true,
           "monthlyBudgetMode": "detailed",
+          "capMaxMemberHoursPerDay": false,
+          "maxMemberHoursPerDay": null,
+          "capMaxMemberHoursPerWeek": false,
+          "maxMemberHoursPerWeek": null,
+          "capMaxMemberHoursPerMonth": false,
+          "maxMemberHoursPerMonth": null,
           "requiresNotes": true,
           "requiresTasks": true,
           "recordStatusId": "active",
           "isProductive": null,
+          "lockTimeAndExpenses": false,
+          "trackTimeToAssignedRoles": true,
           "createdAt": "2022-03-15T14:59:18.825Z",
           "client": {
             "id": "d5afaffe-09e5-4d73-b02c-905b40fc6c22",
@@ -53,6 +61,14 @@ fn test_project_deserialize() {
               "name": "Data Analytics"
             }
           ],
+          "salesRepresentative": {
+            "id": "w6816355-8945-40aa-b798-b0d6fd89e437",
+            "name": "Joe"
+          },
+          "businessUnit": {
+            "id": "0e8351ea-6b3c-4307-97cc-196448de0ef1",
+            "name": "Palermo North America"
+          },
           "budget": {
             "revenue": 602500,
             "servicesRevenue": 600000,
@@ -99,10 +115,18 @@ fn test_project_deserialize() {
         budget_mode: Some(BudgetMode::Detailed),
         use_monthly_budget: true,
         monthly_budget_mode: Some(MonthlyBudgetMode::Detailed),
+        cap_max_member_hours_per_day: false,
+        max_member_hours_per_day: None,
+        cap_max_member_hours_per_week: false,
+        max_member_hours_per_week: None,
+        cap_max_member_hours_per_month: false,
+        max_member_hours_per_month: None,
         requires_notes: true,
         requires_tasks: true,
         record_status_id: RecordStatus::Active,
         is_productive: None,
+        lock_time_and_expenses: false,
+        track_time_to_assigned_roles: true,
         created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
         client: shared::Client {
             id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
@@ -126,6 +150,14 @@ fn test_project_deserialize() {
                 name: String::from("Data Analytics"),
             },
         ],
+        sales_representative: Some(SalesRepresentative {
+            id: types::UUID(String::from("w6816355-8945-40aa-b798-b0d6fd89e437")),
+            name: String::from("Joe"),
+        }),
+        business_unit: Some(BusinessUnit {
+            id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
+            name: String::from("Palermo North America"),
+        }),
         budget: Some(Budget {
             revenue: 602500,
             services_revenue: 600000,
