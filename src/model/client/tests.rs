@@ -15,15 +15,21 @@ fn test_client_deserialize() {
             "jane@joesshop.com"
           ],
           "streetAddress": "500 Main Street \nAtlanta, GA 43003",
-          "useWorkspaceInvoiceDetails": false,
-          "paymentTermsId": "net_15",
+          "invoiceDetailsSource": "custom",
+          "invoiceSubject": "Invoice for Professional Services",
           "invoiceNotes": "Please remit payment via ACH to Bank: 009235923",
+          "invoiceEmailSubject": "Invoice Ready for Your Review - Payment via ACH",
+          "invoiceEmailBody": "Hi, \n\nAn invoice has been prepared for your review. Please remit payment via ACH to Bank: 009235923. \n\nThank you for your business!",
           "isInternal": false,
           "recordStatusId": "active",
           "createdAt": "2022-02-24T16:08:18.640Z",
           "practice": {
             "id": "40f95471-7f7c-4ffa-b838-8dcccab0f54a",
             "name": "Digital Transformation"
+          },
+          "invoicePaymentTerm": {
+            "id": "83b13634-4de2-4744-ab9e-61cf13038657",
+            "name": "Net-30"
           },
           "owner": {
             "id": "db010cff-a6f6-4c4e-8160-b6b7562865ff",
@@ -38,7 +44,12 @@ fn test_client_deserialize() {
               "id": "032901d9-4a10-4ff7-af3a-a04ff6e6e606",
               "name": "Mid-Atlantic Region"
             }
-          ]
+          ],
+          "useWorkspaceInvoiceDetails": false,
+          "businessUnit": {
+            "id": "0e8351ea-6b3c-4307-97cc-196448de0ef1",
+            "name": "EU"
+          }
         }"#;
     let client_deserialized =
         serde_json::from_str::<Client>(json_input).expect("client could not be deserialized");
@@ -54,8 +65,13 @@ fn test_client_deserialize() {
             String::from("jane@joesshop.com"),
         ],
         street_address: String::from("500 Main Street \nAtlanta, GA 43003"),
+        invoice_details_source: InvoiceDetailsSource::Custom,
+        invoice_subject: String::from("Invoice for Professional Services"),
+        invoice_email_subject: String::from("Invoice Ready for Your Review - Payment via ACH"),
+        invoice_email_body: String::from(
+            "Hi, \n\nAn invoice has been prepared for your review. Please remit payment via ACH to Bank: 009235923. \n\nThank you for your business!",
+        ),
         use_workspace_invoice_details: false,
-        payment_terms_id: PaymentTerms::Net15,
         invoice_notes: String::from("Please remit payment via ACH to Bank: 009235923"),
         is_internal: false,
         record_status_id: RecordStatus::Active,
@@ -64,6 +80,10 @@ fn test_client_deserialize() {
             id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
             name: String::from("Digital Transformation"),
         }),
+        invoice_payment_term: InvoicePaymentTerm {
+            id: types::UUID(String::from("83b13634-4de2-4744-ab9e-61cf13038657")),
+            name: PaymentTerms::Net30,
+        },
         owner: Owner {
             id: types::UUID(String::from("db010cff-a6f6-4c4e-8160-b6b7562865ff")),
             name: String::from("Cameron Howe"),
@@ -78,6 +98,10 @@ fn test_client_deserialize() {
                 name: String::from("Mid-Atlantic Region"),
             },
         ],
+        business_unit: Some(BusinessUnit {
+            id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
+            name: String::from("EU"),
+        }),
     };
     assert_eq!(
         client_deserialized, client,
