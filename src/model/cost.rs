@@ -17,7 +17,7 @@ pub struct Costs {
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Cost {
-    pub cost_per_hour: i64,
+    pub cost_per_hour: f64,
     pub id: types::UUID,
     pub start: types::Date,
     pub created_at: types::Timestamp,

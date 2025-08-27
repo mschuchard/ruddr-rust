@@ -17,7 +17,7 @@ fn test_cost_deserialize() {
     let cost_deserialized =
         serde_json::from_str::<Cost>(json_input).expect("cost could not be deserialized");
     let cost = Cost {
-        cost_per_hour: 50,
+        cost_per_hour: 50.0,
         id: types::UUID(String::from("b3a100b0-8e71-4f39-9d96-32f11838aa8c")),
         start: types::Date(String::from("2024-01-01")),
         created_at: types::Timestamp(String::from("2024-11-18T18:29:33.415Z")),

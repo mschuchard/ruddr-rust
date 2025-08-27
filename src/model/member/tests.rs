@@ -18,10 +18,11 @@ fn test_member_deserialize() {
           "activeStartDate": "2020-08-03",
           "activeEndDate": "2022-02-01",
           "timeOffAllowed": true,
+          "allowedTimeOffTypes": "all",
           "timeOffApprovalMode": "member",
           "receiveMissingTimeReminders": true,
           "unsubmittedTimesheetReminders": true,
-          "forbidTimesheetSubmissionWhenBelowCapacity": false,
+          "timesheetCapacityPolicy": "unrestricted",
           "internalId": "12345",
           "internalNotes": "Primary location: Atlanta, GA",
           "createdAt": "2020-08-03T21:00:16.370Z",
@@ -81,6 +82,16 @@ fn test_member_deserialize() {
               "name": "CSS"
             }
           ],
+          "timeOffTypes": [
+            {
+            "id": "8fc28b3d-e179-4193-bbdd-09387be8a1e9",
+            "name": "Holiday"
+            },
+            {
+            "id": "e663875e-5c11-4928-b194-66f2174740b7",
+            "name": "Other Leave"
+            }
+          ],
           "availabilityPeriods": [
             {
               "id": "6675130f-d975-45ab-9971-4405062a9e92",
@@ -115,7 +126,8 @@ fn test_member_deserialize() {
               "end": "2022-02-01",
               "targetPercentage": 80
             }
-          ]
+          ],
+          "forbidTimesheetSubmissionWhenBelowCapacity": false
         }"#;
     let member_deserialized =
         serde_json::from_str::<Member>(json_input).expect("member could not be deserialized");
@@ -134,10 +146,11 @@ fn test_member_deserialize() {
         active_start_date: types::Date(String::from("2020-08-03")),
         active_end_date: types::Date(String::from("2022-02-01")),
         time_off_allowed: true,
+        allowed_time_off_types: AllowedTimeOffTypes::All,
         time_off_approval_mode: TimeOffApprovalMode::Member,
         receive_missing_time_reminders: true,
         unsubmitted_timesheet_reminders: true,
-        forbid_timesheet_submission_when_below_capacity: false,
+        timesheet_capacity_policy: TimesheetCapacityPolicy::Unrestricted,
         internal_id: String::from("12345"),
         internal_notes: String::from("Primary location: Atlanta, GA"),
         created_at: types::Timestamp(String::from("2020-08-03T21:00:16.370Z")),
@@ -197,6 +210,16 @@ fn test_member_deserialize() {
                 name: String::from("CSS"),
             },
         ],
+        time_off_types: vec![
+            TimeOffType {
+                id: types::UUID(String::from("8fc28b3d-e179-4193-bbdd-09387be8a1e9")),
+                name: String::from("Holiday"),
+            },
+            TimeOffType {
+                id: types::UUID(String::from("e663875e-5c11-4928-b194-66f2174740b7")),
+                name: String::from("Other Leave"),
+            },
+        ],
         availability_periods: vec![AvailabilityPeriod {
             id: types::UUID(String::from("6675130f-d975-45ab-9971-4405062a9e92")),
             start: types::Date(String::from("2020-08-03")),
@@ -218,6 +241,7 @@ fn test_member_deserialize() {
             end: types::Date(String::from("2022-02-01")),
             target_percentage: 80,
         }],
+        forbid_timesheet_submission_when_below_capacity: false,
     };
     assert_eq!(
         member_deserialized, member,

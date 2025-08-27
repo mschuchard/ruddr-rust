@@ -31,10 +31,11 @@ pub struct Member {
     pub active_start_date: types::Date,
     pub active_end_date: types::Date,
     pub time_off_allowed: bool,
+    pub allowed_time_off_types: AllowedTimeOffTypes,
     pub time_off_approval_mode: TimeOffApprovalMode,
     pub receive_missing_time_reminders: bool,
     pub unsubmitted_timesheet_reminders: bool,
-    pub forbid_timesheet_submission_when_below_capacity: bool,
+    pub timesheet_capacity_policy: TimesheetCapacityPolicy,
     pub internal_id: String,
     pub internal_notes: String,
     pub created_at: types::Timestamp,
@@ -48,9 +49,11 @@ pub struct Member {
     pub holiday_schedule: HolidaySchedule,
     pub tags: Vec<Tag>,
     pub skills: Vec<Skill>,
+    pub time_off_types: Vec<TimeOffType>,
     pub availability_periods: Vec<AvailabilityPeriod>,
     pub cost_periods: Vec<CostPeriod>,
     pub utilization_target_periods: Vec<UtilizationTargetPeriod>,
+    pub forbid_timesheet_submission_when_below_capacity: bool,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -125,6 +128,13 @@ pub struct Skill {
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
+pub struct TimeOffType {
+    pub id: types::UUID,
+    pub name: String,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
 pub struct AvailabilityPeriod {
     pub id: types::UUID,
     pub start: types::Date,
@@ -175,6 +185,21 @@ pub enum EmploymentType {
 pub enum CostMethod {
     Hourly,
     Fixed,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum AllowedTimeOffTypes {
+    All,
+    Custom,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum TimesheetCapacityPolicy {
+    Unrestricted,
+    Timesheet,
+    Week,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
