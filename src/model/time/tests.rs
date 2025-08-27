@@ -13,6 +13,10 @@ fn test_time_deserialize() {
           "notes": "Write up the weekly status report.",
           "isBillable": true,
           "invoiced": true,
+          "rateCurrency": "USD",
+          "rate": 100,
+          "costCurrency": "USD",
+          "costPerHour": 50,
           "createdAt": "2022-03-11T16:13:40.715Z",
           "member": {
             "id": "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885",
@@ -55,6 +59,10 @@ fn test_time_deserialize() {
         notes: String::from("Write up the weekly status report."),
         is_billable: true,
         invoiced: true,
+        rate_currency: Some(String::from("USD")),
+        rate: Some(100.0),
+        cost_currency: Some(String::from("USD")),
+        cost_per_hour: Some(50.0),
         created_at: types::Timestamp(String::from("2022-03-11T16:13:40.715Z")),
         member: shared::Member {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
