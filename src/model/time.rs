@@ -39,26 +39,9 @@ pub struct TimeEntry {
     pub invoice: Option<Invoice>,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Role {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Task {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TimeOffType {
-    pub id: types::UUID,
-    pub name: String,
-}
+pub type Role = shared::Entity;
+pub type Task = shared::Entity;
+pub type TimeOffType = shared::Entity;
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]

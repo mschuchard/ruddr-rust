@@ -2,7 +2,7 @@
 //!
 //! `model::member` is a model for the Ruddr Member object. This module is not publically accessible, but the structs and members are public for reading from `interface::member` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/member-object)
-use crate::model::types;
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for Members used with List operations.
@@ -56,82 +56,17 @@ pub struct Member {
     pub forbid_timesheet_submission_when_below_capacity: bool,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct SecurityRole {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct JobTitle {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Discipline {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Practice {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Location {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Manager {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TimeOffApprover {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct HolidaySchedule {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Tag {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct Skill {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct TimeOffType {
-    pub id: types::UUID,
-    pub name: String,
-}
+pub type SecurityRole = shared::Entity;
+pub type JobTitle = shared::Entity;
+pub type Discipline = shared::Entity;
+pub type Practice = shared::Entity;
+pub type Location = shared::Entity;
+pub type Manager = shared::Entity;
+pub type TimeOffApprover = shared::Entity;
+pub type HolidaySchedule = shared::Entity;
+pub type Tag = shared::Entity;
+pub type Skill = shared::Entity;
+pub type TimeOffType = shared::Entity;
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]

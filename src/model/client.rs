@@ -2,7 +2,7 @@
 //!
 //! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::customer` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/client-object)
-use crate::model::types;
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for Clients used with List operations.
@@ -41,40 +41,11 @@ pub struct Client {
     pub business_unit: Option<BusinessUnit>,
 }
 
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Practice {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Owner {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct InvoicePaymentTerm {
-    pub id: types::UUID,
-    pub name: PaymentTerms,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Tag {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct BusinessUnit {
-    pub id: types::UUID,
-    pub name: String,
-}
+pub type Practice = shared::Entity;
+pub type Owner = shared::Entity;
+pub type InvoicePaymentTerm = shared::Entity;
+pub type Tag = shared::Entity;
+pub type BusinessUnit = shared::Entity;
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -83,24 +54,6 @@ pub enum InvoiceDetailsSource {
     Workspace,
     Custom,
     BusinessUnit,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-pub enum PaymentTerms {
-    #[serde(rename = "due_on_receipt")]
-    DueOnReceipt,
-    #[serde(rename = "Net-10")]
-    Net10,
-    #[serde(rename = "Net-15")]
-    Net15,
-    #[serde(rename = "Net-30")]
-    Net30,
-    #[serde(rename = "Net-45")]
-    Net45,
-    #[serde(rename = "Net-60")]
-    Net60,
-    #[serde(rename = "Net-90")]
-    Net90,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

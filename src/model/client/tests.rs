@@ -82,7 +82,7 @@ fn test_client_deserialize() {
         }),
         invoice_payment_term: InvoicePaymentTerm {
             id: types::UUID(String::from("83b13634-4de2-4744-ab9e-61cf13038657")),
-            name: PaymentTerms::Net30,
+            name: String::from("Net-30"),
         },
         owner: Owner {
             id: types::UUID(String::from("db010cff-a6f6-4c4e-8160-b6b7562865ff")),

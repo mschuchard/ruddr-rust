@@ -19,7 +19,7 @@ pub struct Utilizations {
 pub struct Utilization {
     pub id: types::UUID,
     pub start: types::Date,
-    pub target_percentage: i64,
+    pub target_percentage: f64,
     pub created_at: types::Timestamp,
     pub is_default: bool,
     pub end: types::Date,

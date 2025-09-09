@@ -40,33 +40,10 @@ pub struct Allocation {
     pub time_off_type: Option<TimeOffType>,
 }
 
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Placeholder {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Role {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Task {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "camelCase")]
-pub struct TimeOffType {
-    pub id: types::UUID,
-    pub name: String,
-}
+pub type Placeholder = shared::Entity;
+pub type Role = shared::Entity;
+pub type Task = shared::Entity;
+pub type TimeOffType = shared::Entity;
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
