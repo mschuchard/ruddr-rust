@@ -6,22 +6,19 @@ use serde::{Deserialize, Serialize};
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Member {
-    pub id: types::UUID,
-    pub name: String,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
 pub struct Project {
     pub id: types::UUID,
     pub name: String,
     pub client: Client,
 }
 
+pub type Member = Entity;
+pub type Client = Entity;
+
+// Simple generic entity struct for models comprised of only an ID and a name.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
-pub struct Client {
+pub struct Entity {
     pub id: types::UUID,
     pub name: String,
 }
