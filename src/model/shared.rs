@@ -19,3 +19,6 @@ pub struct Entity {
     pub id: types::UUID,
     pub name: String,
 }
+
+#[cfg(test)]
+mod tests;
