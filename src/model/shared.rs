@@ -9,11 +9,8 @@ use serde::{Deserialize, Serialize};
 pub struct Project {
     pub id: types::UUID,
     pub name: String,
-    pub client: Client,
+    pub client: Entity,
 }
-
-pub type Member = Entity;
-pub type Client = Entity;
 
 // Simple generic entity struct for models comprised of only an ID and a name.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

@@ -52,21 +52,15 @@ pub struct Project {
     pub lock_time_and_expenses: bool,
     pub track_time_to_assigned_roles: bool,
     pub created_at: types::Timestamp,
-    pub client: shared::Client,
-    pub practice: Practice,
-    pub project_type: ProjectType,
-    pub tags: Vec<Tag>,
-    pub sales_representative: Option<SalesRepresentative>,
-    pub business_unit: Option<BusinessUnit>,
+    pub client: shared::Entity,
+    pub practice: shared::Entity,
+    pub project_type: shared::Entity,
+    pub tags: Vec<shared::Entity>,
+    pub sales_representative: Option<shared::Entity>,
+    pub business_unit: Option<shared::Entity>,
     pub budget: Option<Budget>,
     pub monthly_budget: Option<MonthlyBudget>,
 }
-
-pub type Practice = shared::Entity;
-pub type ProjectType = shared::Entity;
-pub type Tag = shared::Entity;
-pub type SalesRepresentative = shared::Entity;
-pub type BusinessUnit = shared::Entity;
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]

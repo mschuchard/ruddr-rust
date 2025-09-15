@@ -34,18 +34,12 @@ pub struct Client {
     pub is_internal: bool,
     pub record_status_id: RecordStatus,
     pub created_at: types::Timestamp,
-    pub practice: Option<Practice>,
-    pub invoice_payment_term: InvoicePaymentTerm,
-    pub owner: Owner,
-    pub tags: Vec<Tag>,
-    pub business_unit: Option<BusinessUnit>,
+    pub practice: Option<shared::Entity>,
+    pub invoice_payment_term: shared::Entity,
+    pub owner: shared::Entity,
+    pub tags: Vec<shared::Entity>,
+    pub business_unit: Option<shared::Entity>,
 }
-
-pub type Practice = shared::Entity;
-pub type Owner = shared::Entity;
-pub type InvoicePaymentTerm = shared::Entity;
-pub type Tag = shared::Entity;
-pub type BusinessUnit = shared::Entity;
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

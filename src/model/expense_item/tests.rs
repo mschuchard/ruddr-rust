@@ -64,14 +64,14 @@ fn test_expense_item_deserialize() {
             name: String::from("Airfare"),
             unit_name: String::from("mile"),
         },
-        member: shared::Member {
+        member: shared::Entity {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
         },
         project: shared::Project {
             id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
             name: String::from("Vendor Portal"),
-            client: shared::Client {
+            client: shared::Entity {
                 id: types::UUID(String::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")),
                 name: String::from("Joe's Shop"),
             },

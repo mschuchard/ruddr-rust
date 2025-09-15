@@ -23,7 +23,7 @@ pub struct ExpenseReport {
     pub notes: String,
     pub date: types::Date,
     pub created_at: types::Timestamp,
-    pub member: shared::Member,
+    pub member: shared::Entity,
 }
 
 #[cfg(test)]

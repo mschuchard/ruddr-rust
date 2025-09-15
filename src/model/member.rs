@@ -39,34 +39,22 @@ pub struct Member {
     pub internal_id: String,
     pub internal_notes: String,
     pub created_at: types::Timestamp,
-    pub security_role: SecurityRole,
-    pub job_title: JobTitle,
-    pub discipline: Discipline,
-    pub practice: Practice,
-    pub location: Location,
-    pub manager: Manager,
-    pub time_off_approver: TimeOffApprover,
-    pub holiday_schedule: HolidaySchedule,
-    pub tags: Vec<Tag>,
-    pub skills: Vec<Skill>,
-    pub time_off_types: Vec<TimeOffType>,
+    pub security_role: shared::Entity,
+    pub job_title: shared::Entity,
+    pub discipline: shared::Entity,
+    pub practice: shared::Entity,
+    pub location: shared::Entity,
+    pub manager: shared::Entity,
+    pub time_off_approver: shared::Entity,
+    pub holiday_schedule: shared::Entity,
+    pub tags: Vec<shared::Entity>,
+    pub skills: Vec<shared::Entity>,
+    pub time_off_types: Vec<shared::Entity>,
     pub availability_periods: Vec<AvailabilityPeriod>,
     pub cost_periods: Vec<CostPeriod>,
     pub utilization_target_periods: Vec<UtilizationTargetPeriod>,
     pub forbid_timesheet_submission_when_below_capacity: bool,
 }
-
-pub type SecurityRole = shared::Entity;
-pub type JobTitle = shared::Entity;
-pub type Discipline = shared::Entity;
-pub type Practice = shared::Entity;
-pub type Location = shared::Entity;
-pub type Manager = shared::Entity;
-pub type TimeOffApprover = shared::Entity;
-pub type HolidaySchedule = shared::Entity;
-pub type Tag = shared::Entity;
-pub type Skill = shared::Entity;
-pub type TimeOffType = shared::Entity;
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]

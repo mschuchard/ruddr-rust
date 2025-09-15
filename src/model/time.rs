@@ -31,17 +31,13 @@ pub struct TimeEntry {
     pub cost_currency: Option<String>,
     pub cost_per_hour: Option<f64>,
     pub created_at: types::Timestamp,
-    pub member: shared::Member,
+    pub member: shared::Entity,
     pub project: Option<shared::Project>,
-    pub role: Option<Role>,
-    pub task: Option<Task>,
-    pub time_off_type: Option<TimeOffType>,
+    pub role: Option<shared::Entity>,
+    pub task: Option<shared::Entity>,
+    pub time_off_type: Option<shared::Entity>,
     pub invoice: Option<Invoice>,
 }
-
-pub type Role = shared::Entity;
-pub type Task = shared::Entity;
-pub type TimeOffType = shared::Entity;
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]

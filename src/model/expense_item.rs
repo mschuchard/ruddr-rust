@@ -32,7 +32,7 @@ pub struct ExpenseItem {
     pub created_at: types::Timestamp,
     pub expense_report: ExpenseReport,
     pub expense_category: ExpenseCategory,
-    pub member: shared::Member,
+    pub member: shared::Entity,
     pub project: shared::Project,
 }
 

@@ -76,29 +76,29 @@ fn test_client_deserialize() {
         is_internal: false,
         record_status_id: RecordStatus::Active,
         created_at: types::Timestamp(String::from("2022-02-24T16:08:18.640Z")),
-        practice: Some(Practice {
+        practice: Some(shared::Entity {
             id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
             name: String::from("Digital Transformation"),
         }),
-        invoice_payment_term: InvoicePaymentTerm {
+        invoice_payment_term: shared::Entity {
             id: types::UUID(String::from("83b13634-4de2-4744-ab9e-61cf13038657")),
             name: String::from("Net-30"),
         },
-        owner: Owner {
+        owner: shared::Entity {
             id: types::UUID(String::from("db010cff-a6f6-4c4e-8160-b6b7562865ff")),
             name: String::from("Cameron Howe"),
         },
         tags: vec![
-            Tag {
+            shared::Entity {
                 id: types::UUID(String::from("8670e0fd-bd7a-457e-bec9-eff2b1c12b78")),
                 name: String::from("Tier 1 Client"),
             },
-            Tag {
+            shared::Entity {
                 id: types::UUID(String::from("032901d9-4a10-4ff7-af3a-a04ff6e6e606")),
                 name: String::from("Mid-Atlantic Region"),
             },
         ],
-        business_unit: Some(BusinessUnit {
+        business_unit: Some(shared::Entity {
             id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
             name: String::from("EU"),
         }),

@@ -128,33 +128,33 @@ fn test_project_deserialize() {
         lock_time_and_expenses: false,
         track_time_to_assigned_roles: true,
         created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
-        client: shared::Client {
+        client: shared::Entity {
             id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
             name: String::from("Acme Company"),
         },
-        practice: Practice {
+        practice: shared::Entity {
             id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
             name: String::from("Digital Transformation"),
         },
-        project_type: ProjectType {
+        project_type: shared::Entity {
             id: types::UUID(String::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
             name: String::from("Content Management"),
         },
         tags: vec![
-            Tag {
+            shared::Entity {
                 id: types::UUID(String::from("626db436-98bf-40cb-9937-c382af5d818c")),
                 name: String::from("Atlanta Office"),
             },
-            Tag {
+            shared::Entity {
                 id: types::UUID(String::from("9f26fb15-23f1-49a6-8558-c19ad4338472")),
                 name: String::from("Data Analytics"),
             },
         ],
-        sales_representative: Some(SalesRepresentative {
+        sales_representative: Some(shared::Entity {
             id: types::UUID(String::from("w6816355-8945-40aa-b798-b0d6fd89e437")),
             name: String::from("Joe"),
         }),
-        business_unit: Some(BusinessUnit {
+        business_unit: Some(shared::Entity {
             id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
             name: String::from("Palermo North America"),
         }),

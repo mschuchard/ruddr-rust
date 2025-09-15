@@ -32,18 +32,13 @@ pub struct Allocation {
     pub read_only: bool,
     pub entity: Entity,
     pub created_at: types::Timestamp,
-    pub member: Option<shared::Member>,
-    pub placeholder: Option<Placeholder>,
+    pub member: Option<shared::Entity>,
+    pub placeholder: Option<shared::Entity>,
     pub project: Option<shared::Project>,
-    pub role: Option<Role>,
-    pub task: Option<Task>,
-    pub time_off_type: Option<TimeOffType>,
+    pub role: Option<shared::Entity>,
+    pub task: Option<shared::Entity>,
+    pub time_off_type: Option<shared::Entity>,
 }
-
-pub type Placeholder = shared::Entity;
-pub type Role = shared::Entity;
-pub type Task = shared::Entity;
-pub type TimeOffType = shared::Entity;
 
 // custom types: enum
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
