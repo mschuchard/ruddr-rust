@@ -45,6 +45,27 @@ fn test_customers() {
 }
 
 #[test]
+fn test_costs() {
+    let test = async {
+        let client = client::Client::new(Some("abcdefghi123456789"))
+            .expect("client with token could not be constructed");
+        assert_eq!(
+            cost::costs(
+                &client,
+                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+            )
+            .await
+            .unwrap_err()
+            .to_string(),
+            "client read response failed",
+            "costs retrieval did not fail on auth",
+        )
+    };
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(test);
+}
+
+#[test]
 fn test_expense_items() {
     let test = async {
         let client = client::Client::new(Some("abcdefghi123456789"))
@@ -144,6 +165,27 @@ fn test_time_entries() {
             .to_string(),
             "client read response failed",
             "time entries retrieval did not fail on auth",
+        )
+    };
+    let rt = tokio::runtime::Runtime::new().unwrap();
+    rt.block_on(test);
+}
+
+#[test]
+fn test_utilizations() {
+    let test = async {
+        let client = client::Client::new(Some("abcdefghi123456789"))
+            .expect("client with token could not be constructed");
+        assert_eq!(
+            utilization::utilizations(
+                &client,
+                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+            )
+            .await
+            .unwrap_err()
+            .to_string(),
+            "client read response failed",
+            "utilizations retrieval did not fail on auth",
         )
     };
     let rt = tokio::runtime::Runtime::new().unwrap();
