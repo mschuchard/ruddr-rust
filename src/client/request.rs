@@ -2,11 +2,12 @@
 //!
 //! `client::request` consists of functions for constructing and executing requests against the Ruddr API.
 use log;
+use reqwest::Url;
 
 // request struct for composing request structures
 #[derive(Debug)]
 pub(super) struct Request {
-    url: String,
+    url: Url,
 }
 
 impl Request {
@@ -26,13 +27,15 @@ impl Request {
             Some(params) => {
                 log::debug!("request endpoint is {endpoint} and params is {params}");
                 Ok(Self {
-                    url: format!("https://www.ruddr.io/api/workspace/{endpoint}?{params}"),
+                    url: Url::parse(&format!(
+                        "https://www.ruddr.io/api/workspace/{endpoint}?{params}"
+                    ))?,
                 })
             }
             None => {
                 log::debug!("request endpoint is {endpoint} and params is empty");
                 Ok(Self {
-                    url: format!("https://www.ruddr.io/api/workspace/{endpoint}"),
+                    url: Url::parse(&format!("https://www.ruddr.io/api/workspace/{endpoint}"))?,
                 })
             }
         }

@@ -6,7 +6,8 @@ fn test_request_new_params() {
         Request::new("endpoint", Some("params"))
             .expect("request could not be constructed")
             .url,
-        String::from("https://www.ruddr.io/api/workspace/endpoint?params")
+        Url::parse("https://www.ruddr.io/api/workspace/endpoint?params")
+            .expect("failed to parse URL")
     )
 }
 
@@ -16,7 +17,7 @@ fn test_request_new_empty_params() {
         Request::new("endpoint", None)
             .expect("request could not be constructed")
             .url,
-        String::from("https://www.ruddr.io/api/workspace/endpoint")
+        Url::parse("https://www.ruddr.io/api/workspace/endpoint").expect("failed to parse URL")
     )
 }
 
