@@ -3,10 +3,10 @@
 //! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::allocation` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/allocation-object)
 use crate::model::{enums, shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for Allocations used with List operations.
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Allocations {
     pub results: Vec<Allocation>,
@@ -14,7 +14,7 @@ pub struct Allocations {
 }
 
 /// Model for Allocation used with Read operations.
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Allocation {
     pub id: types::UUID,
@@ -41,14 +41,14 @@ pub struct Allocation {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum ResourceType {
     Member,
     Placeholder,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Unit {
     Day,
@@ -56,7 +56,7 @@ pub enum Unit {
     Month,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Entity {
     Allocation,

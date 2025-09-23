@@ -3,10 +3,10 @@
 //! `model::expense_item` is a model for the Ruddr Expense Item object. This module is not publically accessible, but the structs and members are public for reading from `interface::expense_item` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/expense-item-object) (documentation has `Description` of `statusId` and `vendor` switched)
 use crate::model::{shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for ExpenseItems used with List operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseItems {
     pub results: Vec<ExpenseItem>,
@@ -14,7 +14,7 @@ pub struct ExpenseItems {
 }
 
 /// Model for ExpenseItem used with Read operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseItem {
     pub id: types::UUID,
@@ -36,14 +36,14 @@ pub struct ExpenseItem {
     pub project: shared::Project,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseReport {
     pub id: types::UUID,
     pub title: String,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseCategory {
     pub id: types::UUID,
@@ -52,7 +52,7 @@ pub struct ExpenseCategory {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
     NotSubmitted,

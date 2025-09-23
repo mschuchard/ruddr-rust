@@ -3,10 +3,10 @@
 //! `model::project` is a model for the Ruddr Project object. This module is not publically accessible, but the structs and members are public for reading from `interface::project` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/project-object)
 use crate::model::{enums, shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for Projects used with List operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Projects {
     pub results: Vec<Project>,
@@ -14,7 +14,7 @@ pub struct Projects {
 }
 
 /// Model for Project used with Read operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Project {
     pub id: types::UUID,
@@ -62,7 +62,7 @@ pub struct Project {
     pub monthly_budget: Option<MonthlyBudget>,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Budget {
     pub revenue: i64,
@@ -74,7 +74,7 @@ pub struct Budget {
     pub non_billable_hours: i64,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct MonthlyBudget {
     pub revenue: i64,
@@ -87,7 +87,7 @@ pub struct MonthlyBudget {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BillingType {
     #[serde(rename = "tm")]
@@ -97,14 +97,14 @@ pub enum BillingType {
     NonBillable,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum RevenueRecognitionMethod {
     Invoiced,
     Manual,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BudgetMode {
     Summary,
@@ -112,14 +112,14 @@ pub enum BudgetMode {
     Aggregated,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum MonthlyBudgetMode {
     Summary,
     Detailed,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum RecordStatus {
     Active,

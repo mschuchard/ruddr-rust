@@ -3,10 +3,10 @@
 //! `model::customer` is a model for the Ruddr Client object. This module is not publically accessible, but the structs and members are public for reading from `interface::customer` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/client-object)
 use crate::model::{shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for Clients used with List operations.
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Clients {
     pub results: Vec<Client>,
@@ -14,7 +14,7 @@ pub struct Clients {
 }
 
 /// Model for Client used with Read operations.
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[derive(Debug, PartialEq, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Client {
     pub id: types::UUID,
@@ -42,7 +42,7 @@ pub struct Client {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum InvoiceDetailsSource {
     Workspace,
@@ -50,7 +50,7 @@ pub enum InvoiceDetailsSource {
     BusinessUnit,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum RecordStatus {
     Active,

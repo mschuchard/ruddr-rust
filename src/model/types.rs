@@ -2,7 +2,7 @@
 //!
 //! `model::types` defines custom type structs with trait implementations corresponding to Ruddr API custom types.
 use regex::Regex;
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 use std::fmt;
 
 /// Custom type for Ruddr Date type in YYYY-MM-DD format.
@@ -10,7 +10,7 @@ use std::fmt;
 /// ```ignore
 /// Date::from("2028-12-31")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Date(pub(super) String);
 
@@ -76,7 +76,7 @@ impl fmt::Display for Date {
 /// Timestamp::from("1234-56-78T12:34:56.789Z")
 /// ```
 /// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
-#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Timestamp(pub(super) String);
 
@@ -141,7 +141,7 @@ impl fmt::Display for Timestamp {
 /// ```ignore
 /// UUID::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct UUID(pub(super) String);
 
@@ -205,7 +205,7 @@ impl fmt::Display for UUID {
 /// ```ignore
 /// Slug::from("vendor-portal")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Slug(pub(super) String);
 

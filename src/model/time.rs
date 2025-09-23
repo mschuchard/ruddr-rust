@@ -3,10 +3,10 @@
 //! `model::time` is a model for the Ruddr Time Entry object. This module is not publically accessible, but the structs and members are public for reading from `interface::time` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/time-entry-object)
 use crate::model::{shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for TimeEntries used with List operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntries {
     pub results: Vec<TimeEntry>,
@@ -14,7 +14,7 @@ pub struct TimeEntries {
 }
 
 /// Model for TimeEntry used with Read operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct TimeEntry {
     pub id: types::UUID,
@@ -39,7 +39,7 @@ pub struct TimeEntry {
     pub invoice: Option<Invoice>,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Invoice {
     pub id: types::UUID,
@@ -47,14 +47,14 @@ pub struct Invoice {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Type {
     ProjectTime,
     TimeOff,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum Status {
     NotSubmitted,

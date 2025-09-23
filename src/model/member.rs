@@ -3,10 +3,10 @@
 //! `model::member` is a model for the Ruddr Member object. This module is not publically accessible, but the structs and members are public for reading from `interface::member` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/member-object)
 use crate::model::{shared, types};
-use serde::{Deserialize, Serialize};
+use serde::Deserialize;
 
 /// Model for Members used with List operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Members {
     pub results: Vec<Member>,
@@ -14,7 +14,7 @@ pub struct Members {
 }
 
 /// Model for Member used with Read operations.
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Member {
     pub id: types::UUID,
@@ -56,7 +56,7 @@ pub struct Member {
     pub forbid_timesheet_submission_when_below_capacity: bool,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct AvailabilityPeriod {
     pub id: types::UUID,
@@ -65,7 +65,7 @@ pub struct AvailabilityPeriod {
     pub hours_per_day: Vec<i64>,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct CostPeriod {
     pub id: types::UUID,
@@ -77,7 +77,7 @@ pub struct CostPeriod {
     pub total_cost_per_hour: i64,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct UtilizationTargetPeriod {
     pub id: types::UUID,
@@ -87,7 +87,7 @@ pub struct UtilizationTargetPeriod {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum InvitationStatus {
     NotInvited,
@@ -95,7 +95,7 @@ pub enum InvitationStatus {
     Accepted,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum EmploymentType {
     Employee,
@@ -103,21 +103,21 @@ pub enum EmploymentType {
     Other,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum CostMethod {
     Hourly,
     Fixed,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum AllowedTimeOffTypes {
     All,
     Custom,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum TimesheetCapacityPolicy {
     Unrestricted,
@@ -125,7 +125,7 @@ pub enum TimesheetCapacityPolicy {
     Week,
 }
 
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum TimeOffApprovalMode {
     Auto,
