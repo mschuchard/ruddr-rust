@@ -71,11 +71,11 @@ impl Client {
     ///     "limit=100",
     /// ).await?;
     /// ```
-    pub(crate) async fn read<M: de::DeserializeOwned>(
+    pub(crate) async fn read<Response: de::DeserializeOwned>(
         &self,
         endpoint: &str,
         params: Option<&str>,
-    ) -> Result<M, Box<dyn std::error::Error>> {
+    ) -> Result<Response, Box<dyn std::error::Error>> {
         // construct and assign client request
         let request = request::Request::new(endpoint, params)?;
         log::debug!("request is {:?}", request);
@@ -84,7 +84,7 @@ impl Client {
         let response = request.get(&self.client).await?;
         let deser = match response.error_for_status() {
             // deser if successful
-            Ok(response) => response.json::<M>().await?,
+            Ok(response) => response.json::<Response>().await?,
             // provide information if failure
             Err(error) => {
                 log::error!("request failed with status {:?}", error.status().unwrap());

@@ -43,12 +43,12 @@ impl Request {
 
     // execute get request with client
     pub(super) async fn get(
-        self,
+        &self,
         client: &reqwest::Client,
     ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
         // execute request and receive response
         log::debug!("initiating GET request at {}", self.url);
-        let response = client.get(self.url).send().await?;
+        let response = client.get(self.url.clone()).send().await?;
 
         log::debug!("response received for GET request");
         Ok(response)
