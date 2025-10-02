@@ -33,11 +33,11 @@ pub async fn members(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if name_contains.is_some() {
-        params = format!("{params}&nameContains={}", name_contains.unwrap())
+    if let Some(name_contains) = name_contains {
+        params = format!("{params}&nameContains={}", name_contains)
     }
-    if email_contains.is_some() {
-        params = format!("{params}&emailContains={}", email_contains.unwrap())
+    if let Some(email_contains) = email_contains {
+        params = format!("{params}&emailContains={}", email_contains)
     }
 
     // retrieve members

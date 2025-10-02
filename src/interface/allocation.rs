@@ -42,17 +42,17 @@ pub async fn allocations(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if assignment_type_id.is_some() {
-        params = format!("{params}&assignmentTypeId={}", assignment_type_id.unwrap())
+    if let Some(assignment_type_id) = assignment_type_id {
+        params = format!("{params}&assignmentTypeId={}", assignment_type_id)
     }
-    if member_id.is_some() {
-        params = format!("{params}&memberId={}", member_id.unwrap())
+    if let Some(member_id) = member_id {
+        params = format!("{params}&memberId={}", member_id)
     }
-    if start_date.is_some() {
-        params = format!("{params}&startOnBefore={}", start_date.unwrap())
+    if let Some(start_date) = start_date {
+        params = format!("{params}&startOnBefore={}", start_date)
     }
-    if end_date.is_some() {
-        params = format!("{params}&endOnAfter={}", end_date.unwrap())
+    if let Some(end_date) = end_date {
+        params = format!("{params}&endOnAfter={}", end_date)
     }
 
     // retrieve allocations

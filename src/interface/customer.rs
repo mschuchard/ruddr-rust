@@ -35,8 +35,8 @@ pub async fn clients(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if code.is_some() {
-        params = format!("{params}&code={}", code.unwrap())
+    if let Some(code) = code {
+        params = format!("{params}&code={}", code)
     }
 
     // retrieve clients

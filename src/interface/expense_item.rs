@@ -32,8 +32,8 @@ pub async fn expense_items(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if expense_report.is_some() {
-        params = format!("{params}&expenseReportId={}", expense_report.unwrap())
+    if let Some(expense_report) = expense_report {
+        params = format!("{params}&expenseReportId={}", expense_report)
     }
 
     // retrieve expense items

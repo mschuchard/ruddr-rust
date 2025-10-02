@@ -35,8 +35,8 @@ pub async fn costs(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if member_id.is_some() {
-        params = format!("{params}&memberId={}", member_id.unwrap())
+    if let Some(member_id) = member_id {
+        params = format!("{params}&memberId={}", member_id)
     }
 
     // retrieve clients

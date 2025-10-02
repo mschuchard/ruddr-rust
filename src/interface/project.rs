@@ -41,17 +41,17 @@ pub async fn projects(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if client_id.is_some() {
-        params = format!("{params}&clientId={}", client_id.unwrap())
+    if let Some(client_id) = client_id {
+        params = format!("{params}&clientId={}", client_id)
     }
-    if project_type.is_some() {
-        params = format!("{params}&projectTypeId={}", project_type.unwrap())
+    if let Some(project_type) = project_type {
+        params = format!("{params}&projectTypeId={}", project_type)
     }
-    if status.is_some() {
-        params = format!("{params}&statusId={}", status.unwrap());
+    if let Some(status) = status {
+        params = format!("{params}&statusId={}", status);
     }
-    if name_contains.is_some() {
-        params = format!("{params}&nameContains={}", name_contains.unwrap())
+    if let Some(name_contains) = name_contains {
+        params = format!("{params}&nameContains={}", name_contains)
     }
 
     // retrieve projects

@@ -43,20 +43,20 @@ pub async fn time_entries(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if member.is_some() {
-        params = format!("{params}&memberId={}", member.unwrap())
+    if let Some(member) = member {
+        params = format!("{params}&memberId={}", member)
     }
-    if project.is_some() {
-        params = format!("{params}&projectId={}", project.unwrap())
+    if let Some(project) = project {
+        params = format!("{params}&projectId={}", project)
     }
-    if date.is_some() {
-        params = format!("{params}&date={}", date.unwrap())
+    if let Some(date) = date {
+        params = format!("{params}&date={}", date)
     }
-    if begin_date.is_some() {
-        params = format!("{params}&dateOnAfter={}", begin_date.unwrap())
+    if let Some(begin_date) = begin_date {
+        params = format!("{params}&dateOnAfter={}", begin_date)
     }
-    if end_date.is_some() {
-        params = format!("{params}&dateOnBefore={}", end_date.unwrap())
+    if let Some(end_date) = end_date {
+        params = format!("{params}&dateOnBefore={}", end_date)
     }
 
     // retrieve time entries
