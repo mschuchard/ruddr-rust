@@ -4,7 +4,7 @@ use super::*;
 fn test_date_new() {
     assert_eq!(
         Date(String::from("1234-56-78")),
-        Date::new(String::from("1234-56-78"))
+        Date::new(String::from("1234-56-78")).expect("date conversion failed")
     )
 }
 
@@ -16,13 +16,16 @@ fn test_date_new_error() {
 
 #[test]
 fn test_date_from_str() {
-    assert_eq!(Date(String::from("1234-56-78")), Date::from("1234-56-78"))
+    assert_eq!(
+        Date(String::from("1234-56-78")),
+        Date::try_from("1234-56-78").expect("date conversion failed")
+    )
 }
 
 #[test]
 fn test_date_from_string() {
     assert_eq!(
-        Date::from(String::from("1234-56-78")),
+        Date::try_from(String::from("1234-56-78")).expect("date conversion failed"),
         Date(String::from("1234-56-78")),
     )
 }
@@ -64,6 +67,7 @@ fn test_timestamp_new() {
     assert_eq!(
         Timestamp(String::from("1234-56-78T12:34:56.789Z")),
         Timestamp::new(String::from("1234-56-78T12:34:56.789Z"))
+            .expect("timestamp conversion failed")
     )
 }
 
@@ -77,14 +81,15 @@ fn test_timestamp_new_error() {
 fn test_timestamp_from_str() {
     assert_eq!(
         Timestamp(String::from("1234-56-78T12:34:56.789Z")),
-        Timestamp::from("1234-56-78T12:34:56.789Z")
+        Timestamp::try_from("1234-56-78T12:34:56.789Z").expect("timestamp conversion failed")
     )
 }
 
 #[test]
 fn test_timestamp_from_string() {
     assert_eq!(
-        Timestamp::from(String::from("1234-56-78T12:34:56.789Z")),
+        Timestamp::try_from(String::from("1234-56-78T12:34:56.789Z"))
+            .expect("timestamp conversion failed"),
         Timestamp(String::from("1234-56-78T12:34:56.789Z")),
     )
 }
@@ -127,6 +132,7 @@ fn test_uuid_new() {
     assert_eq!(
         UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
         UUID::new(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
+            .expect("uuid conversion failed")
     )
 }
 
@@ -140,14 +146,15 @@ fn test_uuid_new_error() {
 fn test_uuid_from_str() {
     assert_eq!(
         UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
-        UUID::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"),
+        UUID::try_from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2").expect("uuid conversion failed"),
     )
 }
 
 #[test]
 fn test_uuid_from_string() {
     assert_eq!(
-        UUID::from(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
+        UUID::try_from(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2"))
+            .expect("uuid conversion failed"),
         UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
     )
 }
@@ -192,7 +199,7 @@ fn test_uuid_display() {
 fn test_slug_new() {
     assert_eq!(
         Slug(String::from("vendor1-portal2")),
-        Slug::new(String::from("vendor1-portal2"))
+        Slug::new(String::from("vendor1-portal2")).expect("slug conversion failed")
     )
 }
 
@@ -206,14 +213,14 @@ fn test_slug_new_error() {
 fn test_slug_from_str() {
     assert_eq!(
         Slug(String::from("vendor1-portal2")),
-        Slug::from("vendor1-portal2"),
+        Slug::try_from("vendor1-portal2").expect("slug conversion failed"),
     )
 }
 
 #[test]
 fn test_slug_from_string() {
     assert_eq!(
-        Slug::from(String::from("vendor1-portal2")),
+        Slug::try_from(String::from("vendor1-portal2")).expect("slug conversion failed"),
         Slug(String::from("vendor1-portal2")),
     )
 }

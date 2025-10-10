@@ -8,7 +8,8 @@ fn test_customer() {
         assert_eq!(
             customer(
                 &client,
-                model::types::UUID::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")
+                model::types::UUID::try_from("4cacdf11-71d1-4fbb-90ee-b091803581b0")
+                    .expect("uuid conversion failed")
             )
             .await
             .unwrap_err()

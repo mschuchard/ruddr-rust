@@ -9,7 +9,7 @@ use crate::model::{enums, project, types};
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://ruddr.readme.io/reference/get-a-project)
 /// ```ignore
-/// let project = project(&client, types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")).await?;
+/// let project = project(&client, types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("invalid UUID")).await?;
 /// ```
 pub async fn project(
     client: &client::Client,
@@ -26,8 +26,8 @@ pub async fn project(
 /// ```ignore
 /// let projects = projects(
 ///     &client,
-///     Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
-///     Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
+///     Some(types::UUID::try_from("d5afaffe-09e5-4d73-b02c-905b40fc6c22").expect("invalid UUID")),
+///     Some(types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de").expect("invalid UUID")),
 ///     Some(enums::Status::InProgress),
 ///     Some("my_project"),
 /// ).await?;

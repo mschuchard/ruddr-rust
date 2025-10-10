@@ -9,7 +9,7 @@ use crate::model::{time, types};
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://ruddr.readme.io/reference/get-a-time-entry)
 /// ```ignore
-/// let time_entry = time_entry(&client, types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")).await?;
+/// let time_entry = time_entry(&client, types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")).await?;
 /// ```
 pub async fn time_entry(
     client: &client::Client,
@@ -26,11 +26,11 @@ pub async fn time_entry(
 /// ```ignore
 /// let time_entries = time_entries(
 ///     &client,
-///     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
-///     Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-///     Some(types::Date::from("2024-01-01")),
-///     Some(types::Date::from("2024-01-01")),
-///     Some(types::Date::from("2024-01-01")),
+///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")),
+///     Some(types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("invalid UUID")),
+///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
 /// ).await?;
 /// ```
 pub async fn time_entries(

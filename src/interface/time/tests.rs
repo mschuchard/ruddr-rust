@@ -8,7 +8,8 @@ fn test_time_entry() {
         assert_eq!(
             time_entry(
                 &client,
-                types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                    .expect("invalid UUID")
             )
             .await
             .unwrap_err()
@@ -29,11 +30,17 @@ fn test_time_entries() {
         assert_eq!(
             time_entries(
                 &client,
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
-                Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-                Some(types::Date::from("2024-01-01")),
-                Some(types::Date::from("2024-01-01")),
-                Some(types::Date::from("2024-01-01")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("invalid UUID")
+                ),
+                Some(
+                    types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+                        .expect("invalid UUID")
+                ),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             )
             .await
             .unwrap_err()

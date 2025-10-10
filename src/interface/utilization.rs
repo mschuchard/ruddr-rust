@@ -9,7 +9,7 @@ use crate::model::{types, utilization};
 /// Retrieves a specific Ruddr Utilization target period object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://ruddr.readme.io/reference/get-a-utilization-target-period)
 /// ```ignore
-/// let utilization = utilization(&client, types::UUID::from("8e6d6316-5bc2-4135-b99c-f604f29051ab")).await?;
+/// let utilization = utilization(&client, types::UUID::try_from("8e6d6316-5bc2-4135-b99c-f604f29051ab").expect("invalid UUID")).await?;
 /// ```
 pub async fn utilization(
     client: &client::Client,
@@ -26,7 +26,7 @@ pub async fn utilization(
 /// ```ignore
 /// let utilizations = utilizations(
 ///     &client,
-///     Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")),
 /// ).await?;
 /// ```
 pub async fn utilizations(

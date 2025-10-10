@@ -8,7 +8,8 @@ fn test_member() {
         assert_eq!(
             member(
                 &client,
-                types::UUID::from("3f3df320-dd95-4a42-8eae-99243fb2ea86")
+                types::UUID::try_from("3f3df320-dd95-4a42-8eae-99243fb2ea86")
+                    .expect("invalid UUID")
             )
             .await
             .unwrap_err()

@@ -8,7 +8,8 @@ fn test_utilization() {
         assert_eq!(
             utilization(
                 &client,
-                types::UUID::from("8e6d6316-5bc2-4135-b99c-f604f29051ab")
+                types::UUID::try_from("8e6d6316-5bc2-4135-b99c-f604f29051ab")
+                    .expect("invalid UUID")
             )
             .await
             .unwrap_err()
@@ -29,7 +30,10 @@ fn test_utilizations() {
         assert_eq!(
             utilizations(
                 &client,
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("invalid UUID")
+                ),
             )
             .await
             .unwrap_err()

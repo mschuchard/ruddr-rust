@@ -11,9 +11,12 @@ fn test_allocations() {
             allocation::allocations(
                 &client,
                 Some(enums::AssignmentType::Project),
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
-                Some(types::Date::from("2024-01-01")),
-                Some(types::Date::from("2024-01-01")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("uuid conversion failed")
+                ),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             )
             .await
             .unwrap_err()
@@ -52,7 +55,10 @@ fn test_costs() {
         assert_eq!(
             cost::costs(
                 &client,
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("uuid conversion failed")
+                ),
             )
             .await
             .unwrap_err()
@@ -73,7 +79,10 @@ fn test_expense_items() {
         assert_eq!(
             expense_item::expense_items(
                 &client,
-                Some(types::UUID::from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80"))
+                Some(
+                    types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80")
+                        .expect("uuid conversion failed")
+                )
             )
             .await
             .unwrap_err()
@@ -130,8 +139,14 @@ fn test_projects() {
         assert_eq!(
             project::projects(
                 &client,
-                Some(types::UUID::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
-                Some(types::UUID::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
+                Some(
+                    types::UUID::try_from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")
+                        .expect("uuid conversion failed")
+                ),
+                Some(
+                    types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de")
+                        .expect("uuid conversion failed")
+                ),
                 Some(enums::Status::InProgress),
                 Some("my_project"),
             )
@@ -154,11 +169,17 @@ fn test_time_entries() {
         assert_eq!(
             time::time_entries(
                 &client,
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
-                Some(types::UUID::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-                Some(types::Date::from("2024-01-01")),
-                Some(types::Date::from("2024-01-01")),
-                Some(types::Date::from("2024-01-01")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("uuid conversion failed")
+                ),
+                Some(
+                    types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+                        .expect("uuid conversion failed")
+                ),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+                Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             )
             .await
             .unwrap_err()
@@ -179,7 +200,10 @@ fn test_utilizations() {
         assert_eq!(
             utilization::utilizations(
                 &client,
-                Some(types::UUID::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
+                Some(
+                    types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
+                        .expect("uuid conversion failed")
+                ),
             )
             .await
             .unwrap_err()

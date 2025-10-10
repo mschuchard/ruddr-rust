@@ -7,7 +7,7 @@ use crate::model::{expense_report, types};
 /// Retrieves a specific Ruddr Expense Report object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://ruddr.readme.io/reference/get-an-expense-report)
 /// ```ignore
-/// let expense_report = expense_report(&client, types::UUID::from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80")).await?;
+/// let expense_report = expense_report(&client, types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80").expect("invalid UUID")).await?;
 /// ```
 pub async fn expense_report(
     client: &client::Client,
