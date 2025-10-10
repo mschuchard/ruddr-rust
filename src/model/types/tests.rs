@@ -10,8 +10,10 @@ fn test_date_new() {
 
 #[test]
 fn test_date_new_error() {
-    let test = std::panic::catch_unwind(|| Date::new(String::from("99-99-9999")));
-    assert!(test.is_err())
+    assert_eq!(
+        Date::new(String::from("99-99-9999")).unwrap_err(),
+        "invalid date: 99-99-9999"
+    );
 }
 
 #[test]
@@ -73,8 +75,10 @@ fn test_timestamp_new() {
 
 #[test]
 fn test_timestamp_new_error() {
-    let test = std::panic::catch_unwind(|| Timestamp::new(String::from("99-99-9999")));
-    assert!(test.is_err())
+    assert_eq!(
+        Timestamp::new(String::from("99-99-9999")).unwrap_err(),
+        "invalid timestamp: 99-99-9999"
+    );
 }
 
 #[test]
@@ -138,8 +142,10 @@ fn test_uuid_new() {
 
 #[test]
 fn test_uuid_new_error() {
-    let test = std::panic::catch_unwind(|| UUID::new(String::from("foo-bar-baz")));
-    assert!(test.is_err())
+    assert_eq!(
+        UUID::new(String::from("foo-bar-baz")).unwrap_err(),
+        "invalid uuid: foo-bar-baz"
+    );
 }
 
 #[test]
@@ -205,8 +211,10 @@ fn test_slug_new() {
 
 #[test]
 fn test_slug_new_error() {
-    let test = std::panic::catch_unwind(|| Slug::new(String::from("Foo-Bar-Baz!")));
-    assert!(test.is_err())
+    assert_eq!(
+        Slug::new(String::from("Foo-Bar-Baz!")).unwrap_err(),
+        "invalid slug: Foo-Bar-Baz!"
+    );
 }
 
 #[test]
