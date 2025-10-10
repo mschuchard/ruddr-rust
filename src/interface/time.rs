@@ -1,6 +1,8 @@
 //! # Time
 //!
 //! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{time, types};
 
@@ -44,19 +46,19 @@ pub async fn time_entries(
 
     // optional parameters for LIST
     if let Some(member) = member {
-        params = format!("{params}&memberId={}", member)
+        write!(params, "&memberId={}", member)?;
     }
     if let Some(project) = project {
-        params = format!("{params}&projectId={}", project)
+        write!(params, "&projectId={}", project)?;
     }
     if let Some(date) = date {
-        params = format!("{params}&date={}", date)
+        write!(params, "&date={}", date)?;
     }
     if let Some(begin_date) = begin_date {
-        params = format!("{params}&dateOnAfter={}", begin_date)
+        write!(params, "&dateOnAfter={}", begin_date)?;
     }
     if let Some(end_date) = end_date {
-        params = format!("{params}&dateOnBefore={}", end_date)
+        write!(params, "&dateOnBefore={}", end_date)?;
     }
 
     // retrieve time entries

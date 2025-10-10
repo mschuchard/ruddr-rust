@@ -1,6 +1,8 @@
 //! # Member
 //!
 //! `interface::member` consists of functions for interfacing with the Ruddr Member endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{member, types};
 
@@ -34,10 +36,10 @@ pub async fn members(
 
     // optional parameters for LIST
     if let Some(name_contains) = name_contains {
-        params = format!("{params}&nameContains={}", name_contains)
+        write!(params, "&nameContains={}", name_contains)?;
     }
     if let Some(email_contains) = email_contains {
-        params = format!("{params}&emailContains={}", email_contains)
+        write!(params, "&emailContains={}", email_contains)?;
     }
 
     // retrieve members

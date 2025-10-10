@@ -1,6 +1,8 @@
 //! # Project
 //!
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{enums, project, types};
 
@@ -42,16 +44,16 @@ pub async fn projects(
 
     // optional parameters for LIST
     if let Some(client_id) = client_id {
-        params = format!("{params}&clientId={}", client_id)
+        write!(params, "&clientId={}", client_id)?;
     }
     if let Some(project_type) = project_type {
-        params = format!("{params}&projectTypeId={}", project_type)
+        write!(params, "&projectTypeId={}", project_type)?;
     }
     if let Some(status) = status {
-        params = format!("{params}&statusId={}", status);
+        write!(params, "&statusId={}", status)?;
     }
     if let Some(name_contains) = name_contains {
-        params = format!("{params}&nameContains={}", name_contains)
+        write!(params, "&nameContains={}", name_contains)?;
     }
 
     // retrieve projects

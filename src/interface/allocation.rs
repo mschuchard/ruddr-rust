@@ -1,6 +1,8 @@
 //! # Allocation
 //!
 //! `interface::allocation` consists of functions for interfacing with the Ruddr Allocation endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::allocation;
 use crate::model::{enums, types};
@@ -43,16 +45,16 @@ pub async fn allocations(
 
     // optional parameters for LIST
     if let Some(assignment_type_id) = assignment_type_id {
-        params = format!("{params}&assignmentTypeId={}", assignment_type_id)
+        write!(params, "&assignmentTypeId={}", assignment_type_id)?;
     }
     if let Some(member_id) = member_id {
-        params = format!("{params}&memberId={}", member_id)
+        write!(params, "&memberId={}", member_id)?;
     }
     if let Some(start_date) = start_date {
-        params = format!("{params}&startOnBefore={}", start_date)
+        write!(params, "&startOnBefore={}", start_date)?;
     }
     if let Some(end_date) = end_date {
-        params = format!("{params}&endOnAfter={}", end_date)
+        write!(params, "&endOnAfter={}", end_date)?;
     }
 
     // retrieve allocations

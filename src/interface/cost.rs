@@ -1,6 +1,8 @@
 //! # Cost
 //!
 //! `interface::cost` consists of functions for interfacing with the Ruddr Cost period endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{cost, types};
 
@@ -36,7 +38,7 @@ pub async fn costs(
 
     // optional parameters for LIST
     if let Some(member_id) = member_id {
-        params = format!("{params}&memberId={}", member_id)
+        write!(params, "&memberId={}", member_id)?;
     }
 
     // retrieve clients

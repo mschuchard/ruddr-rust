@@ -1,6 +1,8 @@
 //! # Expense Item
 //!
 //! `interface::expense_item` consists of functions for interfacing with the Ruddr Expense Item endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{expense_item, types};
 
@@ -33,7 +35,7 @@ pub async fn expense_items(
 
     // optional parameters for LIST
     if let Some(expense_report) = expense_report {
-        params = format!("{params}&expenseReportId={}", expense_report)
+        write!(params, "&expenseReportId={}", expense_report)?;
     }
 
     // retrieve expense items

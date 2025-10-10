@@ -1,6 +1,8 @@
 //! # Utilization
 //!
 //! `interface::utilization` consists of functions for interfacing with the Ruddr Utilization target period endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{types, utilization};
 
@@ -36,7 +38,7 @@ pub async fn utilizations(
 
     // optional parameters for LIST
     if let Some(member_id) = member_id {
-        params = format!("{params}&memberId={}", member_id)
+        write!(params, "&memberId={}", member_id)?;
     }
 
     // retrieve clients

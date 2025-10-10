@@ -1,6 +1,8 @@
 //! # Customer
 //!
 //! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoints. This module and base Read function are named differently from the endpoint so as to avoid naming collisions with the API client module in external usage. All other code associated with this endpoint utilizes the endpoint name `client`.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model;
 
@@ -36,7 +38,7 @@ pub async fn clients(
 
     // optional parameters for LIST
     if let Some(code) = code {
-        params = format!("{params}&code={}", code)
+        write!(params, "&code={}", code)?;
     }
 
     // retrieve clients
