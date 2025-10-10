@@ -17,7 +17,7 @@ pub struct Date(pub(super) String);
 impl Date {
     // constructor with validation used within type converters
     fn new(date: String) -> Result<Self, String> {
-        let date_validator = Regex::new(r"\d{4}-\d{2}-\d{2}").unwrap();
+        let date_validator = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
         if date_validator.is_match(&date) {
             Ok(Date(date))
         } else {
@@ -87,7 +87,7 @@ impl Timestamp {
     // constructor with validation used within type converters
     fn new(timestamp: String) -> Result<Self, String> {
         let timestamp_validator =
-            Regex::new(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z").unwrap();
+            Regex::new(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$").unwrap();
         if timestamp_validator.is_match(&timestamp) {
             Ok(Timestamp(timestamp))
         } else {
@@ -154,7 +154,7 @@ pub struct UUID(pub(super) String);
 impl UUID {
     // constructor with validation used within type converters
     fn new(uuid: String) -> Result<Self, String> {
-        let uuid_validator = Regex::new(r"\w{8}-\w{4}-\w{4}-\w{4}-\w{12}").unwrap();
+        let uuid_validator = Regex::new(r"^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$").unwrap();
         if uuid_validator.is_match(&uuid) {
             Ok(UUID(uuid))
         } else {

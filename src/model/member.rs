@@ -72,9 +72,9 @@ pub struct CostPeriod {
     pub start: types::Date,
     pub end: types::Date,
     pub currency: String,
-    pub cost_per_hour: i64,
-    pub overhead_cost_per_hour: i64,
-    pub total_cost_per_hour: i64,
+    pub cost_per_hour: f64,
+    pub overhead_cost_per_hour: f64,
+    pub total_cost_per_hour: f64,
 }
 
 #[derive(PartialEq, Deserialize, Debug)]
@@ -83,7 +83,7 @@ pub struct UtilizationTargetPeriod {
     pub id: types::UUID,
     pub start: types::Date,
     pub end: types::Date,
-    pub target_percentage: i64,
+    pub target_percentage: f64,
 }
 
 // custom types: enum
