@@ -16,25 +16,28 @@ pub struct Date(pub(super) String);
 
 impl Date {
     // constructor with validation used within type converters
-    fn new(date: String) -> Self {
+    fn new(date: String) -> Result<Self, String> {
         let date_validator = Regex::new(r"\d{4}-\d{2}-\d{2}").unwrap();
         if date_validator.is_match(&date) {
-            Date(date)
+            Ok(Date(date))
         } else {
-            log::error!("{date} is an invalid date format");
-            panic!("invalid date")
+            Err(format!("invalid date format: {date}"))
         }
     }
 }
 
-impl From<String> for Date {
-    fn from(date: String) -> Self {
+impl TryFrom<String> for Date {
+    type Error = String;
+
+    fn try_from(date: String) -> Result<Self, Self::Error> {
         Date::new(date)
     }
 }
 
-impl From<&str> for Date {
-    fn from(date: &str) -> Self {
+impl TryFrom<&str> for Date {
+    type Error = String;
+
+    fn try_from(date: &str) -> Result<Self, Self::Error> {
         Date::new(String::from(date))
     }
 }
@@ -82,26 +85,29 @@ pub struct Timestamp(pub(super) String);
 
 impl Timestamp {
     // constructor with validation used within type converters
-    fn new(timestamp: String) -> Self {
+    fn new(timestamp: String) -> Result<Self, String> {
         let timestamp_validator =
             Regex::new(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z").unwrap();
         if timestamp_validator.is_match(&timestamp) {
-            Timestamp(timestamp)
+            Ok(Timestamp(timestamp))
         } else {
-            log::error!("{timestamp} is an invalid timestamp format");
-            panic!("invalid timestamp")
+            Err(format!("invalid timestamp: {timestamp}"))
         }
     }
 }
 
-impl From<String> for Timestamp {
-    fn from(timestamp: String) -> Self {
+impl TryFrom<String> for Timestamp {
+    type Error = String;
+
+    fn try_from(timestamp: String) -> Result<Self, Self::Error> {
         Timestamp::new(timestamp)
     }
 }
 
-impl From<&str> for Timestamp {
-    fn from(timestamp: &str) -> Self {
+impl TryFrom<&str> for Timestamp {
+    type Error = String;
+
+    fn try_from(timestamp: &str) -> Result<Self, Self::Error> {
         Timestamp::new(String::from(timestamp))
     }
 }
@@ -147,25 +153,28 @@ pub struct UUID(pub(super) String);
 
 impl UUID {
     // constructor with validation used within type converters
-    fn new(uuid: String) -> Self {
+    fn new(uuid: String) -> Result<Self, String> {
         let uuid_validator = Regex::new(r"\w{8}-\w{4}-\w{4}-\w{4}-\w{12}").unwrap();
         if uuid_validator.is_match(&uuid) {
-            UUID(uuid)
+            Ok(UUID(uuid))
         } else {
-            log::error!("{uuid} is an invalid uuid format");
-            panic!("invalid uuid")
+            Err(format!("invalid uuid: {uuid}"))
         }
     }
 }
 
-impl From<String> for UUID {
-    fn from(uuid: String) -> Self {
+impl TryFrom<String> for UUID {
+    type Error = String;
+
+    fn try_from(uuid: String) -> Result<Self, Self::Error> {
         UUID::new(uuid)
     }
 }
 
-impl From<&str> for UUID {
-    fn from(uuid: &str) -> Self {
+impl TryFrom<&str> for UUID {
+    type Error = String;
+
+    fn try_from(uuid: &str) -> Result<Self, Self::Error> {
         UUID::new(String::from(uuid))
     }
 }
@@ -211,25 +220,28 @@ pub struct Slug(pub(super) String);
 
 impl Slug {
     // constructor with validation used within type converters
-    fn new(slug: String) -> Self {
+    fn new(slug: String) -> Result<Self, String> {
         let slug_validator = Regex::new(r"^[a-z0-9-]+$").unwrap();
         if slug_validator.is_match(&slug) {
-            Slug(slug)
+            Ok(Slug(slug))
         } else {
-            log::error!("{slug} is an invalid slug format");
-            panic!("invalid slug")
+            Err(format!("invalid slug: {slug}"))
         }
     }
 }
 
-impl From<String> for Slug {
-    fn from(slug: String) -> Self {
+impl TryFrom<String> for Slug {
+    type Error = String;
+
+    fn try_from(slug: String) -> Result<Self, Self::Error> {
         Slug::new(slug)
     }
 }
 
-impl From<&str> for Slug {
-    fn from(slug: &str) -> Self {
+impl TryFrom<&str> for Slug {
+    type Error = String;
+
+    fn try_from(slug: &str) -> Result<Self, Self::Error> {
         Slug::new(String::from(slug))
     }
 }
