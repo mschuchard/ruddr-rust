@@ -21,7 +21,7 @@ impl Date {
         if date_validator.is_match(&date) {
             Ok(Date(date))
         } else {
-            Err(format!("invalid date format: {date}"))
+            Err(format!("invalid date: {date}"))
         }
     }
 }

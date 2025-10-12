@@ -3,4 +3,4 @@
 
 Please see the official Rust [crate documentation page](https://docs.rs/ruddr) for usage.
 
-This crate is currently released as beta.
+This crate is currently published as a release candidate.
