@@ -8,7 +8,7 @@ use std::fmt;
 /// Custom type for Ruddr Date type in YYYY-MM-DD format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
-/// Date::from("2028-12-31")
+/// Date::try_from("2028-12-31")
 /// ```
 #[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
@@ -76,7 +76,7 @@ impl fmt::Display for Date {
 /// This is most similar to ISO 8601 extended format with milliseconds for reference.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
-/// Timestamp::from("1234-56-78T12:34:56.789Z")
+/// Timestamp::try_from("1234-56-78T12:34:56.789Z")
 /// ```
 /// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
 #[derive(PartialEq, Eq, Deserialize, Debug)]
@@ -145,7 +145,7 @@ impl fmt::Display for Timestamp {
 /// Custom type for Ruddr UUID type in standard format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
-/// UUID::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
+/// UUID::try_from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
 /// ```
 #[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
@@ -212,7 +212,7 @@ impl fmt::Display for UUID {
 /// Custom type for Ruddr Slug type in standard format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
-/// Slug::from("vendor-portal")
+/// Slug::try_from("vendor-portal")
 /// ```
 #[derive(PartialEq, Eq, Deserialize, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
