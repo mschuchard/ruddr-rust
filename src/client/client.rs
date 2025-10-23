@@ -47,14 +47,14 @@ impl Client {
         auth_token.set_sensitive(true);
         headers.insert(reqwest::header::AUTHORIZATION, auth_token);
 
-        log::debug!("built headers are {:?}", headers);
+        log::debug!("built headers are {headers:?}");
 
         // build client
         let client = reqwest::Client::builder()
             .default_headers(headers)
             .build()?;
 
-        log::debug!("built client is {:?}", client);
+        log::debug!("built client is {client:?}");
         Ok(Self { client })
     }
 
@@ -64,11 +64,11 @@ impl Client {
     /// let client = Client::new(Some("abcdefghi123456789"))?;
     /// let deser_response_read = client.read::<project::Project>(
     ///     "projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c",
-    ///     "",
+    ///     None,
     /// ).await?;
     /// let deser_response_list = client.read::<project::Projects>(
     ///     "projects",
-    ///     "limit=100",
+    ///     Some("limit=100"),
     /// ).await?;
     /// ```
     pub(crate) async fn read<Response: de::DeserializeOwned>(
@@ -78,7 +78,7 @@ impl Client {
     ) -> Result<Response, Box<dyn std::error::Error>> {
         // construct and assign client request
         let request = request::Request::new(endpoint, params)?;
-        log::debug!("request is {:?}", request);
+        log::debug!("request is {request:?}");
 
         // retrieve object and deser
         let response = request.get(&self.client).await?;

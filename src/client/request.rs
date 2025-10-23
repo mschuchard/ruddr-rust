@@ -48,7 +48,7 @@ impl Request {
     ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
         // execute request and receive response
         log::debug!("initiating GET request at {}", self.url);
-        let response = client.get(self.url.clone()).send().await?;
+        let response = client.get(self.url.as_str()).send().await?;
 
         log::debug!("response received for GET request");
         Ok(response)
