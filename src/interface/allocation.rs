@@ -35,8 +35,8 @@ pub async fn allocation(
 /// ```
 pub async fn allocations(
     client: &client::Client,
-    assignment_type_id: Option<enums::AssignmentType>,
-    member_id: Option<types::UUID>,
+    assignment_type: Option<enums::AssignmentType>,
+    member: Option<types::UUID>,
     start_date: Option<types::Date>,
     end_date: Option<types::Date>,
 ) -> Result<allocation::Allocations, Box<dyn std::error::Error>> {
@@ -44,11 +44,11 @@ pub async fn allocations(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if let Some(assignment_type_id) = assignment_type_id {
-        write!(params, "&assignmentTypeId={}", assignment_type_id)?;
+    if let Some(assignment_type) = assignment_type {
+        write!(params, "&assignmentTypeId={}", assignment_type)?;
     }
-    if let Some(member_id) = member_id {
-        write!(params, "&memberId={}", member_id)?;
+    if let Some(member) = member {
+        write!(params, "&memberId={}", member)?;
     }
     if let Some(start_date) = start_date {
         write!(params, "&startOnBefore={}", start_date)?;

@@ -31,17 +31,17 @@ pub async fn utilization(
 /// ```
 pub async fn utilizations(
     client: &client::Client,
-    member_id: Option<types::UUID>,
+    member: Option<types::UUID>,
 ) -> Result<utilization::Utilizations, Box<dyn std::error::Error>> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if let Some(member_id) = member_id {
-        write!(params, "&memberId={}", member_id)?;
+    if let Some(member) = member {
+        write!(params, "&memberId={}", member)?;
     }
 
-    // retrieve clients
+    // retrieve utilization target periods
     Ok(client
         .read::<utilization::Utilizations>("utilization-target-periods", Some(&params))
         .await?)
