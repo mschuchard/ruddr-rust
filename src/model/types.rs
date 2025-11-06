@@ -154,7 +154,10 @@ pub struct UUID(pub(super) String);
 impl UUID {
     // constructor with validation used within type converters
     fn new(uuid: String) -> Result<Self, String> {
-        let uuid_validator = Regex::new(r"^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$").unwrap();
+        let uuid_validator = Regex::new(
+            r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+        )
+        .unwrap();
         if uuid_validator.is_match(&uuid) {
             Ok(UUID(uuid))
         } else {
