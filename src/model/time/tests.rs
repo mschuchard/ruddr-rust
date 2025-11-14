@@ -44,7 +44,11 @@ fn test_time_deserialize() {
           },
           "invoice": {
             "id": "76a4f846-3e3b-43a2-bd9b-f5afabdad447",
-            "number": "INV-0001"
+            "number": "INV-0001",
+            "line": {
+              "id": "13cbc32f-c324-4dfa-ba13-48764fbbe8e0",
+              "number": 2
+            }
           }
         }"#;
     let time_entry_deserialized = serde_json::from_str::<TimeEntry>(json_input)
@@ -91,6 +95,10 @@ fn test_time_deserialize() {
         invoice: Some(Invoice {
             id: types::UUID(String::from("76a4f846-3e3b-43a2-bd9b-f5afabdad447")),
             number: String::from("INV-0001"),
+            line: Line {
+                id: types::UUID(String::from("13cbc32f-c324-4dfa-ba13-48764fbbe8e0")),
+                number: 2,
+            },
         }),
     };
     assert_eq!(

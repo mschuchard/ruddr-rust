@@ -44,6 +44,14 @@ pub struct TimeEntry {
 pub struct Invoice {
     pub id: types::UUID,
     pub number: String,
+    pub line: Line,
+}
+
+#[derive(PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct Line {
+    pub id: types::UUID,
+    pub number: i64,
 }
 
 // custom types: enum
