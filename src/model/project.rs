@@ -107,7 +107,6 @@ pub enum RevenueRecognitionMethod {
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BudgetMode {
-    Summary,
     Detailed,
     Aggregated,
 }
