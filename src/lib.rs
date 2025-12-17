@@ -10,6 +10,7 @@ pub mod interface {
     pub mod expense_report;
     pub mod member;
     pub mod project;
+    pub mod role;
     pub mod time;
     pub mod utilization;
 }
