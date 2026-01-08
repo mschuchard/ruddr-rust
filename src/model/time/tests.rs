@@ -7,6 +7,7 @@ fn test_time_deserialize() {
           "id": "4497fa99-27a4-4509-9748-83e4399296e3",
           "typeId": "project_time",
           "statusId": "approved",
+          "clientStatusId": "approved",
           "date": "2022-03-08",
           "minutes": 120,
           "timerStartedAt": "2022-03-10T17:50:48.808Z",
@@ -18,6 +19,8 @@ fn test_time_deserialize() {
           "costCurrency": "USD",
           "costPerHour": 50,
           "createdAt": "2022-03-11T16:13:40.715Z",
+          "startTime": "01:00",
+          "endTime": "03:00",
           "member": {
             "id": "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885",
             "name": "John Smith"
@@ -43,7 +46,7 @@ fn test_time_deserialize() {
             "name": "Holiday"
           },
           "invoice": {
-            "id": "76a4f846-3e3b-43a2-bd9b-f5afabdad447",
+            "id": "86a4f846-3e3b-43a2-bd9b-f5afabdad447",
             "number": "INV-0001",
             "line": {
               "id": "13cbc32f-c324-4dfa-ba13-48764fbbe8e0",
@@ -57,6 +60,7 @@ fn test_time_deserialize() {
         id: types::UUID(String::from("4497fa99-27a4-4509-9748-83e4399296e3")),
         type_id: Type::ProjectTime,
         status_id: Status::Approved,
+        client_status_id: Some(ClientStatus::Approved),
         date: types::Date(String::from("2022-03-08")),
         minutes: 120,
         timer_started_at: Some(types::Timestamp(String::from("2022-03-10T17:50:48.808Z"))),
@@ -68,6 +72,8 @@ fn test_time_deserialize() {
         cost_currency: Some(String::from("USD")),
         cost_per_hour: Some(50.0),
         created_at: types::Timestamp(String::from("2022-03-11T16:13:40.715Z")),
+        start_time: Some(String::from("01:00")),
+        end_time: Some(String::from("03:00")),
         member: shared::Entity {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
@@ -93,7 +99,7 @@ fn test_time_deserialize() {
             name: String::from("Holiday"),
         }),
         invoice: Some(Invoice {
-            id: types::UUID(String::from("76a4f846-3e3b-43a2-bd9b-f5afabdad447")),
+            id: types::UUID(String::from("86a4f846-3e3b-43a2-bd9b-f5afabdad447")),
             number: String::from("INV-0001"),
             line: Line {
                 id: types::UUID(String::from("13cbc32f-c324-4dfa-ba13-48764fbbe8e0")),

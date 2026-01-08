@@ -57,6 +57,8 @@ pub enum Unit {
     Day,
     Week,
     Month,
+    Allocation,
+    RatioOfCapacity,
 }
 
 #[derive(PartialEq, Deserialize, Debug)]

@@ -20,6 +20,7 @@ pub struct TimeEntry {
     pub id: types::UUID,
     pub type_id: Type,
     pub status_id: Status,
+    pub client_status_id: Option<ClientStatus>,
     pub date: types::Date,
     pub minutes: i64,
     pub timer_started_at: Option<types::Timestamp>,
@@ -31,6 +32,8 @@ pub struct TimeEntry {
     pub cost_currency: Option<String>,
     pub cost_per_hour: Option<f64>,
     pub created_at: types::Timestamp,
+    pub start_time: Option<String>,
+    pub end_time: Option<String>,
     pub member: shared::Entity,
     pub project: Option<shared::Project>,
     pub role: Option<shared::Entity>,
@@ -67,6 +70,13 @@ pub enum Type {
 pub enum Status {
     NotSubmitted,
     PendingApproval,
+    Approved,
+    Rejected,
+}
+
+#[derive(PartialEq, Deserialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum ClientStatus {
     Approved,
     Rejected,
 }
