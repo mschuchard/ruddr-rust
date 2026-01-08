@@ -51,13 +51,16 @@ pub struct Project {
     pub is_productive: Option<bool>,
     pub lock_time_and_expenses: bool,
     pub track_time_to_assigned_roles: bool,
+    pub cloud_folder_url: String,
     pub created_at: types::Timestamp,
+    pub completed_on: Option<types::Date>,
     pub client: shared::Entity,
     pub practice: shared::Entity,
     pub project_type: shared::Entity,
     pub tags: Vec<shared::Entity>,
     pub sales_representative: Option<shared::Entity>,
     pub business_unit: Option<shared::Entity>,
+    pub project_group: Option<shared::Entity>,
     pub budget: Option<Budget>,
     pub monthly_budget: Option<MonthlyBudget>,
 }
@@ -107,6 +110,7 @@ pub enum RevenueRecognitionMethod {
 #[derive(PartialEq, Deserialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum BudgetMode {
+    Summary,
     Detailed,
     Aggregated,
 }

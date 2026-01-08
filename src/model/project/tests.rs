@@ -38,7 +38,9 @@ fn test_project_deserialize() {
           "isProductive": null,
           "lockTimeAndExpenses": false,
           "trackTimeToAssignedRoles": true,
+          "cloudFolderUrl": "https://drive.google.com/drive/folders/4MCmjW",
           "createdAt": "2022-03-15T14:59:18.825Z",
+          "completedOn": "2025-10-28",
           "client": {
             "id": "d5afaffe-09e5-4d73-b02c-905b40fc6c22",
             "name": "Acme Company"
@@ -68,6 +70,10 @@ fn test_project_deserialize() {
           "businessUnit": {
             "id": "0e8351ea-6b3c-4307-97cc-196448de0ef1",
             "name": "Palermo North America"
+          },
+          "projectGroup": {
+            "id": "c93c5988-e8d8-4e14-acb0-a991f1ef7c4c",
+            "name": "North America Group"
           },
           "budget": {
             "revenue": 602500,
@@ -127,7 +133,9 @@ fn test_project_deserialize() {
         is_productive: None,
         lock_time_and_expenses: false,
         track_time_to_assigned_roles: true,
+        cloud_folder_url: String::from("https://drive.google.com/drive/folders/4MCmjW"),
         created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
+        completed_on: Some(types::Date(String::from("2025-10-28"))),
         client: shared::Entity {
             id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
             name: String::from("Acme Company"),
@@ -157,6 +165,10 @@ fn test_project_deserialize() {
         business_unit: Some(shared::Entity {
             id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
             name: String::from("Palermo North America"),
+        }),
+        project_group: Some(shared::Entity {
+            id: types::UUID(String::from("c93c5988-e8d8-4e14-acb0-a991f1ef7c4c")),
+            name: String::from("North America Group"),
         }),
         budget: Some(Budget {
             revenue: 602500,
