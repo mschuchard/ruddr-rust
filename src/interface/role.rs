@@ -5,7 +5,7 @@ use std::fmt::Write;
 
 use crate::client::client;
 use crate::model::role;
-use crate::model::{enums, types};
+use crate::model::types;
 
 /// Retrieves a specific Ruddr Role object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://ruddr.readme.io/reference/get-a-project-role)

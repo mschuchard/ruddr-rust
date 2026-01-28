@@ -72,8 +72,8 @@ fn test_time_deserialize() {
         cost_currency: Some(String::from("USD")),
         cost_per_hour: Some(50.0),
         created_at: types::Timestamp(String::from("2022-03-11T16:13:40.715Z")),
-        start_time: Some(String::from("01:00")),
-        end_time: Some(String::from("03:00")),
+        start_time: Some(types::Time(String::from("01:00"))),
+        end_time: Some(types::Time(String::from("03:00"))),
         member: shared::Entity {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
