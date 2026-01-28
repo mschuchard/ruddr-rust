@@ -1,5 +1,7 @@
 ### 1.1.0 (Next)
 - Add support for project roles.
+- Update `allocation`, `project`, and `time` models for API updates.
+- Add new `time` custom type to support `hh:mm`.
 
 ### 1.0.0
 - First official release.

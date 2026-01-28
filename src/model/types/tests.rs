@@ -132,6 +132,67 @@ fn test_timestamp_display() {
 }
 
 #[test]
+fn test_time_new() {
+    assert_eq!(
+        Time(String::from("12:34")),
+        Time::new(String::from("12:34")).expect("time conversion failed")
+    )
+}
+
+#[test]
+fn test_time_new_error() {
+    assert_eq!(
+        Time::new(String::from("9:9")).unwrap_err(),
+        "invalid time: 9:9"
+    );
+}
+
+#[test]
+fn test_time_from_str() {
+    assert_eq!(
+        Time(String::from("12:34")),
+        Time::try_from("12:34").expect("time conversion failed")
+    )
+}
+
+#[test]
+fn test_time_from_string() {
+    assert_eq!(
+        Time::try_from(String::from("12:34")).expect("time conversion failed"),
+        Time(String::from("12:34")),
+    )
+}
+
+#[test]
+fn test_time_to_string() {
+    assert_eq!(
+        String::from("12:34"),
+        String::from(Time(String::from("12:34")))
+    )
+}
+
+#[test]
+fn test_time_to_str() {
+    assert_eq!("12:34", &String::from(Time(String::from("12:34"))))
+}
+
+#[test]
+fn test_time_deserialize() {
+    assert_eq!(
+        Time(String::from("12:34")),
+        serde_json::from_str::<Time>("\"12:34\"").expect("time could not be deserialized")
+    )
+}
+
+#[test]
+fn test_time_display() {
+    assert_eq!(
+        String::from("12:34"),
+        format!("{}", Time(String::from("12:34")))
+    )
+}
+
+#[test]
 fn test_uuid_new() {
     assert_eq!(
         UUID(String::from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")),
