@@ -142,6 +142,73 @@ impl fmt::Display for Timestamp {
     }
 }
 
+/// Custom type for Ruddr Time type in hh:mm format.
+/// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
+/// ```ignore
+/// Time::try_from("12:34")
+/// ```
+#[derive(PartialEq, Eq, Deserialize, Debug)]
+// public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
+pub struct Time(pub(super) String);
+
+impl Time {
+    // constructor with validation used within type converters
+    fn new(time: String) -> Result<Self, String> {
+        let time_validator = Regex::new(r"^\d{2}:\d{2}$").unwrap();
+        if time_validator.is_match(&time) {
+            Ok(Time(time))
+        } else {
+            Err(format!("invalid time: {time}"))
+        }
+    }
+}
+
+impl TryFrom<String> for Time {
+    type Error = String;
+
+    fn try_from(time: String) -> Result<Self, Self::Error> {
+        Time::new(time)
+    }
+}
+
+impl TryFrom<&str> for Time {
+    type Error = String;
+
+    fn try_from(time: &str) -> Result<Self, Self::Error> {
+        Time::new(String::from(time))
+    }
+}
+
+impl From<Time> for String {
+    fn from(time: Time) -> Self {
+        time.0
+    }
+}
+
+impl<'time> From<&'time Time> for &'time str {
+    fn from(time: &'time Time) -> Self {
+        &time.0
+    }
+}
+
+/*impl<'de> serde::Deserialize<'de> for Time {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+        Ok(Time::new(String::deserialize(deserializer)?))
+    }
+}
+
+impl serde::Serialize for Time {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_str(&self.0)
+    }
+}*/
+
+impl fmt::Display for Time {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        write!(format, "{}", self.0)
+    }
+}
+
 /// Custom type for Ruddr UUID type in standard format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
