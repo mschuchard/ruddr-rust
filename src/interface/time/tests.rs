@@ -15,7 +15,7 @@ fn test_time_entry() {
             .unwrap_err()
             .to_string(),
             "client read response failed",
-            "time entry retrieval did not fail on json decoding",
+            "time entry retrieval did not fail on auth",
         )
     };
     let rt = tokio::runtime::Runtime::new().unwrap();
