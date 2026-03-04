@@ -2,7 +2,7 @@
 //!
 //! `model::types` defines custom type structs with trait implementations corresponding to Ruddr API custom types.
 use regex::Regex;
-use serde::Deserialize;
+use serde::{Deserialize, Deserializer};
 use std::fmt;
 
 /// Custom type for Ruddr Date type in YYYY-MM-DD format.
@@ -10,7 +10,7 @@ use std::fmt;
 /// ```ignore
 /// Date::try_from("2028-12-31")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Date(pub(super) String);
 
@@ -54,13 +54,13 @@ impl<'date> From<&'date Date> for &'date str {
     }
 }
 
-/*impl<'de> serde::Deserialize<'de> for Date {
+impl<'de> serde::Deserialize<'de> for Date {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(Date::new(String::deserialize(deserializer)?))
+        Date::new(String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
-impl serde::Serialize for Date {
+/*impl serde::Serialize for Date {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(&self.0)
     }
@@ -79,7 +79,7 @@ impl fmt::Display for Date {
 /// Timestamp::try_from("1234-56-78T12:34:56.789Z")
 /// ```
 /// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
-#[derive(PartialEq, Eq, Deserialize, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Timestamp(pub(super) String);
 
@@ -124,13 +124,13 @@ impl<'timestamp> From<&'timestamp Timestamp> for &'timestamp str {
     }
 }
 
-/*impl<'de> serde::Deserialize<'de> for Timestamp {
+impl<'de> serde::Deserialize<'de> for Timestamp {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(Timestamp::new(String::deserialize(deserializer)?))
+        Timestamp::new(String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
-impl serde::Serialize for Timestamp {
+/*impl serde::Serialize for Timestamp {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(&self.0)
     }
@@ -147,7 +147,7 @@ impl fmt::Display for Timestamp {
 /// ```ignore
 /// Time::try_from("12:34")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Time(pub(super) String);
 
@@ -191,13 +191,13 @@ impl<'time> From<&'time Time> for &'time str {
     }
 }
 
-/*impl<'de> serde::Deserialize<'de> for Time {
+impl<'de> serde::Deserialize<'de> for Time {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(Time::new(String::deserialize(deserializer)?))
+        Time::new(String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
-impl serde::Serialize for Time {
+/*impl serde::Serialize for Time {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(&self.0)
     }
@@ -284,7 +284,7 @@ impl fmt::Display for UUID {
 /// ```ignore
 /// Slug::try_from("vendor-portal")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Debug)]
+#[derive(PartialEq, Eq, Debug)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Slug(pub(super) String);
 
@@ -328,13 +328,13 @@ impl<'slug> From<&'slug Slug> for &'slug str {
     }
 }
 
-/*impl<'de> serde::Deserialize<'de> for Slug {
+impl<'de> serde::Deserialize<'de> for Slug {
     fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
-        Ok(Slug::new(String::deserialize(deserializer)?))
+        Slug::new(String::deserialize(deserializer)?).map_err(serde::de::Error::custom)
     }
 }
 
-impl serde::Serialize for Slug {
+/*impl serde::Serialize for Slug {
     fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         serializer.serialize_str(&self.0)
     }

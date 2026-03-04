@@ -1,3 +1,6 @@
+### 1.1.1 (Next)
+- Restore model deserialization validation.
+
 ### 1.1.0
 - Add support for project roles.
 - Update `allocation`, `project`, and `time` models for API updates.
