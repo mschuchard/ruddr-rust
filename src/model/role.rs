@@ -3,10 +3,10 @@
 //! `model::role` is a model for the Ruddr Project Role object. This module is not publically accessible, but the structs and members are public for reading from `interface::role` returns.
 //! [API Documentation](https://ruddr.readme.io/reference/project-role-object)
 use crate::model::{shared, types};
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 
 /// Model for Roles used with List operations.
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Roles {
     pub results: Vec<Role>,
@@ -14,7 +14,7 @@ pub struct Roles {
 }
 
 /// Model for Role used with Read operations.
-#[derive(Debug, PartialEq, Deserialize)]
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Role {
     pub id: types::UUID,
@@ -29,7 +29,7 @@ pub struct Role {
     pub monthly_budget: Option<Budget>,
 }
 
-#[derive(PartialEq, Deserialize, Debug)]
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Budget {
     pub billable_hours: Option<i64>,
