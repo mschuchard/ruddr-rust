@@ -10,7 +10,7 @@ use std::fmt;
 /// ```ignore
 /// Date::try_from("2028-12-31")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Date(pub(super) String);
 
@@ -79,7 +79,7 @@ impl fmt::Display for Date {
 /// Timestamp::try_from("1234-56-78T12:34:56.789Z")
 /// ```
 /// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Timestamp(pub(super) String);
 
@@ -147,7 +147,7 @@ impl fmt::Display for Timestamp {
 /// ```ignore
 /// Time::try_from("12:34")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Time(pub(super) String);
 
@@ -214,7 +214,7 @@ impl fmt::Display for Time {
 /// ```ignore
 /// UUID::try_from("4c8d3f42-6efd-4a7e-85ca-d43164db0ab2")
 /// ```
-#[derive(PartialEq, Eq, Deserialize, Debug)]
+#[derive(PartialEq, Eq, Deserialize, Debug, Clone)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct UUID(pub(super) String);
 
@@ -284,7 +284,7 @@ impl fmt::Display for UUID {
 /// ```ignore
 /// Slug::try_from("vendor-portal")
 /// ```
-#[derive(PartialEq, Eq, Debug)]
+#[derive(PartialEq, Eq, Debug, Clone)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Slug(pub(super) String);
 

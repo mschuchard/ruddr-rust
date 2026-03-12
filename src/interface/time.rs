@@ -21,7 +21,7 @@ pub async fn time_entry(
         .await?)
 }
 
-/// Retrieves all Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-time-entries)
 /// ```ignore
 /// let time_entries = time_entries(

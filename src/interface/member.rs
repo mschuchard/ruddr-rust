@@ -21,7 +21,7 @@ pub async fn member(
         .await?)
 }
 
-/// Retrieves all Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-members)
 /// ```ignore
 /// let members = members(&client, Some("Joe"), Some("foo@bar.com")).await?;

@@ -21,7 +21,7 @@ pub async fn project(
         .await?)
 }
 
-/// Retrieves all Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-projects)
 /// ```ignore
 /// let projects = projects(

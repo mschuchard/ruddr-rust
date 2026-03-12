@@ -21,7 +21,7 @@ pub async fn utilization(
         .await?)
 }
 
-/// Retrieves all Ruddr Utilization target period objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Utilization target period objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-utilization-target-periods)
 /// ```ignore
 /// let utilizations = utilizations(

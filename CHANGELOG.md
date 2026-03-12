@@ -1,5 +1,6 @@
 ### 1.1.1 (Next)
 - Restore model deserialization validation.
+- Derive `Clone` for custom types.
 
 ### 1.1.0
 - Add support for project roles.

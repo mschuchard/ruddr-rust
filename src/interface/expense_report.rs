@@ -19,7 +19,7 @@ pub async fn expense_report(
         .await?)
 }
 
-/// Retrieves all Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-expense-reports)
 /// ```ignore
 /// let expense_reports = expense_reports(&client).await?;

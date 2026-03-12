@@ -21,7 +21,7 @@ pub async fn cost(
         .await?)
 }
 
-/// Retrieves all Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-cost-periods)
 /// ```ignore
 /// let costs = costs(

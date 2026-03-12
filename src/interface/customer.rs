@@ -21,7 +21,7 @@ pub async fn customer(
         .await?)
 }
 
-/// Retrieves all Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-clients)
 /// ```ignore
 /// let clients = clients(

@@ -22,7 +22,7 @@ pub async fn allocation(
         .await?)
 }
 
-/// Retrieves all Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-allocations)
 /// ```ignore
 /// let allocations = allocations(

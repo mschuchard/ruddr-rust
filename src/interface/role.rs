@@ -22,7 +22,7 @@ pub async fn role(
         .await?)
 }
 
-/// Retrieves all Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the first 100 Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://ruddr.readme.io/reference/list-project-roles)
 /// ```ignore
 /// let roles = roles(
