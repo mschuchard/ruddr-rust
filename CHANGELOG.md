@@ -1,6 +1,6 @@
 ### 1.1.1 (Next)
 - Restore model deserialization validation.
-- Derive `Clone` for custom types.
+- Derive `Clone` and `Serialize` for custom types.
 - Derive `Serialize` for struct models.
 
 ### 1.1.0
