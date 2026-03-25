@@ -15,7 +15,7 @@ exclude = [".circleci", ".github", ".gitignore", "tests"]
 rustdoc-args = ["--document-private-items"]
 
 [dev-dependencies]
-tokio = { version = "1", features = ["macros", "rt"] }
+tokio = { version = "1.0", features = ["macros"] }
 
 [dependencies]
 serde = { version = "1.0", features = ["derive"] }

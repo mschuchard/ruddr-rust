@@ -64,7 +64,7 @@ fn test_project_deserialize() {
             }
           ],
           "salesRepresentative": {
-            "id": "w6816355-8945-40aa-b798-b0d6fd89e437",
+            "id": "a6816355-8945-40aa-b798-b0d6fd89e437",
             "name": "Joe"
           },
           "businessUnit": {
@@ -159,7 +159,7 @@ fn test_project_deserialize() {
             },
         ],
         sales_representative: Some(shared::Entity {
-            id: types::UUID(String::from("w6816355-8945-40aa-b798-b0d6fd89e437")),
+            id: types::UUID(String::from("a6816355-8945-40aa-b798-b0d6fd89e437")),
             name: String::from("Joe"),
         }),
         business_unit: Some(shared::Entity {
