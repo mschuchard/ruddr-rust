@@ -2,6 +2,7 @@
 - Restore model deserialization validation.
 - Derive `Clone` and `Serialize` for custom types.
 - Derive `Serialize` for struct models.
+- Publicize struct models.
 
 ### 1.1.0
 - Add support for project roles.
