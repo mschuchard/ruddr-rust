@@ -5,6 +5,28 @@ use regex::Regex;
 use serde::{Deserializer, Serialize};
 use std::fmt;
 
+/// Aggregation of error types for conversions defined as tuple variants.
+#[derive(Debug, PartialEq)]
+pub enum TypeError {
+    DateError(String),
+    TimestampError(String),
+    TimeError(String),
+    UUIDError(String),
+    SlugError(String),
+}
+
+impl fmt::Display for TypeError {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            TypeError::DateError(message)
+            | TypeError::TimestampError(message)
+            | TypeError::TimeError(message)
+            | TypeError::UUIDError(message)
+            | TypeError::SlugError(message) => write!(format, "{message}"),
+        }
+    }
+}
+
 /// Custom type for Ruddr Date type in YYYY-MM-DD format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
@@ -16,18 +38,18 @@ pub struct Date(pub(super) String);
 
 impl Date {
     // constructor with validation used within type converters
-    fn new(date: String) -> Result<Self, String> {
+    fn new(date: String) -> Result<Self, TypeError> {
         let date_validator = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
         if date_validator.is_match(&date) {
             Ok(Date(date))
         } else {
-            Err(format!("invalid date: {date}"))
+            Err(TypeError::DateError(format!("invalid date: {date}")))
         }
     }
 }
 
 impl TryFrom<String> for Date {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(date: String) -> Result<Self, Self::Error> {
         Date::new(date)
@@ -35,7 +57,7 @@ impl TryFrom<String> for Date {
 }
 
 impl TryFrom<&str> for Date {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(date: &str) -> Result<Self, Self::Error> {
         Date::new(String::from(date))
@@ -85,19 +107,21 @@ pub struct Timestamp(pub(super) String);
 
 impl Timestamp {
     // constructor with validation used within type converters
-    fn new(timestamp: String) -> Result<Self, String> {
+    fn new(timestamp: String) -> Result<Self, TypeError> {
         let timestamp_validator =
             Regex::new(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$").unwrap();
         if timestamp_validator.is_match(&timestamp) {
             Ok(Timestamp(timestamp))
         } else {
-            Err(format!("invalid timestamp: {timestamp}"))
+            Err(TypeError::TimestampError(format!(
+                "invalid timestamp: {timestamp}"
+            )))
         }
     }
 }
 
 impl TryFrom<String> for Timestamp {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(timestamp: String) -> Result<Self, Self::Error> {
         Timestamp::new(timestamp)
@@ -105,7 +129,7 @@ impl TryFrom<String> for Timestamp {
 }
 
 impl TryFrom<&str> for Timestamp {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(timestamp: &str) -> Result<Self, Self::Error> {
         Timestamp::new(String::from(timestamp))
@@ -153,18 +177,18 @@ pub struct Time(pub(super) String);
 
 impl Time {
     // constructor with validation used within type converters
-    fn new(time: String) -> Result<Self, String> {
+    fn new(time: String) -> Result<Self, TypeError> {
         let time_validator = Regex::new(r"^\d{2}:\d{2}$").unwrap();
         if time_validator.is_match(&time) {
             Ok(Time(time))
         } else {
-            Err(format!("invalid time: {time}"))
+            Err(TypeError::TimeError(format!("invalid time: {time}")))
         }
     }
 }
 
 impl TryFrom<String> for Time {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(time: String) -> Result<Self, Self::Error> {
         Time::new(time)
@@ -172,7 +196,7 @@ impl TryFrom<String> for Time {
 }
 
 impl TryFrom<&str> for Time {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(time: &str) -> Result<Self, Self::Error> {
         Time::new(String::from(time))
@@ -220,7 +244,7 @@ pub struct UUID(pub(super) String);
 
 impl UUID {
     // constructor with validation used within type converters
-    fn new(uuid: String) -> Result<Self, String> {
+    fn new(uuid: String) -> Result<Self, TypeError> {
         let uuid_validator = Regex::new(
             r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
         )
@@ -228,13 +252,13 @@ impl UUID {
         if uuid_validator.is_match(&uuid) {
             Ok(UUID(uuid))
         } else {
-            Err(format!("invalid uuid: {uuid}"))
+            Err(TypeError::UUIDError(format!("invalid uuid: {uuid}")))
         }
     }
 }
 
 impl TryFrom<String> for UUID {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(uuid: String) -> Result<Self, Self::Error> {
         UUID::new(uuid)
@@ -242,7 +266,7 @@ impl TryFrom<String> for UUID {
 }
 
 impl TryFrom<&str> for UUID {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(uuid: &str) -> Result<Self, Self::Error> {
         UUID::new(String::from(uuid))
@@ -290,18 +314,18 @@ pub struct Slug(pub(super) String);
 
 impl Slug {
     // constructor with validation used within type converters
-    fn new(slug: String) -> Result<Self, String> {
+    fn new(slug: String) -> Result<Self, TypeError> {
         let slug_validator = Regex::new(r"^[a-z0-9-]+$").unwrap();
         if slug_validator.is_match(&slug) {
             Ok(Slug(slug))
         } else {
-            Err(format!("invalid slug: {slug}"))
+            Err(TypeError::SlugError(format!("invalid slug: {slug}")))
         }
     }
 }
 
 impl TryFrom<String> for Slug {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(slug: String) -> Result<Self, Self::Error> {
         Slug::new(slug)
@@ -309,7 +333,7 @@ impl TryFrom<String> for Slug {
 }
 
 impl TryFrom<&str> for Slug {
-    type Error = String;
+    type Error = TypeError;
 
     fn try_from(slug: &str) -> Result<Self, Self::Error> {
         Slug::new(String::from(slug))
