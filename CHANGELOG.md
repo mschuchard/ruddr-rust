@@ -1,3 +1,6 @@
+### 1.1.2 (Next)
+- Add error type for custom type conversion errors.
+
 ### 1.1.1
 - Restore model deserialization validation.
 - Derive `Clone` and `Serialize` for custom types.

@@ -12,7 +12,7 @@ fn test_date_new() {
 fn test_date_new_error() {
     assert_eq!(
         Date::new(String::from("99-99-9999")).unwrap_err(),
-        "invalid date: 99-99-9999"
+        TypeError::DateError(String::from("invalid date: 99-99-9999"))
     );
 }
 
@@ -77,7 +77,7 @@ fn test_timestamp_new() {
 fn test_timestamp_new_error() {
     assert_eq!(
         Timestamp::new(String::from("99-99-9999")).unwrap_err(),
-        "invalid timestamp: 99-99-9999"
+        TypeError::TimestampError(String::from("invalid timestamp: 99-99-9999"))
     );
 }
 
@@ -143,7 +143,7 @@ fn test_time_new() {
 fn test_time_new_error() {
     assert_eq!(
         Time::new(String::from("9:9")).unwrap_err(),
-        "invalid time: 9:9"
+        TypeError::TimeError(String::from("invalid time: 9:9"))
     );
 }
 
@@ -205,7 +205,7 @@ fn test_uuid_new() {
 fn test_uuid_new_error() {
     assert_eq!(
         UUID::new(String::from("foo-bar-baz")).unwrap_err(),
-        "invalid uuid: foo-bar-baz"
+        TypeError::UUIDError(String::from("invalid uuid: foo-bar-baz"))
     );
 }
 
@@ -274,7 +274,7 @@ fn test_slug_new() {
 fn test_slug_new_error() {
     assert_eq!(
         Slug::new(String::from("Foo-Bar-Baz!")).unwrap_err(),
-        "invalid slug: Foo-Bar-Baz!"
+        TypeError::SlugError(String::from("invalid slug: Foo-Bar-Baz!"))
     );
 }
 
