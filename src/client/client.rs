@@ -89,7 +89,7 @@ impl Client {
             Err(error) => {
                 log::error!("request failed with status {:?}", error.status().unwrap());
                 log::error!("{error}");
-                return Err(Box::from("client read response failed"));
+                return Err(Box::new(error.without_url()));
             }
         };
 
