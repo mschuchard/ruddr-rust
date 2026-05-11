@@ -75,9 +75,9 @@ impl Client {
         &self,
         endpoint: &str,
         params: Option<&str>,
-    ) -> Result<Response, Box<dyn std::error::Error>> {
+    ) -> Result<Response, reqwest::Error> {
         // construct and assign client request
-        let request = request::Request::new(endpoint, params)?;
+        let request = request::Request::new(endpoint, params);
         log::debug!("request is {request:?}");
 
         // retrieve object and deser
@@ -89,7 +89,7 @@ impl Client {
             Err(error) => {
                 log::error!("request failed with status {:?}", error.status().unwrap());
                 log::error!("{error}");
-                return Err(Box::new(error.without_url()));
+                return Err(error.without_url());
             }
         };
 

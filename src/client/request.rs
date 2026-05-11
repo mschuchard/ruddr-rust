@@ -12,40 +12,33 @@ pub(super) struct Request {
 
 impl Request {
     // request constructor with endpoint and params
-    pub(super) fn new(
-        endpoint: &str,
-        params: Option<&str>,
-    ) -> Result<Self, Box<dyn std::error::Error>> {
+    pub(super) fn new(endpoint: &str, params: Option<&str>) -> Self {
         // validate endpoint is not empty
-        if endpoint.is_empty() {
-            log::error!("endpoint is empty");
-            return Err(Box::from("invalid empty endpoint"));
-        }
+        assert!(!endpoint.is_empty(), "endpoint must not be empty");
 
         // prefix params with "?" char if they are specified
-        match params {
+        let url = match params {
             Some(params) => {
                 log::debug!("request endpoint is {endpoint} and params is {params}");
-                Ok(Self {
-                    url: Url::parse(&format!(
-                        "https://www.ruddr.io/api/workspace/{endpoint}?{params}"
-                    ))?,
-                })
+                Url::parse(&format!(
+                    "https://www.ruddr.io/api/workspace/{endpoint}?{params}"
+                ))
+                .expect("failed to construct URL with parameters")
             }
             None => {
                 log::debug!("request endpoint is {endpoint} and params is empty");
-                Ok(Self {
-                    url: Url::parse(&format!("https://www.ruddr.io/api/workspace/{endpoint}"))?,
-                })
+                Url::parse(&format!("https://www.ruddr.io/api/workspace/{endpoint}"))
+                    .expect("failed to construct URL without parameters")
             }
-        }
+        };
+        Self { url }
     }
 
     // execute get request with client
     pub(super) async fn get(
         &self,
         client: &reqwest::Client,
-    ) -> Result<reqwest::Response, Box<dyn std::error::Error>> {
+    ) -> Result<reqwest::Response, reqwest::Error> {
         // execute request and receive response
         log::debug!("initiating GET request at {}", self.url);
         let response = client.get(self.url.as_str()).send().await?;
