@@ -23,12 +23,11 @@ impl Request {
                 Url::parse(&format!(
                     "https://www.ruddr.io/api/workspace/{endpoint}?{params}"
                 ))
-                .expect("failed to construct URL with parameters")
+                .unwrap()
             }
             None => {
                 log::debug!("request endpoint is {endpoint} and params is empty");
-                Url::parse(&format!("https://www.ruddr.io/api/workspace/{endpoint}"))
-                    .expect("failed to construct URL without parameters")
+                Url::parse(&format!("https://www.ruddr.io/api/workspace/{endpoint}")).unwrap()
             }
         };
         Self { url }

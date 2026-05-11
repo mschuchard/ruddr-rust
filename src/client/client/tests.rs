@@ -31,29 +31,21 @@ async fn test_client_new_env() {
 #[tokio::test]
 async fn test_client_read() {
     let client = Client::new(Some("abcdefghi123456789"))
-        .expect("client with env token could not be constructed");
-    assert_eq!(
-        client
-            .read::<project::Project>("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", None,)
-            .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "read did not fail on auth"
-    )
+        .expect("client with token could not be constructed");
+    let response = client
+        .read::<project::Project>("projects/095e0780-48bf-472c-8deb-2fc3ebc7d90c", None)
+        .await
+        .expect_err("read did not fail on auth");
+    assert_eq!(response.status(), Some(reqwest::StatusCode::UNAUTHORIZED));
 }
 
 #[tokio::test]
 async fn test_client_list() {
     let client = Client::new(Some("abcdefghi123456789"))
-        .expect("client with env token could not be constructed");
-    assert_eq!(
-        client
-            .read::<project::Projects>("projects", Some("limit=100"))
-            .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "list did not fail on auth"
-    )
+        .expect("client with token could not be constructed");
+    let response = client
+        .read::<project::Projects>("projects", Some("limit=100"))
+        .await
+        .expect_err("list did not fail on auth");
+    assert_eq!(response.status(), Some(reqwest::StatusCode::UNAUTHORIZED));
 }

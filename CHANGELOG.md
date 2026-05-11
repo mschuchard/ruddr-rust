@@ -1,5 +1,6 @@
 ### 1.1.2 (Next)
 - Add error type for custom type conversion errors.
+- Leverage `reqwest::Error` type for client errors.
 
 ### 1.1.1
 - Restore model deserialization validation.
