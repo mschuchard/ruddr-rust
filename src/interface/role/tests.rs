@@ -11,10 +11,9 @@ async fn test_role() {
                 .expect("uuid conversion failed")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "role retrieval did not fail on auth",
+        .expect_err("role retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -31,9 +30,8 @@ async fn test_roles() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "roles retrieval did not fail on auth",
+        .expect_err("roles retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

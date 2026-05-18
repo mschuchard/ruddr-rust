@@ -10,10 +10,9 @@ async fn test_time_entry() {
             types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "time entry retrieval did not fail on auth",
+        .expect_err("time entry retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -37,9 +36,8 @@ async fn test_time_entries() {
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "time entries retrieval did not fail on auth",
+        .expect_err("time entries retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

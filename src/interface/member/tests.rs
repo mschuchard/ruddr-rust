@@ -10,10 +10,9 @@ async fn test_member() {
             types::UUID::try_from("3f3df320-dd95-4a42-8eae-99243fb2ea86").expect("invalid UUID")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "member retrieval did not fail on auth",
+        .expect_err("member retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -24,9 +23,8 @@ async fn test_members() {
     assert_eq!(
         members(&client, Some("Joe"), Some("foo@bar.com"))
             .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "members retrieval did not fail on auth",
+            .expect_err("members retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

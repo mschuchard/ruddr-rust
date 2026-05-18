@@ -10,10 +10,9 @@ async fn test_utilization() {
             types::UUID::try_from("8e6d6316-5bc2-4135-b99c-f604f29051ab").expect("invalid UUID")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "utilization retrieval did not fail on auth",
+        .expect_err("utilization retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -30,9 +29,8 @@ async fn test_utilizations() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "utilizations retrieval did not fail on auth",
+        .expect_err("utilizations retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

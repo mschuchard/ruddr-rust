@@ -36,7 +36,7 @@ async fn test_request_get() {
     println!("response: {:?}", response);
     assert_eq!(
         response.status(),
-        401,
+        reqwest::StatusCode::UNAUTHORIZED,
         "the response did not return expected 401 status",
     )
 }

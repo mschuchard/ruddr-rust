@@ -11,10 +11,9 @@ async fn test_expense_report() {
                 .expect("uuid conversion failed")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "expense_report retrieval did not fail on auth",
+        .expect_err("expense_report retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -23,8 +22,10 @@ async fn test_expense_reports() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        expense_reports(&client).await.unwrap_err().to_string(),
-        "client read response failed",
-        "expense_reports retrieval did not fail on auth",
+        expense_reports(&client)
+            .await
+            .expect_err("expense_reports retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

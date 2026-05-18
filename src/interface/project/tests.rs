@@ -10,10 +10,9 @@ async fn test_project() {
             types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("invalid UUID")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "project retrieval did not fail on auth",
+        .expect_err("project retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -36,9 +35,8 @@ async fn test_projects() {
             Some("my_project"),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "projects retrieval did not fail on auth",
+        .expect_err("projects retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

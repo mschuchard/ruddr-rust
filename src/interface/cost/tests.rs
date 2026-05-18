@@ -11,10 +11,9 @@ async fn test_cost() {
                 .expect("uuid conversion failed"),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "cost retrieval did not fail on auth",
+        .expect_err("cost retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -31,9 +30,8 @@ async fn test_costs() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "costs retrieval did not fail on auth",
+        .expect_err("costs retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

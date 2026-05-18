@@ -11,10 +11,9 @@ async fn test_allocation() {
                 .expect("uuid conversion failed")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "allocation retrieval did not fail on auth",
+        .expect_err("allocation retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -34,9 +33,8 @@ async fn test_allocations() {
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "allocations retrieval did not fail on auth",
+        .expect_err("allocations retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }

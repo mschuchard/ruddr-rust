@@ -11,10 +11,9 @@ async fn test_customer() {
                 .expect("uuid conversion failed")
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "client retrieval did not fail on auth",
+        .expect_err("client retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -23,8 +22,10 @@ async fn test_clients() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        clients(&client, Some("JOE")).await.unwrap_err().to_string(),
-        "client read response failed",
-        "clients retrieval did not fail on auth",
+        clients(&client, Some("JOE"))
+            .await
+            .expect_err("clients retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
