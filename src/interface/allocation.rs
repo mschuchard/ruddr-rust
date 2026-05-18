@@ -15,7 +15,7 @@ use crate::model::{enums, types};
 pub async fn allocation(
     client: &client::Client,
     id: types::UUID,
-) -> Result<allocation::Allocation, Box<dyn std::error::Error>> {
+) -> Result<allocation::Allocation, reqwest::Error> {
     // retrieve allocation
     Ok(client
         .read::<allocation::Allocation>(&format!("allocations/{id}"), None)
@@ -39,22 +39,22 @@ pub async fn allocations(
     member: Option<types::UUID>,
     start_date: Option<types::Date>,
     end_date: Option<types::Date>,
-) -> Result<allocation::Allocations, Box<dyn std::error::Error>> {
+) -> Result<allocation::Allocations, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(assignment_type) = assignment_type {
-        write!(params, "&assignmentTypeId={}", assignment_type)?;
+        write!(params, "&assignmentTypeId={}", assignment_type).unwrap();
     }
     if let Some(member) = member {
-        write!(params, "&memberId={}", member)?;
+        write!(params, "&memberId={}", member).unwrap();
     }
     if let Some(start_date) = start_date {
-        write!(params, "&startOnBefore={}", start_date)?;
+        write!(params, "&startOnBefore={}", start_date).unwrap();
     }
     if let Some(end_date) = end_date {
-        write!(params, "&endOnAfter={}", end_date)?;
+        write!(params, "&endOnAfter={}", end_date).unwrap();
     }
 
     // retrieve allocations

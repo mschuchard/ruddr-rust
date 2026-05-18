@@ -14,7 +14,7 @@ use crate::model::{types, utilization};
 pub async fn utilization(
     client: &client::Client,
     id: types::UUID,
-) -> Result<utilization::Utilization, Box<dyn std::error::Error>> {
+) -> Result<utilization::Utilization, reqwest::Error> {
     // retrieve utilization target period
     Ok(client
         .read::<utilization::Utilization>(&format!("utilization-target-periods/{id}"), None)
@@ -32,13 +32,13 @@ pub async fn utilization(
 pub async fn utilizations(
     client: &client::Client,
     member: Option<types::UUID>,
-) -> Result<utilization::Utilizations, Box<dyn std::error::Error>> {
+) -> Result<utilization::Utilizations, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(member) = member {
-        write!(params, "&memberId={}", member)?;
+        write!(params, "&memberId={}", member).unwrap();
     }
 
     // retrieve utilization target periods

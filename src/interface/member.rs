@@ -14,7 +14,7 @@ use crate::model::{member, types};
 pub async fn member(
     client: &client::Client,
     id: types::UUID,
-) -> Result<member::Member, Box<dyn std::error::Error>> {
+) -> Result<member::Member, reqwest::Error> {
     // retrieve member
     Ok(client
         .read::<member::Member>(&format!("members/{id}"), None)
@@ -30,16 +30,16 @@ pub async fn members(
     client: &client::Client,
     name_contains: Option<&str>,
     email_contains: Option<&str>,
-) -> Result<member::Members, Box<dyn std::error::Error>> {
+) -> Result<member::Members, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(name_contains) = name_contains {
-        write!(params, "&nameContains={}", name_contains)?;
+        write!(params, "&nameContains={}", name_contains).unwrap();
     }
     if let Some(email_contains) = email_contains {
-        write!(params, "&emailContains={}", email_contains)?;
+        write!(params, "&emailContains={}", email_contains).unwrap();
     }
 
     // retrieve members

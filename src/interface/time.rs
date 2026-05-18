@@ -14,7 +14,7 @@ use crate::model::{time, types};
 pub async fn time_entry(
     client: &client::Client,
     id: types::UUID,
-) -> Result<time::TimeEntry, Box<dyn std::error::Error>> {
+) -> Result<time::TimeEntry, reqwest::Error> {
     // retrieve time entry
     Ok(client
         .read::<time::TimeEntry>(&format!("time-entries/{id}"), None)
@@ -40,25 +40,25 @@ pub async fn time_entries(
     date: Option<types::Date>,
     begin_date: Option<types::Date>,
     end_date: Option<types::Date>,
-) -> Result<time::TimeEntries, Box<dyn std::error::Error>> {
+) -> Result<time::TimeEntries, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(member) = member {
-        write!(params, "&memberId={}", member)?;
+        write!(params, "&memberId={}", member).unwrap();
     }
     if let Some(project) = project {
-        write!(params, "&projectId={}", project)?;
+        write!(params, "&projectId={}", project).unwrap();
     }
     if let Some(date) = date {
-        write!(params, "&date={}", date)?;
+        write!(params, "&date={}", date).unwrap();
     }
     if let Some(begin_date) = begin_date {
-        write!(params, "&dateOnAfter={}", begin_date)?;
+        write!(params, "&dateOnAfter={}", begin_date).unwrap();
     }
     if let Some(end_date) = end_date {
-        write!(params, "&dateOnBefore={}", end_date)?;
+        write!(params, "&dateOnBefore={}", end_date).unwrap();
     }
 
     // retrieve time entries

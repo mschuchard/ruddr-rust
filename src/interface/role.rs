@@ -12,10 +12,7 @@ use crate::model::types;
 /// ```ignore
 /// let role = role(&client, types::UUID::try_from("7ad5a34a-07b7-48e9-a760-bd220d52e354").expect("uuid conversion failed")).await?;
 /// ```
-pub async fn role(
-    client: &client::Client,
-    id: types::UUID,
-) -> Result<role::Role, Box<dyn std::error::Error>> {
+pub async fn role(client: &client::Client, id: types::UUID) -> Result<role::Role, reqwest::Error> {
     // retrieve role
     Ok(client
         .read::<role::Role>(&format!("project-roles/{id}"), None)
@@ -33,13 +30,13 @@ pub async fn role(
 pub async fn roles(
     client: &client::Client,
     project: Option<types::UUID>,
-) -> Result<role::Roles, Box<dyn std::error::Error>> {
+) -> Result<role::Roles, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(project) = project {
-        write!(params, "&projectId={}", project)?;
+        write!(params, "&projectId={}", project).unwrap();
     }
 
     // retrieve roles

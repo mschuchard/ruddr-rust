@@ -14,7 +14,7 @@ use crate::model::{enums, project, types};
 pub async fn project(
     client: &client::Client,
     id: types::UUID,
-) -> Result<project::Project, Box<dyn std::error::Error>> {
+) -> Result<project::Project, reqwest::Error> {
     // retrieve project
     Ok(client
         .read::<project::Project>(&format!("projects/{id}"), None)
@@ -38,22 +38,22 @@ pub async fn projects(
     project_type: Option<types::UUID>,
     status: Option<enums::Status>,
     name_contains: Option<&str>,
-) -> Result<project::Projects, Box<dyn std::error::Error>> {
+) -> Result<project::Projects, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(client_id) = client_id {
-        write!(params, "&clientId={}", client_id)?;
+        write!(params, "&clientId={}", client_id).unwrap();
     }
     if let Some(project_type) = project_type {
-        write!(params, "&projectTypeId={}", project_type)?;
+        write!(params, "&projectTypeId={}", project_type).unwrap();
     }
     if let Some(status) = status {
-        write!(params, "&statusId={}", status)?;
+        write!(params, "&statusId={}", status).unwrap();
     }
     if let Some(name_contains) = name_contains {
-        write!(params, "&nameContains={}", name_contains)?;
+        write!(params, "&nameContains={}", name_contains).unwrap();
     }
 
     // retrieve projects

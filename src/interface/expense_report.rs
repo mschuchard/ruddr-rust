@@ -12,7 +12,7 @@ use crate::model::{expense_report, types};
 pub async fn expense_report(
     client: &client::Client,
     id: types::UUID,
-) -> Result<expense_report::ExpenseReport, Box<dyn std::error::Error>> {
+) -> Result<expense_report::ExpenseReport, reqwest::Error> {
     // retrieve expense report
     Ok(client
         .read::<expense_report::ExpenseReport>(&format!("expense-reports/{id}"), None)
@@ -26,7 +26,7 @@ pub async fn expense_report(
 /// ```
 pub async fn expense_reports(
     client: &client::Client,
-) -> Result<expense_report::ExpenseReports, Box<dyn std::error::Error>> {
+) -> Result<expense_report::ExpenseReports, reqwest::Error> {
     // retrieve expense reports
     Ok(client
         .read::<expense_report::ExpenseReports>("expense-reports", Some("limit=100"))

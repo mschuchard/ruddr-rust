@@ -14,7 +14,7 @@ use crate::model::{expense_item, types};
 pub async fn expense_item(
     client: &client::Client,
     id: types::UUID,
-) -> Result<expense_item::ExpenseItem, Box<dyn std::error::Error>> {
+) -> Result<expense_item::ExpenseItem, reqwest::Error> {
     // retrieve expense item
     Ok(client
         .read::<expense_item::ExpenseItem>(&format!("expense-items/{id}"), None)
@@ -29,13 +29,13 @@ pub async fn expense_item(
 pub async fn expense_items(
     client: &client::Client,
     expense_report: Option<types::UUID>,
-) -> Result<expense_item::ExpenseItems, Box<dyn std::error::Error>> {
+) -> Result<expense_item::ExpenseItems, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(expense_report) = expense_report {
-        write!(params, "&expenseReportId={}", expense_report)?;
+        write!(params, "&expenseReportId={}", expense_report).unwrap();
     }
 
     // retrieve expense items

@@ -14,7 +14,7 @@ use crate::model;
 pub async fn customer(
     client: &client::Client,
     id: model::types::UUID,
-) -> Result<model::client::Client, Box<dyn std::error::Error>> {
+) -> Result<model::client::Client, reqwest::Error> {
     // retrieve client
     Ok(client
         .read::<model::client::Client>(&format!("clients/{id}"), None)
@@ -32,13 +32,13 @@ pub async fn customer(
 pub async fn clients(
     client: &client::Client,
     code: Option<&str>,
-) -> Result<model::client::Clients, Box<dyn std::error::Error>> {
+) -> Result<model::client::Clients, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(code) = code {
-        write!(params, "&code={}", code)?;
+        write!(params, "&code={}", code).unwrap();
     }
 
     // retrieve clients

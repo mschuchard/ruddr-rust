@@ -11,10 +11,7 @@ use crate::model::{cost, types};
 /// ```ignore
 /// let cost = cost(&client, types::UUID::try_from("b3a100b0-8e71-4f39-9d96-32f11838aa8c").expect("invalid UUID")).await?;
 /// ```
-pub async fn cost(
-    client: &client::Client,
-    id: types::UUID,
-) -> Result<cost::Cost, Box<dyn std::error::Error>> {
+pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost, reqwest::Error> {
     // retrieve cost target period
     Ok(client
         .read::<cost::Cost>(&format!("cost-periods/{id}"), None)
@@ -32,13 +29,13 @@ pub async fn cost(
 pub async fn costs(
     client: &client::Client,
     member: Option<types::UUID>,
-) -> Result<cost::Costs, Box<dyn std::error::Error>> {
+) -> Result<cost::Costs, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
     if let Some(member) = member {
-        write!(params, "&memberId={}", member)?;
+        write!(params, "&memberId={}", member).unwrap();
     }
 
     // retrieve cost target periods
