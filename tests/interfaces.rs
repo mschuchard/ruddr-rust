@@ -18,10 +18,9 @@ async fn test_allocations() {
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "allocations retrieval did not fail on auth",
+        .expect_err("allocations retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -32,10 +31,9 @@ async fn test_customers() {
     assert_eq!(
         customer::clients(&client, Some("JOE"))
             .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "clients retrieval did not fail on auth",
+            .expect_err("clients retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -52,10 +50,9 @@ async fn test_costs() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "costs retrieval did not fail on auth",
+        .expect_err("costs retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -72,10 +69,9 @@ async fn test_expense_items() {
             )
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "expense_items retrieval did not fail on auth",
+        .expect_err("expense_items retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -86,10 +82,9 @@ async fn test_expense_reports() {
     assert_eq!(
         expense_report::expense_reports(&client)
             .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "expense_reports retrieval did not fail on auth",
+            .expect_err("expense_reports retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -100,10 +95,9 @@ async fn test_members() {
     assert_eq!(
         member::members(&client, Some("Joe"), Some("foo@bar.com"))
             .await
-            .unwrap_err()
-            .to_string(),
-        "client read response failed",
-        "members retrieval did not fail on auth",
+            .expect_err("members retrieval did not fail on auth")
+            .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -126,10 +120,9 @@ async fn test_projects() {
             Some("my_project"),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "projects retrieval did not fail on auth",
+        .expect_err("projects retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -146,10 +139,9 @@ async fn test_roles() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "roles retrieval did not fail on auth",
+        .expect_err("roles retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -173,10 +165,9 @@ async fn test_time_entries() {
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "time entries retrieval did not fail on auth",
+        .expect_err("time entries retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
 
@@ -193,9 +184,8 @@ async fn test_utilizations() {
             ),
         )
         .await
-        .unwrap_err()
-        .to_string(),
-        "client read response failed",
-        "utilizations retrieval did not fail on auth",
+        .expect_err("utilizations retrieval did not fail on auth")
+        .status(),
+        Some(reqwest::StatusCode::UNAUTHORIZED),
     )
 }
