@@ -1,4 +1,4 @@
-### 1.1.2 (Next)
+### 1.1.2
 - Add error type for custom type conversion errors.
 - Leverage `reqwest::Error` type for client errors.
 
