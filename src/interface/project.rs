@@ -7,7 +7,7 @@ use crate::client::client;
 use crate::model::{enums, project, types};
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-a-project)
+/// [API Documentation](https://docs.ruddr.io/api-reference/projects/get-a-project.md)
 /// ```ignore
 /// let project = project(&client, types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("invalid UUID")).await?;
 /// ```
@@ -22,7 +22,7 @@ pub async fn project(
 }
 
 /// Retrieves the first 100 Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-projects)
+/// [API Documentation](https://docs.ruddr.io/api-reference/projects/list-projects.md)
 /// ```ignore
 /// let projects = projects(
 ///     &client,

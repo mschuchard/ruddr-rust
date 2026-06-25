@@ -1,7 +1,7 @@
 //! # Utilization
 //!
 //! `model::utilization` is a model for the Ruddr Utilization target period object. This module is not publically accessible, but the structs and members are public for reading from `interface::utilization` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/utilization-target-period-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/utilization-target-periods/get-a-utilization-target-period.md)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 

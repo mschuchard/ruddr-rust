@@ -8,7 +8,7 @@ use crate::model::allocation;
 use crate::model::{enums, types};
 
 /// Retrieves a specific Ruddr Allocation object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-an-allocation)
+/// [API Documentation](https://docs.ruddr.io/api-reference/allocations/get-an-allocation.md)
 /// ```ignore
 /// let allocation = allocation(&client, types::UUID::try_from("212b8272-ed2a-4a91-950a-8a06b3546144").expect("uuid conversion failed")).await?;
 /// ```
@@ -23,7 +23,7 @@ pub async fn allocation(
 }
 
 /// Retrieves the first 100 Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-allocations)
+/// [API Documentation](https://docs.ruddr.io/api-reference/allocations/list-allocations.md)
 /// ```ignore
 /// let allocations = allocations(
 ///     &client,

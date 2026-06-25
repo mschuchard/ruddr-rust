@@ -1,7 +1,7 @@
 //! # Member
 //!
 //! `model::member` is a model for the Ruddr Member object. This module is not publically accessible, but the structs and members are public for reading from `interface::member` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/member-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/members/get-a-member.md)
 use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 

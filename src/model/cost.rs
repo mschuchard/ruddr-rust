@@ -1,7 +1,7 @@
 //! # Cost
 //!
 //! `model::cost` is a model for the Ruddr Cost period object. This module is not publically accessible, but the structs and members are public for reading from `interface::cost` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/cost-period-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/cost-periods/get-a-cost-period.md)
 use crate::model::types;
 use serde::{Deserialize, Serialize};
 

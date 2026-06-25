@@ -7,7 +7,7 @@ use crate::client::client;
 use crate::model::{expense_item, types};
 
 /// Retrieves a specific Ruddr Expense Item object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-an-expense-item)
+/// [API Documentation](https://docs.ruddr.io/api-reference/expense-items/get-an-expense-item.md)
 /// ```ignore
 /// let expense_item = expense_item(&client, types::UUID::try_from("77f5ccdc-4226-4ff1-877e-5644d0a04522").expect("invalid UUID")).await?;
 /// ```
@@ -22,7 +22,7 @@ pub async fn expense_item(
 }
 
 /// Retrieves the first 100 Ruddr Expense Item objects, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-expense-items)
+/// [API Documentation](https://docs.ruddr.io/api-reference/expense-items/list-expense-items.md)
 /// ```ignore
 /// let expense_items = expense_items(&client, Some(types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80").expect("invalid UUID"))).await?;
 /// ```

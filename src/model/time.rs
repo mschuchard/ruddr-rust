@@ -1,7 +1,7 @@
 //! # Time
 //!
 //! `model::time` is a model for the Ruddr Time Entry object. This module is not publically accessible, but the structs and members are public for reading from `interface::time` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/time-entry-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/time-entries/get-a-time-entry.md)
 use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 

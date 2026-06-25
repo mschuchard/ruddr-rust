@@ -7,7 +7,7 @@ use crate::client::client;
 use crate::model::{member, types};
 
 /// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-a-member)
+/// [API Documentation](https://docs.ruddr.io/api-reference/members/get-a-member.md)
 /// ```ignore
 /// let member = member(&client, types::UUID::try_from("3f3df320-dd95-4a42-8eae-99243fb2ea86").expect("invalid UUID")).await?;
 /// ```
@@ -22,7 +22,7 @@ pub async fn member(
 }
 
 /// Retrieves the first 100 Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-members)
+/// [API Documentation](https://docs.ruddr.io/api-reference/members/list-members.md)
 /// ```ignore
 /// let members = members(&client, Some("Joe"), Some("foo@bar.com")).await?;
 /// ```

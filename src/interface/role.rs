@@ -8,7 +8,7 @@ use crate::model::role;
 use crate::model::types;
 
 /// Retrieves a specific Ruddr Role object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-a-project-role)
+/// [API Documentation](https://docs.ruddr.io/api-reference/projects/get-a-project.md-role)
 /// ```ignore
 /// let role = role(&client, types::UUID::try_from("7ad5a34a-07b7-48e9-a760-bd220d52e354").expect("uuid conversion failed")).await?;
 /// ```
@@ -20,7 +20,7 @@ pub async fn role(client: &client::Client, id: types::UUID) -> Result<role::Role
 }
 
 /// Retrieves the first 100 Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-project-roles)
+/// [API Documentation](https://docs.ruddr.io/api-reference/project-roles/list-project-roles.md)
 /// ```ignore
 /// let roles = roles(
 ///     &client,

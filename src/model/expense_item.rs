@@ -1,7 +1,7 @@
 //! # Expense Item
 //!
 //! `model::expense_item` is a model for the Ruddr Expense Item object. This module is not publically accessible, but the structs and members are public for reading from `interface::expense_item` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/expense-item-object) (documentation has `Description` of `statusId` and `vendor` switched)
+//! [API Documentation](https://docs.ruddr.io/api-reference/expense-items/get-an-expense-item.md) (documentation has `Description` of `statusId` and `vendor` switched)
 use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 

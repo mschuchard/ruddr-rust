@@ -1,7 +1,7 @@
 //! # Project
 //!
 //! `model::project` is a model for the Ruddr Project object. This module is not publically accessible, but the structs and members are public for reading from `interface::project` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/project-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/projects/get-a-project.md)
 use crate::model::{enums, shared, types};
 use serde::{Deserialize, Serialize};
 

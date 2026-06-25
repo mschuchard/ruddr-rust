@@ -7,7 +7,7 @@ use crate::client::client;
 use crate::model::{time, types};
 
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
-/// [API Documentation](https://ruddr.readme.io/reference/get-a-time-entry)
+/// [API Documentation](https://docs.ruddr.io/api-reference/time-entries/get-a-time-entry.md)
 /// ```ignore
 /// let time_entry = time_entry(&client, types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")).await?;
 /// ```
@@ -22,7 +22,7 @@ pub async fn time_entry(
 }
 
 /// Retrieves the first 100 Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs.
-/// [API Documentation](https://ruddr.readme.io/reference/list-time-entries)
+/// [API Documentation](https://docs.ruddr.io/api-reference/time-entries/list-time-entries.md)
 /// ```ignore
 /// let time_entries = time_entries(
 ///     &client,

@@ -1,7 +1,7 @@
 //! # Project Role
 //!
 //! `model::role` is a model for the Ruddr Project Role object. This module is not publically accessible, but the structs and members are public for reading from `interface::role` returns.
-//! [API Documentation](https://ruddr.readme.io/reference/project-role-object)
+//! [API Documentation](https://docs.ruddr.io/api-reference/project-roles/get-a-project-role.md)
 use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
