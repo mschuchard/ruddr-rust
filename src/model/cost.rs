@@ -32,6 +32,7 @@ pub struct Cost {
     pub created_at: types::Timestamp,
 }
 
+// custom types: enum
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "snake_case")]
 pub enum CostMethod {
