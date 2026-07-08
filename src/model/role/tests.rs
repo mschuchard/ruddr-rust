@@ -18,13 +18,18 @@ fn test_role_deserialize() {
               "name": "Joe's Shop"
             }
           },
-          "discipline": {
+          "discipline": null,
+          "practice": {
             "id": "14aa2bab-ea87-4ca3-9d5b-08aade12376e",
             "name": "Project Management"
           },
+          "location": {
+            "id": "6f52a290-7b61-40d0-b07a-c1bf4f7a14df",
+            "name": "Remote"
+          },
           "budget": {
-            "billableHours": 150,
-            "nonBillableHours": 10
+            "billableHours": null,
+            "nonBillableHours": null
           },
           "monthlyBudget": {
             "billableHours": 30,
@@ -48,17 +53,22 @@ fn test_role_deserialize() {
                 name: String::from("Joe's Shop"),
             },
         },
-        discipline: shared::Entity {
+        discipline: None,
+        practice: Some(shared::Entity {
             id: types::UUID(String::from("14aa2bab-ea87-4ca3-9d5b-08aade12376e")),
             name: String::from("Project Management"),
-        },
+        }),
+        location: Some(shared::Entity {
+            id: types::UUID(String::from("6f52a290-7b61-40d0-b07a-c1bf4f7a14df")),
+            name: String::from("Remote"),
+        }),
         budget: Some(Budget {
-            billable_hours: Some(150),
-            non_billable_hours: 10,
+            billable_hours: None,
+            non_billable_hours: None,
         }),
         monthly_budget: Some(Budget {
             billable_hours: Some(30),
-            non_billable_hours: 2,
+            non_billable_hours: Some(2),
         }),
     };
     assert_eq!(

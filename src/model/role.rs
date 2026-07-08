@@ -24,7 +24,9 @@ pub struct Role {
     pub rate: Option<f64>,
     pub created_at: types::Timestamp,
     pub project: shared::Project,
-    pub discipline: shared::Entity,
+    pub discipline: Option<shared::Entity>,
+    pub practice: Option<shared::Entity>,
+    pub location: Option<shared::Entity>,
     pub budget: Option<Budget>,
     pub monthly_budget: Option<Budget>,
 }
@@ -33,7 +35,7 @@ pub struct Role {
 #[serde(rename_all = "camelCase")]
 pub struct Budget {
     pub billable_hours: Option<i64>,
-    pub non_billable_hours: i64,
+    pub non_billable_hours: Option<i64>,
 }
 
 #[cfg(test)]
