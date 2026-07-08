@@ -20,25 +20,38 @@ pub struct Client {
     pub id: types::UUID,
     pub key: String,
     pub name: String,
-    pub code: String,
+    pub code: Option<String>,
     pub currency: String,
-    pub notes: String,
+    pub notes: Option<String>,
     pub emails: Vec<String>,
-    pub street_address: String,
+    pub street_address: Option<String>,
     pub invoice_details_source: InvoiceDetailsSource,
-    pub invoice_subject: String,
-    pub invoice_email_subject: String,
-    pub invoice_email_body: String,
+    pub invoice_subject: Option<String>,
+    pub invoice_email_subject: Option<String>,
+    pub invoice_email_body: Option<String>,
     pub use_workspace_invoice_details: bool,
-    pub invoice_notes: String,
+    pub invoice_notes: Option<String>,
     pub is_internal: bool,
     pub record_status_id: RecordStatus,
     pub created_at: types::Timestamp,
     pub practice: Option<shared::Entity>,
-    pub invoice_payment_term: shared::Entity,
-    pub owner: shared::Entity,
+    pub industry: Option<shared::Entity>,
+    pub location: Option<shared::Entity>,
+    pub invoice_payment_term: Option<shared::Entity>,
+    pub owner: Option<shared::Entity>,
     pub tags: Vec<shared::Entity>,
+    pub sales_representative: Option<shared::Entity>,
     pub business_unit: Option<shared::Entity>,
+    pub integrations: Vec<Integration>,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct Integration {
+    #[serde(rename = "type")]
+    pub integration_type: IntegrationType,
+    pub connection_id: types::UUID,
+    pub external_id: String,
 }
 
 // custom types: enum
@@ -55,6 +68,13 @@ pub enum InvoiceDetailsSource {
 pub enum RecordStatus {
     Active,
     Archived,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum IntegrationType {
+    Xero,
+    Qbo,
 }
 
 #[cfg(test)]

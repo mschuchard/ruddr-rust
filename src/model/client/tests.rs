@@ -7,19 +7,19 @@ fn test_client_deserialize() {
           "id": "4cacdf11-71d1-4fbb-90ee-b091803581b0",
           "key": "joes-shop",
           "name": "Joe's Shop",
-          "code": "JOE",
+          "code": null,
           "currency": "USD",
-          "notes": "Originally based out of Colorado.",
+          "notes": null,
           "emails": [
             "joe@joesshop.com",
             "jane@joesshop.com"
           ],
-          "streetAddress": "500 Main Street \nAtlanta, GA 43003",
+          "streetAddress": null,
           "invoiceDetailsSource": "custom",
-          "invoiceSubject": "Invoice for Professional Services",
-          "invoiceNotes": "Please remit payment via ACH to Bank: 009235923",
-          "invoiceEmailSubject": "Invoice Ready for Your Review - Payment via ACH",
-          "invoiceEmailBody": "Hi, \n\nAn invoice has been prepared for your review. Please remit payment via ACH to Bank: 009235923. \n\nThank you for your business!",
+          "invoiceSubject": null,
+          "invoiceNotes": null,
+          "invoiceEmailSubject": null,
+          "invoiceEmailBody": null,
           "isInternal": false,
           "recordStatusId": "active",
           "createdAt": "2022-02-24T16:08:18.640Z",
@@ -27,14 +27,16 @@ fn test_client_deserialize() {
             "id": "40f95471-7f7c-4ffa-b838-8dcccab0f54a",
             "name": "Digital Transformation"
           },
-          "invoicePaymentTerm": {
-            "id": "83b13634-4de2-4744-ab9e-61cf13038657",
-            "name": "Net-30"
+          "industry": {
+            "id": "bc52e68a-96d9-46bd-881c-bda8d5e07053",
+            "name": "Technology"
           },
-          "owner": {
-            "id": "db010cff-a6f6-4c4e-8160-b6b7562865ff",
-            "name": "Cameron Howe"
+          "location": {
+            "id": "ae469b03-51f3-47c2-be12-a319e0ce7cd8",
+            "name": "New York"
           },
+          "invoicePaymentTerm": null,
+          "owner": null,
           "tags": [
             {
               "id": "8670e0fd-bd7a-457e-bec9-eff2b1c12b78",
@@ -45,11 +47,22 @@ fn test_client_deserialize() {
               "name": "Mid-Atlantic Region"
             }
           ],
+          "salesRepresentative": {
+            "id": "c6f2b081-d47a-4e93-a8d5-3e1c7f9a204b",
+            "name": "John Davis"
+          },
           "useWorkspaceInvoiceDetails": false,
           "businessUnit": {
             "id": "0e8351ea-6b3c-4307-97cc-196448de0ef1",
             "name": "EU"
-          }
+          },
+          "integrations": [
+            {
+              "type": "xero",
+              "connectionId": "9d2f6b1a-4c83-4e57-bf09-1a6d3e8c20b4",
+              "externalId": "5e1a9c47-2b86-4d30-9f12-7a4c8e3b50d9"
+            }
+          ]
         }"#;
     let client_deserialized =
         serde_json::from_str::<Client>(json_input).expect("client could not be deserialized");
@@ -57,22 +70,20 @@ fn test_client_deserialize() {
         id: types::UUID(String::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")),
         key: String::from("joes-shop"),
         name: String::from("Joe's Shop"),
-        code: String::from("JOE"),
+        code: None,
         currency: String::from("USD"),
-        notes: String::from("Originally based out of Colorado."),
+        notes: None,
         emails: vec![
             String::from("joe@joesshop.com"),
             String::from("jane@joesshop.com"),
         ],
-        street_address: String::from("500 Main Street \nAtlanta, GA 43003"),
+        street_address: None,
         invoice_details_source: InvoiceDetailsSource::Custom,
-        invoice_subject: String::from("Invoice for Professional Services"),
-        invoice_email_subject: String::from("Invoice Ready for Your Review - Payment via ACH"),
-        invoice_email_body: String::from(
-            "Hi, \n\nAn invoice has been prepared for your review. Please remit payment via ACH to Bank: 009235923. \n\nThank you for your business!",
-        ),
+        invoice_subject: None,
+        invoice_email_subject: None,
+        invoice_email_body: None,
         use_workspace_invoice_details: false,
-        invoice_notes: String::from("Please remit payment via ACH to Bank: 009235923"),
+        invoice_notes: None,
         is_internal: false,
         record_status_id: RecordStatus::Active,
         created_at: types::Timestamp(String::from("2022-02-24T16:08:18.640Z")),
@@ -80,14 +91,16 @@ fn test_client_deserialize() {
             id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
             name: String::from("Digital Transformation"),
         }),
-        invoice_payment_term: shared::Entity {
-            id: types::UUID(String::from("83b13634-4de2-4744-ab9e-61cf13038657")),
-            name: String::from("Net-30"),
-        },
-        owner: shared::Entity {
-            id: types::UUID(String::from("db010cff-a6f6-4c4e-8160-b6b7562865ff")),
-            name: String::from("Cameron Howe"),
-        },
+        industry: Some(shared::Entity {
+            id: types::UUID(String::from("bc52e68a-96d9-46bd-881c-bda8d5e07053")),
+            name: String::from("Technology"),
+        }),
+        location: Some(shared::Entity {
+            id: types::UUID(String::from("ae469b03-51f3-47c2-be12-a319e0ce7cd8")),
+            name: String::from("New York"),
+        }),
+        invoice_payment_term: None,
+        owner: None,
         tags: vec![
             shared::Entity {
                 id: types::UUID(String::from("8670e0fd-bd7a-457e-bec9-eff2b1c12b78")),
@@ -98,10 +111,19 @@ fn test_client_deserialize() {
                 name: String::from("Mid-Atlantic Region"),
             },
         ],
+        sales_representative: Some(shared::Entity {
+            id: types::UUID(String::from("c6f2b081-d47a-4e93-a8d5-3e1c7f9a204b")),
+            name: String::from("John Davis"),
+        }),
         business_unit: Some(shared::Entity {
             id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
             name: String::from("EU"),
         }),
+        integrations: vec![Integration {
+            integration_type: IntegrationType::Xero,
+            connection_id: types::UUID(String::from("9d2f6b1a-4c83-4e57-bf09-1a6d3e8c20b4")),
+            external_id: String::from("5e1a9c47-2b86-4d30-9f12-7a4c8e3b50d9"),
+        }],
     };
     assert_eq!(
         client_deserialized, client,
