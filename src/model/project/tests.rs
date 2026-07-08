@@ -11,8 +11,8 @@ fn test_project_deserialize() {
           "statusId": "in_progress",
           "start": "2021-09-01",
           "end": "2022-01-31",
-          "code": "P-2021-00068",
-          "poNumber": "DM-2021-02059",
+          "code": null,
+          "poNumber": null,
           "billingTypeId": "fixed_recurring",
           "isBillable": true,
           "currency": "USD",
@@ -37,22 +37,16 @@ fn test_project_deserialize() {
           "recordStatusId": "active",
           "isProductive": null,
           "lockTimeAndExpenses": false,
-          "trackTimeToAssignedRoles": true,
-          "cloudFolderUrl": "https://drive.google.com/drive/folders/4MCmjW",
+          "trackTimeToAssignedRoles": null,
+          "cloudFolderUrl": null,
           "createdAt": "2022-03-15T14:59:18.825Z",
           "completedOn": "2025-10-28",
           "client": {
             "id": "d5afaffe-09e5-4d73-b02c-905b40fc6c22",
             "name": "Acme Company"
           },
-          "practice": {
-            "id": "40f95471-7f7c-4ffa-b838-8dcccab0f54a",
-            "name": "Digital Transformation"
-          },
-          "projectType": {
-            "id": "9b0927a6-35a1-4795-a4ca-10167b05f7de",
-            "name": "Content Management"
-          },
+          "practice": null,
+          "projectType": null,
           "tags": [
             {
               "id": "626db436-98bf-40cb-9937-c382af5d818c",
@@ -71,13 +65,11 @@ fn test_project_deserialize() {
             "id": "0e8351ea-6b3c-4307-97cc-196448de0ef1",
             "name": "Palermo North America"
           },
-          "projectGroup": {
-            "id": "c93c5988-e8d8-4e14-acb0-a991f1ef7c4c",
-            "name": "North America Group"
-          },
+          "projectGroup": null,
           "budget": {
             "revenue": 602500,
             "servicesRevenue": 600000,
+            "productRevenue": 15000,
             "otherRevenue": 2000,
             "billableExpenses": 500,
             "nonBillableExpenses": 150,
@@ -87,12 +79,20 @@ fn test_project_deserialize() {
           "monthlyBudget": {
             "revenue": 51220,
             "servicesRevenue": 50000,
+            "productRevenue": 2500,
             "otherRevenue": 920,
             "billableExpenses": 300,
             "nonBillableExpenses": 50,
             "billableHours": 10,
             "nonBillableHours": 2
-          }
+          },
+          "integrations": [
+            {
+              "type": "qbo",
+              "connectionId": "c4a7e2f9-83b1-4d65-9e07-2f1b6a4c80d3",
+              "externalId": "456"
+            }
+          ]
         }"#;
     let project_deserialized =
         serde_json::from_str::<Project>(json_input).expect("time entry could not be deserialized");
@@ -100,14 +100,14 @@ fn test_project_deserialize() {
         id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
         key: types::Slug(String::from("vendor-portal")),
         name: String::from("Vendor Portal"),
-        notes: String::from(
+        notes: Some(String::from(
             "The client would like to develop a mobile app that rewards its customers for repeat purchases.",
-        ),
+        )),
         status_id: enums::Status::InProgress,
         start: Some(types::Date(String::from("2021-09-01"))),
         end: Some(types::Date(String::from("2022-01-31"))),
-        code: String::from("P-2021-00068"),
-        po_number: String::from("DM-2021-02059"),
+        code: None,
+        po_number: None,
         billing_type_id: BillingType::FixedRecurring,
         is_billable: true,
         currency: String::from("USD"),
@@ -132,22 +132,16 @@ fn test_project_deserialize() {
         record_status_id: RecordStatus::Active,
         is_productive: None,
         lock_time_and_expenses: false,
-        track_time_to_assigned_roles: true,
-        cloud_folder_url: String::from("https://drive.google.com/drive/folders/4MCmjW"),
+        track_time_to_assigned_roles: None,
+        cloud_folder_url: None,
         created_at: types::Timestamp(String::from("2022-03-15T14:59:18.825Z")),
         completed_on: Some(types::Date(String::from("2025-10-28"))),
         client: shared::Entity {
             id: types::UUID(String::from("d5afaffe-09e5-4d73-b02c-905b40fc6c22")),
             name: String::from("Acme Company"),
         },
-        practice: shared::Entity {
-            id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),
-            name: String::from("Digital Transformation"),
-        },
-        project_type: shared::Entity {
-            id: types::UUID(String::from("9b0927a6-35a1-4795-a4ca-10167b05f7de")),
-            name: String::from("Content Management"),
-        },
+        practice: None,
+        project_type: None,
         tags: vec![
             shared::Entity {
                 id: types::UUID(String::from("626db436-98bf-40cb-9937-c382af5d818c")),
@@ -166,13 +160,11 @@ fn test_project_deserialize() {
             id: types::UUID(String::from("0e8351ea-6b3c-4307-97cc-196448de0ef1")),
             name: String::from("Palermo North America"),
         }),
-        project_group: Some(shared::Entity {
-            id: types::UUID(String::from("c93c5988-e8d8-4e14-acb0-a991f1ef7c4c")),
-            name: String::from("North America Group"),
-        }),
+        project_group: None,
         budget: Some(Budget {
             revenue: 602500,
             services_revenue: 600000,
+            product_revenue: 15000,
             other_revenue: 2000,
             billable_expenses: 500,
             non_billable_expenses: 150,
@@ -182,12 +174,18 @@ fn test_project_deserialize() {
         monthly_budget: Some(MonthlyBudget {
             revenue: 51220,
             services_revenue: 50000,
+            product_revenue: 2500,
             other_revenue: 920,
             billable_expenses: 300,
             non_billable_expenses: 50,
             billable_hours: 10,
             non_billable_hours: 2,
         }),
+        integrations: vec![Integration {
+            integration_type: IntegrationType::Qbo,
+            connection_id: types::UUID(String::from("c4a7e2f9-83b1-4d65-9e07-2f1b6a4c80d3")),
+            external_id: String::from("456"),
+        }],
     };
     assert_eq!(
         project_deserialized, project,
