@@ -20,7 +20,7 @@ pub struct ExpenseReport {
     pub id: types::UUID,
     pub number: i64,
     pub title: String,
-    pub notes: String,
+    pub notes: Option<String>,
     pub date: types::Date,
     pub created_at: types::Timestamp,
     pub member: shared::Entity,

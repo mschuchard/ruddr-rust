@@ -7,7 +7,7 @@ fn test_expense_report_deserialize() {
           "id": "2bdab00d-86fb-46dc-ae05-7cc9c4aedc80",
           "number": 1000,
           "title": "Las Vegas Convention",
-          "notes": "All of the expenses for my trip to Las Vegas in March.",
+          "notes": null,
           "date": "2022-03-11",
           "createdAt": "2022-03-18T15:49:07.486Z",
           "member": {
@@ -21,7 +21,7 @@ fn test_expense_report_deserialize() {
         id: types::UUID(String::from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80")),
         number: 1000,
         title: String::from("Las Vegas Convention"),
-        notes: String::from("All of the expenses for my trip to Las Vegas in March."),
+        notes: None,
         date: types::Date(String::from("2022-03-11")),
         created_at: types::Timestamp(String::from("2022-03-18T15:49:07.486Z")),
         member: shared::Entity {
