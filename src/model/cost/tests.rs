@@ -4,28 +4,36 @@ use super::*;
 fn test_cost_deserialize() {
     let json_input = r#"
         {
-          "costPerHour": 50,
           "id": "b3a100b0-8e71-4f39-9d96-32f11838aa8c",
-          "start": "2024-01-01",
-          "createdAt": "2024-11-18T18:29:33.415Z",
-          "overheadCostPerHour": 15.5,
-          "currency": "USD",
           "isDefault": false,
-          "end": "2024-12-31",
-          "totalCostPerHour": 65.5
+          "start": "2025-01-01",
+          "end": null,
+          "currency": "USD",
+          "costMethodId": "fixed_monthly",
+          "costPerHour": null,
+          "overheadCostPerHour": null,
+          "totalCostPerHour": null,
+          "costPerMonth": 12000,
+          "overheadCostPerMonth": 3000,
+          "totalCostPerMonth": 15000,
+          "createdAt": "2025-01-01T09:00:00.000Z"
         }"#;
     let cost_deserialized =
         serde_json::from_str::<Cost>(json_input).expect("cost could not be deserialized");
     let cost = Cost {
-        cost_per_hour: 50.0,
         id: types::UUID(String::from("b3a100b0-8e71-4f39-9d96-32f11838aa8c")),
-        start: types::Date(String::from("2024-01-01")),
-        created_at: types::Timestamp(String::from("2024-11-18T18:29:33.415Z")),
-        overhead_cost_per_hour: 15.5,
-        currency: String::from("USD"),
         is_default: false,
-        end: types::Date(String::from("2024-12-31")),
-        total_cost_per_hour: 65.5,
+        start: types::Date(String::from("2025-01-01")),
+        end: None,
+        currency: String::from("USD"),
+        cost_method_id: CostMethod::FixedMonthly,
+        cost_per_hour: None,
+        overhead_cost_per_hour: None,
+        total_cost_per_hour: None,
+        cost_per_month: Some(12000.0),
+        overhead_cost_per_month: Some(3000.0),
+        total_cost_per_month: Some(15000.0),
+        created_at: types::Timestamp(String::from("2025-01-01T09:00:00.000Z")),
     };
     assert_eq!(
         cost_deserialized, cost,

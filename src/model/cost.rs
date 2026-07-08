@@ -17,15 +17,27 @@ pub struct Costs {
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Cost {
-    pub cost_per_hour: f64,
     pub id: types::UUID,
-    pub start: types::Date,
-    pub created_at: types::Timestamp,
-    pub overhead_cost_per_hour: f64,
-    pub currency: String,
     pub is_default: bool,
-    pub end: types::Date,
-    pub total_cost_per_hour: f64,
+    pub start: types::Date,
+    pub end: Option<types::Date>,
+    pub currency: String,
+    pub cost_method_id: CostMethod,
+    pub cost_per_hour: Option<f64>,
+    pub overhead_cost_per_hour: Option<f64>,
+    pub total_cost_per_hour: Option<f64>,
+    pub cost_per_month: Option<f64>,
+    pub overhead_cost_per_month: Option<f64>,
+    pub total_cost_per_month: Option<f64>,
+    pub created_at: types::Timestamp,
+}
+
+#[derive(Debug, PartialEq, Deserialize, Serialize)]
+#[serde(rename_all = "snake_case")]
+pub enum CostMethod {
+    Hourly,
+    FixedHourly,
+    FixedMonthly,
 }
 
 #[cfg(test)]
