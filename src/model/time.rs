@@ -24,7 +24,7 @@ pub struct TimeEntry {
     pub date: types::Date,
     pub minutes: i64,
     pub timer_started_at: Option<types::Timestamp>,
-    pub notes: String,
+    pub notes: Option<String>,
     pub is_billable: bool,
     pub invoiced: bool,
     pub rate_currency: Option<String>,
@@ -39,6 +39,7 @@ pub struct TimeEntry {
     pub role: Option<shared::Entity>,
     pub task: Option<shared::Entity>,
     pub time_off_type: Option<shared::Entity>,
+    pub timesheet: Option<Timesheet>,
     pub invoice: Option<Invoice>,
 }
 
@@ -47,7 +48,7 @@ pub struct TimeEntry {
 pub struct Invoice {
     pub id: types::UUID,
     pub number: String,
-    pub line: Line,
+    pub line: Option<Line>,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -55,6 +56,13 @@ pub struct Invoice {
 pub struct Line {
     pub id: types::UUID,
     pub number: i64,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "camelCase")]
+pub struct Timesheet {
+    pub id: types::UUID,
+    pub submitted_on: types::Timestamp,
 }
 
 // custom types: enum
@@ -77,6 +85,8 @@ pub enum Status {
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum ClientStatus {
+    NotCreated,
+    PendingApproval,
     Approved,
     Rejected,
 }

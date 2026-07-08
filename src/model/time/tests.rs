@@ -7,11 +7,11 @@ fn test_time_deserialize() {
           "id": "4497fa99-27a4-4509-9748-83e4399296e3",
           "typeId": "project_time",
           "statusId": "approved",
-          "clientStatusId": "approved",
+          "clientStatusId": "not_created",
           "date": "2022-03-08",
           "minutes": 120,
           "timerStartedAt": "2022-03-10T17:50:48.808Z",
-          "notes": "Write up the weekly status report.",
+          "notes": null,
           "isBillable": true,
           "invoiced": true,
           "rateCurrency": "USD",
@@ -45,13 +45,14 @@ fn test_time_deserialize() {
             "id": "8fc28b3d-e179-4193-bbdd-09387be8a1e9",
             "name": "Holiday"
           },
+          "timesheet": {
+            "id": "8c3f7a92-e14b-4d60-b5a1-2f09d7c63e18",
+            "submittedOn": "2025-01-19T17:32:10.541Z"
+          },
           "invoice": {
             "id": "86a4f846-3e3b-43a2-bd9b-f5afabdad447",
             "number": "INV-0001",
-            "line": {
-              "id": "13cbc32f-c324-4dfa-ba13-48764fbbe8e0",
-              "number": 2
-            }
+            "line": null
           }
         }"#;
     let time_entry_deserialized = serde_json::from_str::<TimeEntry>(json_input)
@@ -60,11 +61,11 @@ fn test_time_deserialize() {
         id: types::UUID(String::from("4497fa99-27a4-4509-9748-83e4399296e3")),
         type_id: Type::ProjectTime,
         status_id: Status::Approved,
-        client_status_id: Some(ClientStatus::Approved),
+        client_status_id: Some(ClientStatus::NotCreated),
         date: types::Date(String::from("2022-03-08")),
         minutes: 120,
         timer_started_at: Some(types::Timestamp(String::from("2022-03-10T17:50:48.808Z"))),
-        notes: String::from("Write up the weekly status report."),
+        notes: None,
         is_billable: true,
         invoiced: true,
         rate_currency: Some(String::from("USD")),
@@ -98,13 +99,14 @@ fn test_time_deserialize() {
             id: types::UUID(String::from("8fc28b3d-e179-4193-bbdd-09387be8a1e9")),
             name: String::from("Holiday"),
         }),
+        timesheet: Some(Timesheet {
+            id: types::UUID(String::from("8c3f7a92-e14b-4d60-b5a1-2f09d7c63e18")),
+            submitted_on: types::Timestamp(String::from("2025-01-19T17:32:10.541Z")),
+        }),
         invoice: Some(Invoice {
             id: types::UUID(String::from("86a4f846-3e3b-43a2-bd9b-f5afabdad447")),
             number: String::from("INV-0001"),
-            line: Line {
-                id: types::UUID(String::from("13cbc32f-c324-4dfa-ba13-48764fbbe8e0")),
-                number: 2,
-            },
+            line: None,
         }),
     };
     assert_eq!(
