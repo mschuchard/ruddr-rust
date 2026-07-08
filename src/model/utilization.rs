@@ -19,10 +19,12 @@ pub struct Utilizations {
 pub struct Utilization {
     pub id: types::UUID,
     pub start: types::Date,
-    pub target_percentage: f64,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub target_percentage: Option<f64>,
     pub created_at: types::Timestamp,
     pub is_default: bool,
-    pub end: types::Date,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub end: Option<types::Date>,
 }
 
 #[cfg(test)]
