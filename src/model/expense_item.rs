@@ -19,11 +19,17 @@ pub struct ExpenseItems {
 pub struct ExpenseItem {
     pub id: types::UUID,
     pub status_id: Status,
-    pub vendor: String,
-    pub notes: String,
+    pub vendor: Option<String>,
+    pub notes: Option<String>,
+    pub attendees: Option<String>,
     pub date: types::Date,
     pub currency: String,
     pub amount: f64,
+    pub markup_method: Option<MarkupMethod>,
+    pub markup_ratio: Option<f64>,
+    pub markup_amount: Option<f64>,
+    pub markup: Option<f64>,
+    pub total: f64,
     pub unit_count: Option<i64>,
     pub unit_amount: Option<f64>,
     pub is_reimbursable: bool,
@@ -33,7 +39,7 @@ pub struct ExpenseItem {
     pub expense_report: ExpenseReport,
     pub expense_category: ExpenseCategory,
     pub member: shared::Entity,
-    pub project: shared::Project,
+    pub project: Option<shared::Project>,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -48,7 +54,7 @@ pub struct ExpenseReport {
 pub struct ExpenseCategory {
     pub id: types::UUID,
     pub name: String,
-    pub unit_name: String,
+    pub unit_name: Option<String>,
 }
 
 // custom types: enum
@@ -59,6 +65,13 @@ pub enum Status {
     PendingApproval,
     Approved,
     Rejected,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum MarkupMethod {
+    Percentage,
+    Amount,
 }
 
 #[cfg(test)]

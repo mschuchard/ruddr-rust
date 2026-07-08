@@ -8,9 +8,15 @@ fn test_expense_item_deserialize() {
           "statusId": "approved",
           "vendor": "Delta",
           "notes": "Flight to LAS",
+          "attendees": "Alice Johnson, Bob Smith",
           "date": "2022-03-11",
           "currency": "USD",
           "amount": 345.36,
+          "markupMethod": "amount",
+          "markupRatio": null,
+          "markupAmount": 5,
+          "markup": 5,
+          "total": 350.36,
           "unitCount": 23,
           "unitAmount": 0.575,
           "isReimbursable": true,
@@ -30,25 +36,24 @@ fn test_expense_item_deserialize() {
             "id": "ec5543de-3b0f-47a0-b8ef-a6e18dc4b885",
             "name": "John Smith"
           },
-          "project": {
-            "id": "095e0780-48bf-472c-8deb-2fc3ebc7d90c",
-            "name": "Vendor Portal",
-            "client": {
-              "id": "4cacdf11-71d1-4fbb-90ee-b091803581b0",
-              "name": "Joe's Shop"
-            }
-          }
+          "project": null
         }"#;
     let expense_item_deserialized = serde_json::from_str::<ExpenseItem>(json_input)
         .expect("expense_item could not be deserialized");
     let expense_item = ExpenseItem {
         id: types::UUID(String::from("77f5ccdc-4226-4ff1-877e-5644d0a04522")),
         status_id: Status::Approved,
-        vendor: String::from("Delta"),
-        notes: String::from("Flight to LAS"),
+        vendor: Some(String::from("Delta")),
+        notes: Some(String::from("Flight to LAS")),
+        attendees: Some(String::from("Alice Johnson, Bob Smith")),
         date: types::Date(String::from("2022-03-11")),
         currency: String::from("USD"),
         amount: 345.36,
+        markup_method: Some(MarkupMethod::Amount),
+        markup_ratio: None,
+        markup_amount: Some(5.0),
+        markup: Some(5.0),
+        total: 350.36,
         unit_count: Some(23),
         unit_amount: Some(0.575),
         is_reimbursable: true,
@@ -62,20 +67,13 @@ fn test_expense_item_deserialize() {
         expense_category: ExpenseCategory {
             id: types::UUID(String::from("175e0635-ac9e-4880-8492-07fa584f1b15")),
             name: String::from("Airfare"),
-            unit_name: String::from("mile"),
+            unit_name: Some(String::from("mile")),
         },
         member: shared::Entity {
             id: types::UUID(String::from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")),
             name: String::from("John Smith"),
         },
-        project: shared::Project {
-            id: types::UUID(String::from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")),
-            name: String::from("Vendor Portal"),
-            client: shared::Entity {
-                id: types::UUID(String::from("4cacdf11-71d1-4fbb-90ee-b091803581b0")),
-                name: String::from("Joe's Shop"),
-            },
-        },
+        project: None,
     };
     assert_eq!(
         expense_item_deserialized, expense_item,
