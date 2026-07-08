@@ -23,15 +23,16 @@ pub struct Allocation {
     pub start: types::Date,
     pub end: types::Date,
     pub unit: Unit,
-    pub hours_per_day: Option<i64>,
-    pub hours_per_week: Option<i64>,
-    pub hours_per_month: Option<i64>,
-    pub hours_per_allocation: Option<i64>,
+    pub hours_per_day: Option<f64>,
+    pub hours_per_week: Option<f64>,
+    pub hours_per_month: Option<f64>,
+    pub hours_per_allocation: Option<f64>,
     pub hours_ratio_of_capacity: Option<f64>,
-    pub allocate_on_time_off_days: bool,
-    pub total_hours: i64,
+    pub allocate_on_time_off_days: Option<bool>,
+    pub total_hours: f64,
     pub is_billable: bool,
-    pub notes: String,
+    pub booking_type_id: BookingType,
+    pub notes: Option<String>,
     pub read_only: bool,
     pub entity: Entity,
     pub created_at: types::Timestamp,
@@ -59,6 +60,13 @@ pub enum Unit {
     Month,
     Allocation,
     RatioOfCapacity,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum BookingType {
+    Confirmed,
+    Soft,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
