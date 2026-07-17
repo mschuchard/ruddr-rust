@@ -23,17 +23,27 @@ pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost
 /// ```ignore
 /// let costs = costs(
 ///     &client,
+///     None,
+///     None,
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
 /// ).await?;
 /// ```
 pub async fn costs(
     client: &client::Client,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
     member: Option<types::UUID>,
 ) -> Result<cost::Costs, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
+    }
     if let Some(member) = member {
         write!(params, "&memberId={}", member).unwrap();
     }
