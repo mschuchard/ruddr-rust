@@ -1,3 +1,6 @@
+### 1.1.3 (Next)
+- Update models and interfaces for API changes.
+
 ### 1.1.2
 - Add error type for custom type conversion errors.
 - Leverage `reqwest::Error` type for client errors.
