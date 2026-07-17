@@ -27,6 +27,8 @@ async fn test_utilizations() {
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
                     .expect("invalid UUID")
             ),
+            None,
+            None,
         )
         .await
         .expect_err("utilizations retrieval did not fail on auth")

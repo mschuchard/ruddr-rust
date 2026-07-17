@@ -27,11 +27,15 @@ pub async fn utilization(
 /// let utilizations = utilizations(
 ///     &client,
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")),
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn utilizations(
     client: &client::Client,
     member: Option<types::UUID>,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
 ) -> Result<utilization::Utilizations, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
@@ -39,6 +43,12 @@ pub async fn utilizations(
     // optional parameters for LIST
     if let Some(member) = member {
         write!(params, "&memberId={}", member).unwrap();
+    }
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
     }
 
     // retrieve utilization target periods
