@@ -28,6 +28,8 @@ async fn test_roles() {
                 types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
                     .expect("uuid conversion failed")
             ),
+            None,
+            None,
         )
         .await
         .expect_err("roles retrieval did not fail on auth")
