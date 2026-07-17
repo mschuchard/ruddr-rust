@@ -31,9 +31,15 @@ async fn test_time_entries() {
                 types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
                     .expect("invalid UUID")
             ),
+            None,
+            None,
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
-            Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
+            None,
+            None,
+            None,
         )
         .await
         .expect_err("time entries retrieval did not fail on auth")

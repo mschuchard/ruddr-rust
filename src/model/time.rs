@@ -4,6 +4,7 @@
 //! [API Documentation](https://docs.ruddr.io/api-reference/time-entries/get-a-time-entry.md)
 use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Model for TimeEntries used with List operations.
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
@@ -71,6 +72,17 @@ pub struct Timesheet {
 pub enum Type {
     ProjectTime,
     TimeOff,
+}
+
+impl fmt::Display for Type {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        // use serialize for automatic snake case from trait derivation, but then remove extraneous " chars incurred during JSON formatting
+        write!(
+            format,
+            "{}",
+            serde_json::to_string(self).unwrap().replace("\"", "")
+        )
+    }
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
