@@ -33,6 +33,8 @@ async fn test_projects() {
             ),
             Some(enums::Status::InProgress),
             Some("my_project"),
+            None,
+            None,
         )
         .await
         .expect_err("projects retrieval did not fail on auth")

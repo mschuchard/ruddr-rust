@@ -38,6 +38,8 @@ pub async fn projects(
     project_type: Option<types::UUID>,
     status: Option<enums::Status>,
     name_contains: Option<&str>,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
 ) -> Result<project::Projects, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
@@ -54,6 +56,12 @@ pub async fn projects(
     }
     if let Some(name_contains) = name_contains {
         write!(params, "&nameContains={}", name_contains).unwrap();
+    }
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
     }
 
     // retrieve projects
