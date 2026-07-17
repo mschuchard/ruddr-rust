@@ -30,6 +30,8 @@ pub async fn members(
     client: &client::Client,
     name_contains: Option<&str>,
     email_contains: Option<&str>,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
 ) -> Result<member::Members, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
@@ -40,6 +42,12 @@ pub async fn members(
     }
     if let Some(email_contains) = email_contains {
         write!(params, "&emailContains={}", email_contains).unwrap();
+    }
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
     }
 
     // retrieve members

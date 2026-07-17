@@ -21,7 +21,7 @@ async fn test_members() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        members(&client, Some("Joe"), Some("foo@bar.com"))
+        members(&client, Some("Joe"), Some("foo@bar.com"), None, None)
             .await
             .expect_err("members retrieval did not fail on auth")
             .status(),
