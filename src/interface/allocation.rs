@@ -27,6 +27,8 @@ pub async fn allocation(
 /// ```ignore
 /// let allocations = allocations(
 ///     &client,
+///     None,
+///     None,
 ///     Some(enums::AssignmentType::Project),
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
@@ -35,6 +37,8 @@ pub async fn allocation(
 /// ```
 pub async fn allocations(
     client: &client::Client,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
     assignment_type: Option<enums::AssignmentType>,
     member: Option<types::UUID>,
     start_date: Option<types::Date>,
@@ -44,6 +48,12 @@ pub async fn allocations(
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
+    }
     if let Some(assignment_type) = assignment_type {
         write!(params, "&assignmentTypeId={}", assignment_type).unwrap();
     }
