@@ -1,6 +1,8 @@
 //! # Expense Report
 //!
 //! `interface::expense_report` consists of functions for interfacing with the Ruddr Expense Report endpoints.
+use std::fmt::Write;
+
 use crate::client::client;
 use crate::model::{expense_report, types};
 
@@ -22,14 +24,26 @@ pub async fn expense_report(
 /// Retrieves the first 100 Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://docs.ruddr.io/api-reference/expense-reports/list-expense-reports.md)
 /// ```ignore
-/// let expense_reports = expense_reports(&client).await?;
+/// let expense_reports = expense_reports(&client, None, None).await?;
 /// ```
 pub async fn expense_reports(
     client: &client::Client,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
 ) -> Result<expense_report::ExpenseReports, reqwest::Error> {
+    // initialize params
+    let mut params = String::from("limit=100");
+
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
+    }
+
     // retrieve expense reports
     Ok(client
-        .read::<expense_report::ExpenseReports>("expense-reports", Some("limit=100"))
+        .read::<expense_report::ExpenseReports>("expense-reports", Some(&params))
         .await?)
 }
 

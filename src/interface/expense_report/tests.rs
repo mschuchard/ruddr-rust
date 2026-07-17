@@ -22,7 +22,7 @@ async fn test_expense_reports() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        expense_reports(&client)
+        expense_reports(&client, None, None)
             .await
             .expect_err("expense_reports retrieval did not fail on auth")
             .status(),
