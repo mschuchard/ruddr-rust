@@ -26,17 +26,27 @@ pub async fn customer(
 /// ```ignore
 /// let clients = clients(
 ///     &client,
+///     None,
+///     None,
 ///     Some("JOE"),
 /// ).await?;
 /// ```
 pub async fn clients(
     client: &client::Client,
+    starting_after: Option<model::types::UUID>,
+    ending_before: Option<model::types::UUID>,
     code: Option<&str>,
 ) -> Result<model::client::Clients, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
+    }
     if let Some(code) = code {
         write!(params, "&code={}", code).unwrap();
     }

@@ -22,7 +22,7 @@ async fn test_clients() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        clients(&client, Some("JOE"))
+        clients(&client, None, None, Some("JOE"))
             .await
             .expect_err("clients retrieval did not fail on auth")
             .status(),
