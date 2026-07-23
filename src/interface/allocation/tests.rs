@@ -24,8 +24,6 @@ async fn test_allocations() {
     assert_eq!(
         allocations(
             &client,
-            None,
-            None,
             Some(enums::AssignmentType::Project),
             Some(
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
@@ -33,6 +31,8 @@ async fn test_allocations() {
             ),
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
+            None,
         )
         .await
         .expect_err("allocations retrieval did not fail on auth")

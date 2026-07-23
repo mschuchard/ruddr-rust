@@ -30,22 +30,22 @@ pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost
 /// ```
 pub async fn costs(
     client: &client::Client,
+    member: Option<types::UUID>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
-    member: Option<types::UUID>,
 ) -> Result<cost::Costs, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
+    if let Some(member) = member {
+        write!(params, "&memberId={}", member).unwrap();
+    }
     if let Some(starting_after) = starting_after {
         write!(params, "&startingAfter={}", starting_after).unwrap();
     }
     if let Some(ending_before) = ending_before {
         write!(params, "&endingBefore={}", ending_before).unwrap();
-    }
-    if let Some(member) = member {
-        write!(params, "&memberId={}", member).unwrap();
     }
 
     // retrieve cost target periods

@@ -28,22 +28,22 @@ pub async fn expense_item(
 /// ```
 pub async fn expense_items(
     client: &client::Client,
+    expense_report: Option<types::UUID>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
-    expense_report: Option<types::UUID>,
 ) -> Result<expense_item::ExpenseItems, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
+    if let Some(expense_report) = expense_report {
+        write!(params, "&expenseReportId={}", expense_report).unwrap();
+    }
     if let Some(starting_after) = starting_after {
         write!(params, "&startingAfter={}", starting_after).unwrap();
     }
     if let Some(ending_before) = ending_before {
         write!(params, "&endingBefore={}", ending_before).unwrap();
-    }
-    if let Some(expense_report) = expense_report {
-        write!(params, "&expenseReportId={}", expense_report).unwrap();
     }
 
     // retrieve expense items

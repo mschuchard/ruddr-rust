@@ -37,23 +37,17 @@ pub async fn allocation(
 /// ```
 pub async fn allocations(
     client: &client::Client,
-    starting_after: Option<types::UUID>,
-    ending_before: Option<types::UUID>,
     assignment_type: Option<enums::AssignmentType>,
     member: Option<types::UUID>,
     start_date: Option<types::Date>,
     end_date: Option<types::Date>,
+    starting_after: Option<types::UUID>,
+    ending_before: Option<types::UUID>,
 ) -> Result<allocation::Allocations, reqwest::Error> {
     // initialize params
     let mut params = String::from("limit=100");
 
     // optional parameters for LIST
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
-    }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
-    }
     if let Some(assignment_type) = assignment_type {
         write!(params, "&assignmentTypeId={}", assignment_type).unwrap();
     }
@@ -65,6 +59,12 @@ pub async fn allocations(
     }
     if let Some(end_date) = end_date {
         write!(params, "&endOnAfter={}", end_date).unwrap();
+    }
+    if let Some(starting_after) = starting_after {
+        write!(params, "&startingAfter={}", starting_after).unwrap();
+    }
+    if let Some(ending_before) = ending_before {
+        write!(params, "&endingBefore={}", ending_before).unwrap();
     }
 
     // retrieve allocations
