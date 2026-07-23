@@ -9,8 +9,6 @@ async fn test_allocations() {
     assert_eq!(
         allocation::allocations(
             &client,
-            None,
-            None,
             Some(enums::AssignmentType::Project),
             Some(
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
@@ -18,6 +16,8 @@ async fn test_allocations() {
             ),
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
+            None,
         )
         .await
         .expect_err("allocations retrieval did not fail on auth")
@@ -31,7 +31,7 @@ async fn test_customers() {
     let client = client::Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     assert_eq!(
-        customer::clients(&client, None, None, Some("JOE"))
+        customer::clients(&client, Some("JOE"), None, None)
             .await
             .expect_err("clients retrieval did not fail on auth")
             .status(),
@@ -46,12 +46,12 @@ async fn test_costs() {
     assert_eq!(
         cost::costs(
             &client,
-            None,
-            None,
             Some(
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
                     .expect("uuid conversion failed")
             ),
+            None,
+            None,
         )
         .await
         .expect_err("costs retrieval did not fail on auth")
@@ -67,12 +67,12 @@ async fn test_expense_items() {
     assert_eq!(
         expense_item::expense_items(
             &client,
-            None,
-            None,
             Some(
                 types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80")
                     .expect("uuid conversion failed")
             ),
+            None,
+            None,
         )
         .await
         .expect_err("expense_items retrieval did not fail on auth")
