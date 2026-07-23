@@ -35,6 +35,8 @@ pub async fn time_entry(
 ///     Some(types::Date::try_from("2024-01-03").expect("date conversion failed")),
 ///     None,
 ///     None,
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn time_entries(

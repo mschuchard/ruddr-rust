@@ -25,6 +25,8 @@ pub async fn role(client: &client::Client, id: types::UUID) -> Result<role::Role
 /// let roles = roles(
 ///     &client,
 ///     Some(types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("uuid conversion failed")),
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn roles(

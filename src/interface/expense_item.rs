@@ -24,7 +24,7 @@ pub async fn expense_item(
 /// Retrieves the first 100 Ruddr Expense Item objects, and deserializes it to the corresponding vector of model structs.
 /// [API Documentation](https://docs.ruddr.io/api-reference/expense-items/list-expense-items.md)
 /// ```ignore
-/// let expense_items = expense_items(&client, None, None, Some(types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80").expect("invalid UUID"))).await?;
+/// let expense_items = expense_items(&client, Some(types::UUID::try_from("2bdab00d-86fb-46dc-ae05-7cc9c4aedc80").expect("invalid UUID")), None, None).await?;
 /// ```
 pub async fn expense_items(
     client: &client::Client,

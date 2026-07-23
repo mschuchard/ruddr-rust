@@ -26,9 +26,9 @@ pub async fn customer(
 /// ```ignore
 /// let clients = clients(
 ///     &client,
-///     None,
-///     None,
 ///     Some("JOE"),
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn clients(

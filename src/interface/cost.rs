@@ -23,9 +23,9 @@ pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost
 /// ```ignore
 /// let costs = costs(
 ///     &client,
-///     None,
-///     None,
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn costs(
