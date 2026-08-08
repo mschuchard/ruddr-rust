@@ -1,4 +1,4 @@
-### 1.1.3 (Next)
+### 1.1.3
 - Update models and interfaces for API changes.
 
 ### 1.1.2
