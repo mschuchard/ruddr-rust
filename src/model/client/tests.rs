@@ -85,7 +85,7 @@ fn test_client_deserialize() {
         use_workspace_invoice_details: false,
         invoice_notes: None,
         is_internal: false,
-        record_status_id: RecordStatus::Active,
+        record_status_id: shared::RecordStatus::Active,
         created_at: types::Timestamp(String::from("2022-02-24T16:08:18.640Z")),
         practice: Some(shared::Entity {
             id: types::UUID(String::from("40f95471-7f7c-4ffa-b838-8dcccab0f54a")),

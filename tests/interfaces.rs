@@ -1,6 +1,7 @@
 use ruddr::client::client;
 use ruddr::interface::*;
-use ruddr::model::{enums, types};
+use ruddr::model;
+use ruddr::model::types;
 
 #[tokio::test]
 async fn test_allocations() {
@@ -9,7 +10,7 @@ async fn test_allocations() {
     assert_eq!(
         allocation::allocations(
             &client,
-            Some(enums::AssignmentType::Project),
+            Some(model::allocation::AssignmentType::Project),
             Some(
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
                     .expect("uuid conversion failed")
@@ -122,7 +123,7 @@ async fn test_projects() {
                 types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de")
                     .expect("uuid conversion failed")
             ),
-            Some(enums::Status::InProgress),
+            Some(model::project::Status::InProgress),
             Some("my_project"),
             None,
             None,

@@ -18,7 +18,7 @@ pub struct ExpenseItems {
 #[serde(rename_all = "camelCase")]
 pub struct ExpenseItem {
     pub id: types::UUID,
-    pub status_id: Status,
+    pub status_id: shared::Status,
     pub vendor: Option<String>,
     pub notes: Option<String>,
     pub attendees: Option<String>,
@@ -58,15 +58,6 @@ pub struct ExpenseCategory {
 }
 
 // custom types: enum
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum Status {
-    NotSubmitted,
-    PendingApproval,
-    Approved,
-    Rejected,
-}
-
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "snake_case")]
 pub enum MarkupMethod {

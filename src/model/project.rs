@@ -48,7 +48,7 @@ pub struct Project {
     pub max_member_hours_per_month: Option<i32>,
     pub requires_notes: bool,
     pub requires_tasks: bool,
-    pub record_status_id: RecordStatus,
+    pub record_status_id: shared::RecordStatus,
     pub is_productive: Option<bool>,
     pub lock_time_and_expenses: bool,
     pub track_time_to_assigned_roles: Option<bool>,
@@ -63,26 +63,13 @@ pub struct Project {
     pub business_unit: Option<shared::Entity>,
     pub project_group: Option<shared::Entity>,
     pub budget: Option<Budget>,
-    pub monthly_budget: Option<MonthlyBudget>,
+    pub monthly_budget: Option<Budget>,
     pub integrations: Vec<Integration>,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Budget {
-    pub revenue: i64,
-    pub services_revenue: i64,
-    pub product_revenue: i64,
-    pub other_revenue: i64,
-    pub billable_expenses: i64,
-    pub non_billable_expenses: i64,
-    pub billable_hours: i64,
-    pub non_billable_hours: i64,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "camelCase")]
-pub struct MonthlyBudget {
     pub revenue: i64,
     pub services_revenue: i64,
     pub product_revenue: i64,
@@ -155,13 +142,6 @@ pub enum BudgetMode {
 pub enum MonthlyBudgetMode {
     Summary,
     Detailed,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum RecordStatus {
-    Active,
-    Archived,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

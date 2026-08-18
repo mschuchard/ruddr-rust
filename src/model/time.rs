@@ -20,7 +20,7 @@ pub struct TimeEntries {
 pub struct TimeEntry {
     pub id: types::UUID,
     pub type_id: Type,
-    pub status_id: Status,
+    pub status_id: shared::Status,
     pub client_status_id: Option<ClientStatus>,
     pub date: types::Date,
     pub minutes: i64,
@@ -83,15 +83,6 @@ impl fmt::Display for Type {
             serde_json::to_string(self).unwrap().replace("\"", "")
         )
     }
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum Status {
-    NotSubmitted,
-    PendingApproval,
-    Approved,
-    Rejected,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

@@ -60,7 +60,7 @@ fn test_time_deserialize() {
     let time_entry = TimeEntry {
         id: types::UUID(String::from("4497fa99-27a4-4509-9748-83e4399296e3")),
         type_id: Type::ProjectTime,
-        status_id: Status::Approved,
+        status_id: shared::Status::Approved,
         client_status_id: Some(ClientStatus::NotCreated),
         date: types::Date(String::from("2022-03-08")),
         minutes: 120,

@@ -2,7 +2,7 @@
 //!
 //! `model::cost` is a model for the Ruddr Cost period object. This module is not publically accessible, but the structs and members are public for reading from `interface::cost` returns.
 //! [API Documentation](https://docs.ruddr.io/api-reference/cost-periods/get-a-cost-period.md)
-use crate::model::types;
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
 
 /// Model for Costs used with List operations.
@@ -22,7 +22,7 @@ pub struct Cost {
     pub start: types::Date,
     pub end: Option<types::Date>,
     pub currency: String,
-    pub cost_method_id: CostMethod,
+    pub cost_method_id: shared::CostMethod,
     pub cost_per_hour: Option<f64>,
     pub overhead_cost_per_hour: Option<f64>,
     pub total_cost_per_hour: Option<f64>,
@@ -30,15 +30,6 @@ pub struct Cost {
     pub overhead_cost_per_month: Option<f64>,
     pub total_cost_per_month: Option<f64>,
     pub created_at: types::Timestamp,
-}
-
-// custom types: enum
-#[derive(Debug, PartialEq, Deserialize, Serialize)]
-#[serde(rename_all = "snake_case")]
-pub enum CostMethod {
-    Hourly,
-    FixedHourly,
-    FixedMonthly,
 }
 
 #[cfg(test)]

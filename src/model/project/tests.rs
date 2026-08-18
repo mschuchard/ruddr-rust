@@ -129,7 +129,7 @@ fn test_project_deserialize() {
         max_member_hours_per_month: None,
         requires_notes: true,
         requires_tasks: true,
-        record_status_id: RecordStatus::Active,
+        record_status_id: shared::RecordStatus::Active,
         is_productive: None,
         lock_time_and_expenses: false,
         track_time_to_assigned_roles: None,
@@ -171,7 +171,7 @@ fn test_project_deserialize() {
             billable_hours: 150,
             non_billable_hours: 10,
         }),
-        monthly_budget: Some(MonthlyBudget {
+        monthly_budget: Some(Budget {
             revenue: 51220,
             services_revenue: 50000,
             product_revenue: 2500,

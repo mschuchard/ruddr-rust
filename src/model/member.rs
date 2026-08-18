@@ -26,7 +26,7 @@ pub struct Member {
     pub invitation_status_id: InvitationStatus,
     pub employment_type_id: EmploymentType,
     #[serde(skip_serializing_if = "Option::is_none")]
-    pub cost_method_id: Option<CostMethod>,
+    pub cost_method_id: Option<shared::CostMethod>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub default_rate: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -103,7 +103,7 @@ pub struct CostPeriod {
     #[serde(skip_serializing_if = "Option::is_none")]
     pub end: Option<types::Date>,
     pub currency: String,
-    pub cost_method_id: CostMethod,
+    pub cost_method_id: shared::CostMethod,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cost_per_hour: Option<f64>,
     #[serde(skip_serializing_if = "Option::is_none")]
@@ -146,14 +146,6 @@ pub enum EmploymentType {
     Employee,
     Contractor,
     Other,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum CostMethod {
-    Hourly,
-    FixedHourly,
-    FixedMonthly,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

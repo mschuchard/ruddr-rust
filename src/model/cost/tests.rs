@@ -26,7 +26,7 @@ fn test_cost_deserialize() {
         start: types::Date(String::from("2025-01-01")),
         end: None,
         currency: String::from("USD"),
-        cost_method_id: CostMethod::FixedMonthly,
+        cost_method_id: shared::CostMethod::FixedMonthly,
         cost_per_hour: None,
         overhead_cost_per_hour: None,
         total_cost_per_hour: None,

@@ -32,7 +32,7 @@ pub struct Client {
     pub use_workspace_invoice_details: bool,
     pub invoice_notes: Option<String>,
     pub is_internal: bool,
-    pub record_status_id: RecordStatus,
+    pub record_status_id: shared::RecordStatus,
     pub created_at: types::Timestamp,
     pub practice: Option<shared::Entity>,
     pub industry: Option<shared::Entity>,
@@ -61,13 +61,6 @@ pub enum InvoiceDetailsSource {
     Workspace,
     Custom,
     BusinessUnit,
-}
-
-#[derive(PartialEq, Deserialize, Serialize, Debug)]
-#[serde(rename_all = "snake_case")]
-pub enum RecordStatus {
-    Active,
-    Archived,
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

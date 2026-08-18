@@ -42,7 +42,7 @@ fn test_expense_item_deserialize() {
         .expect("expense_item could not be deserialized");
     let expense_item = ExpenseItem {
         id: types::UUID(String::from("77f5ccdc-4226-4ff1-877e-5644d0a04522")),
-        status_id: Status::Approved,
+        status_id: shared::Status::Approved,
         vendor: Some(String::from("Delta")),
         notes: Some(String::from("Flight to LAS")),
         attendees: Some(String::from("Alice Johnson, Bob Smith")),
