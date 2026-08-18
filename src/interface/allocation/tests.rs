@@ -24,7 +24,7 @@ async fn test_allocations() {
     assert_eq!(
         allocations(
             &client,
-            Some(enums::AssignmentType::Project),
+            Some(allocation::AssignmentType::Project),
             Some(
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
                     .expect("invalid UUID")

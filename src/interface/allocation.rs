@@ -5,7 +5,7 @@ use std::fmt::Write;
 
 use crate::client::client;
 use crate::model::allocation;
-use crate::model::{enums, types};
+use crate::model::types;
 
 /// Retrieves a specific Ruddr Allocation object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://docs.ruddr.io/api-reference/allocations/get-an-allocation.md)
@@ -27,7 +27,7 @@ pub async fn allocation(
 /// ```ignore
 /// let allocations = allocations(
 ///     &client,
-///     Some(enums::AssignmentType::Project),
+///     Some(allocation::AssignmentType::Project),
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
@@ -37,7 +37,7 @@ pub async fn allocation(
 /// ```
 pub async fn allocations(
     client: &client::Client,
-    assignment_type: Option<enums::AssignmentType>,
+    assignment_type: Option<allocation::AssignmentType>,
     member: Option<types::UUID>,
     start_date: Option<types::Date>,
     end_date: Option<types::Date>,

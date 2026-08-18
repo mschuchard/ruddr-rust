@@ -103,7 +103,7 @@ fn test_project_deserialize() {
         notes: Some(String::from(
             "The client would like to develop a mobile app that rewards its customers for repeat purchases.",
         )),
-        status_id: enums::Status::InProgress,
+        status_id: Status::InProgress,
         start: Some(types::Date(String::from("2021-09-01"))),
         end: Some(types::Date(String::from("2022-01-31"))),
         code: None,
@@ -207,4 +207,9 @@ fn test_project_deserialize() {
         projects_deserialized, projects,
         "projects did not contain the expected values"
     );
+}
+
+#[test]
+fn test_status_display() {
+    assert_eq!(Status::InProgress.to_string(), "in_progress")
 }

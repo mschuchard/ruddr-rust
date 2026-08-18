@@ -1,3 +1,6 @@
+### 1.2.0 (Next)
+- Move `enums` back to respective models because `enum` now generally `pub`.
+
 ### 1.1.3
 - Update models and interfaces for API changes.
 

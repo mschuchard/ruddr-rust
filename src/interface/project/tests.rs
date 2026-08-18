@@ -31,7 +31,7 @@ async fn test_projects() {
                 types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de")
                     .expect("invalid UUID")
             ),
-            Some(enums::Status::InProgress),
+            Some(project::Status::InProgress),
             Some("my_project"),
             None,
             None,

@@ -4,7 +4,7 @@
 use std::fmt::Write;
 
 use crate::client::client;
-use crate::model::{enums, project, types};
+use crate::model::{project, types};
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
 /// [API Documentation](https://docs.ruddr.io/api-reference/projects/get-a-project.md)
@@ -28,7 +28,7 @@ pub async fn project(
 ///     &client,
 ///     Some(types::UUID::try_from("d5afaffe-09e5-4d73-b02c-905b40fc6c22").expect("invalid UUID")),
 ///     Some(types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de").expect("invalid UUID")),
-///     Some(enums::Status::InProgress),
+///     Some(project::Status::InProgress),
 ///     Some("my_project"),
 ///     None,
 ///     None,
@@ -38,7 +38,7 @@ pub async fn projects(
     client: &client::Client,
     client_id: Option<types::UUID>,
     project_type: Option<types::UUID>,
-    status: Option<enums::Status>,
+    status: Option<project::Status>,
     name_contains: Option<&str>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,

@@ -2,8 +2,9 @@
 //!
 //! `model::allocation` is a model for the Ruddr Allocation object. This module is not publically accessible, but the structs and members are public for reading from `interface::allocation` returns.
 //! [API Documentation](https://docs.ruddr.io/api-reference/allocations/get-an-allocation.md)
-use crate::model::{enums, shared, types};
+use crate::model::{shared, types};
 use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Model for Allocations used with List operations.
 #[derive(Debug, PartialEq, Deserialize, Serialize)]
@@ -19,7 +20,7 @@ pub struct Allocations {
 pub struct Allocation {
     pub id: types::UUID,
     pub resource_type_id: ResourceType,
-    pub assignment_type_id: enums::AssignmentType,
+    pub assignment_type_id: AssignmentType,
     pub start: types::Date,
     pub end: types::Date,
     pub unit: Unit,
@@ -50,6 +51,24 @@ pub struct Allocation {
 pub enum ResourceType {
     Member,
     Placeholder,
+}
+
+#[derive(PartialEq, Deserialize, Serialize, Debug)]
+#[serde(rename_all = "snake_case")]
+pub enum AssignmentType {
+    Project,
+    TimeOff,
+}
+
+impl fmt::Display for AssignmentType {
+    fn fmt(&self, format: &mut fmt::Formatter) -> fmt::Result {
+        // use serialize for automatic snake case from trait derivation, but then remove extraneous " chars incurred during JSON formatting
+        write!(
+            format,
+            "{}",
+            serde_json::to_string(self).unwrap().replace("\"", "")
+        )
+    }
 }
 
 #[derive(PartialEq, Deserialize, Serialize, Debug)]

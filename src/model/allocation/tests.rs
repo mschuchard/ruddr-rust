@@ -57,7 +57,7 @@ fn test_allocation_deserialize() {
     let allocation = Allocation {
         id: types::UUID(String::from("212b8272-ed2a-4a91-950a-8a06b3546144")),
         resource_type_id: ResourceType::Placeholder,
-        assignment_type_id: enums::AssignmentType::Project,
+        assignment_type_id: AssignmentType::Project,
         start: types::Date(String::from("2022-06-01")),
         end: types::Date(String::from("2022-08-31")),
         unit: Unit::Day,
@@ -123,4 +123,9 @@ fn test_allocation_deserialize() {
         allocations_deserialized, allocations,
         "allocations did not contain the expected values"
     );
+}
+
+#[test]
+fn test_assignment_type_display() {
+    assert_eq!(AssignmentType::TimeOff.to_string(), "time_off")
 }

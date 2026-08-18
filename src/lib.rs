@@ -18,7 +18,6 @@ pub mod model {
     pub mod allocation;
     pub mod client;
     pub mod cost;
-    pub mod enums;
     pub mod expense_item;
     pub mod expense_report;
     pub mod member;
