@@ -40,6 +40,7 @@ async fn test_time_entries() {
             None,
             None,
             None,
+            None,
         )
         .await
         .expect_err("time entries retrieval did not fail on auth")

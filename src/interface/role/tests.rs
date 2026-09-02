@@ -30,6 +30,7 @@ async fn test_roles() {
             ),
             None,
             None,
+            None,
         )
         .await
         .expect_err("roles retrieval did not fail on auth")

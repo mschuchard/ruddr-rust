@@ -33,6 +33,7 @@ async fn test_allocations() {
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
             None,
             None,
+            None,
         )
         .await
         .expect_err("allocations retrieval did not fail on auth")

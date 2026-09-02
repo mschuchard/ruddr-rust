@@ -35,6 +35,7 @@ async fn test_projects() {
             Some("my_project"),
             None,
             None,
+            None,
         )
         .await
         .expect_err("projects retrieval did not fail on auth")

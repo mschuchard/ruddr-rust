@@ -30,6 +30,7 @@ async fn test_expense_items() {
             ),
             None,
             None,
+            None,
         )
         .await
         .expect_err("expense_items retrieval did not fail on auth")

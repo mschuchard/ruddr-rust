@@ -30,6 +30,7 @@ async fn test_costs() {
             ),
             None,
             None,
+            None,
         )
         .await
         .expect_err("costs retrieval did not fail on auth")

@@ -29,6 +29,7 @@ async fn test_utilizations() {
             ),
             None,
             None,
+            None,
         )
         .await
         .expect_err("utilizations retrieval did not fail on auth")
