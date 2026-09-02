@@ -21,10 +21,17 @@ pub async fn member(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/members/list-members.md)
 /// ```ignore
-/// let members = members(&client, Some("Joe"), Some("foo@bar.com"), None, None).await?;
+/// let members = members(
+///     &client,
+///     Some("Joe"),
+///     Some("foo@bar.com"),
+///     None,
+///     None,
+///     None,
+/// ).await?;
 /// ```
 pub async fn members(
     client: &client::Client,
@@ -32,9 +39,11 @@ pub async fn members(
     email_contains: Option<&str>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<member::Members, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(name_contains) = name_contains {

@@ -18,12 +18,13 @@ pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/cost-periods/list-cost-periods.md)
 /// ```ignore
 /// let costs = costs(
 ///     &client,
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -33,9 +34,11 @@ pub async fn costs(
     member: Option<types::UUID>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<cost::Costs, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(member) = member {

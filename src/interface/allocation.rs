@@ -22,7 +22,7 @@ pub async fn allocation(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/allocations/list-allocations.md)
 /// ```ignore
 /// let allocations = allocations(
@@ -31,6 +31,7 @@ pub async fn allocation(
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -43,9 +44,11 @@ pub async fn allocations(
     end_date: Option<types::Date>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<allocation::Allocations, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(assignment_type) = assignment_type {

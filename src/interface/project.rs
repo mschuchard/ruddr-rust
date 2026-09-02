@@ -21,7 +21,7 @@ pub async fn project(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/projects/list-projects.md)
 /// ```ignore
 /// let projects = projects(
@@ -30,6 +30,7 @@ pub async fn project(
 ///     Some(types::UUID::try_from("9b0927a6-35a1-4795-a4ca-10167b05f7de").expect("invalid UUID")),
 ///     Some(project::Status::InProgress),
 ///     Some("my_project"),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -42,9 +43,11 @@ pub async fn projects(
     name_contains: Option<&str>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<project::Projects, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(client_id) = client_id {

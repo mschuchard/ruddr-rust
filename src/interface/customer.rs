@@ -21,12 +21,13 @@ pub async fn customer(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/clients/list-clients.md)
 /// ```ignore
 /// let clients = clients(
 ///     &client,
 ///     Some("JOE"),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -36,9 +37,11 @@ pub async fn clients(
     code: Option<&str>,
     starting_after: Option<model::types::UUID>,
     ending_before: Option<model::types::UUID>,
+    limit: Option<u8>,
 ) -> Result<model::client::Clients, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(code) = code {

@@ -21,12 +21,13 @@ pub async fn utilization(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Utilization target period objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Utilization target period objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/utilization-target-periods/list-utilization-target-periods.md)
 /// ```ignore
 /// let utilizations = utilizations(
 ///     &client,
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("invalid UUID")),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -36,9 +37,11 @@ pub async fn utilizations(
     member: Option<types::UUID>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<utilization::Utilizations, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(member) = member {

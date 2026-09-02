@@ -19,12 +19,13 @@ pub async fn role(client: &client::Client, id: types::UUID) -> Result<role::Role
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/project-roles/list-project-roles.md)
 /// ```ignore
 /// let roles = roles(
 ///     &client,
 ///     Some(types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("uuid conversion failed")),
+///     None,
 ///     None,
 ///     None,
 /// ).await?;
@@ -34,9 +35,11 @@ pub async fn roles(
     project: Option<types::UUID>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<role::Roles, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(project) = project {

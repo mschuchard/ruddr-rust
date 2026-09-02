@@ -1,5 +1,6 @@
 ### 1.2.0 (Next)
 - Move `enums` back to respective models because `enum` now generally `pub`.
+- Add optional `limit` parameter to interface functions instead of hardcoded to 100.
 
 ### 1.1.3
 - Update models and interfaces for API changes.

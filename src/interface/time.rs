@@ -21,7 +21,7 @@ pub async fn time_entry(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/time-entries/list-time-entries.md)
 /// ```ignore
 /// let time_entries = time_entries(
@@ -33,6 +33,7 @@ pub async fn time_entry(
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
 ///     Some(types::Date::try_from("2024-01-02").expect("date conversion failed")),
 ///     Some(types::Date::try_from("2024-01-03").expect("date conversion failed")),
+///     None,
 ///     None,
 ///     None,
 ///     None,
@@ -52,9 +53,11 @@ pub async fn time_entries(
     end_date: Option<types::Date>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<time::TimeEntries, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     // optional parameters for LIST
     if let Some(member) = member {

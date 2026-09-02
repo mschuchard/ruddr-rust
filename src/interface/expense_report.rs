@@ -21,18 +21,20 @@ pub async fn expense_report(
         .await?)
 }
 
-/// Retrieves the first 100 Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs.
+/// Retrieves the Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
 /// [API Documentation](https://docs.ruddr.io/api-reference/expense-reports/list-expense-reports.md)
 /// ```ignore
-/// let expense_reports = expense_reports(&client, None, None).await?;
+/// let expense_reports = expense_reports(&client, None, None, None).await?;
 /// ```
 pub async fn expense_reports(
     client: &client::Client,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
+    limit: Option<u8>,
 ) -> Result<expense_report::ExpenseReports, reqwest::Error> {
-    // initialize params
-    let mut params = String::from("limit=100");
+    // initialize params with limit
+    let limit = limit.unwrap_or(100);
+    let mut params = format!("limit={limit}");
 
     if let Some(starting_after) = starting_after {
         write!(params, "&startingAfter={}", starting_after).unwrap();
