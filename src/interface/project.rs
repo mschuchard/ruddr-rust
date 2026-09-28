@@ -1,8 +1,6 @@
 //! # Project
 //!
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::{project, types};
 
@@ -46,27 +44,27 @@ pub async fn projects(
     limit: Option<u8>,
 ) -> Result<project::Projects, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(client_id) = client_id {
-        write!(params, "&clientId={}", client_id).unwrap();
+    if let Some(client_id) = &client_id {
+        params.push(("clientId", client_id.into()));
     }
-    if let Some(project_type) = project_type {
-        write!(params, "&projectTypeId={}", project_type).unwrap();
+    if let Some(project_type) = &project_type {
+        params.push(("projectTypeId={}", project_type.into()));
     }
-    if let Some(status) = status {
-        write!(params, "&statusId={}", status).unwrap();
+    if let Some(status) = &status {
+        params.push(("statusId", status.into()));
     }
-    if let Some(name_contains) = name_contains {
-        write!(params, "&nameContains={}", name_contains).unwrap();
+    if let Some(name_contains) = &name_contains {
+        params.push(("nameContains", name_contains));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve projects

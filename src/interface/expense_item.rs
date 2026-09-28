@@ -1,8 +1,6 @@
 //! # Expense Item
 //!
 //! `interface::expense_item` consists of functions for interfacing with the Ruddr Expense Item endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::{expense_item, types};
 
@@ -40,18 +38,18 @@ pub async fn expense_items(
     limit: Option<u8>,
 ) -> Result<expense_item::ExpenseItems, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(expense_report) = expense_report {
-        write!(params, "&expenseReportId={}", expense_report).unwrap();
+    if let Some(expense_report) = &expense_report {
+        params.push(("expenseReportId", expense_report.into()));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve expense items

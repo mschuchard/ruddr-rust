@@ -1,8 +1,6 @@
 //! # Member
 //!
 //! `interface::member` consists of functions for interfacing with the Ruddr Member endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::{member, types};
 
@@ -42,21 +40,21 @@ pub async fn members(
     limit: Option<u8>,
 ) -> Result<member::Members, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(name_contains) = name_contains {
-        write!(params, "&nameContains={}", name_contains).unwrap();
+    if let Some(name_contains) = &name_contains {
+        params.push(("nameContains", name_contains));
     }
-    if let Some(email_contains) = email_contains {
-        write!(params, "&emailContains={}", email_contains).unwrap();
+    if let Some(email_contains) = &email_contains {
+        params.push(("emailContains", email_contains));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve members

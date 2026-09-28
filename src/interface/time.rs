@@ -1,8 +1,6 @@
 //! # Time
 //!
 //! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::{time, types};
 
@@ -56,42 +54,42 @@ pub async fn time_entries(
     limit: Option<u8>,
 ) -> Result<time::TimeEntries, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(member) = member {
-        write!(params, "&memberId={}", member).unwrap();
+    if let Some(member) = &member {
+        params.push(("memberId", member.into()));
     }
-    if let Some(project) = project {
-        write!(params, "&projectId={}", project).unwrap();
+    if let Some(project) = &project {
+        params.push(("projectId", project.into()));
     }
-    if let Some(date) = date {
-        write!(params, "&date={}", date).unwrap();
+    if let Some(date) = &date {
+        params.push(("date", date.into()));
     }
-    if let Some(date_after) = date_after {
-        write!(params, "&dateAfter={}", date_after).unwrap();
+    if let Some(date_after) = &date_after {
+        params.push(("dateAfter", date_after.into()));
     }
-    if let Some(begin_date) = begin_date {
-        write!(params, "&dateOnAfter={}", begin_date).unwrap();
+    if let Some(begin_date) = &begin_date {
+        params.push(("dateOnAfter", begin_date.into()));
     }
-    if let Some(date_before) = date_before {
-        write!(params, "&dateBefore={}", date_before).unwrap();
+    if let Some(date_before) = &date_before {
+        params.push(("dateBefore", date_before.into()));
     }
-    if let Some(end_date) = end_date {
-        write!(params, "&dateOnBefore={}", end_date).unwrap();
+    if let Some(end_date) = &end_date {
+        params.push(("dateOnBefore", end_date.into()));
     }
-    if let Some(timesheet) = timesheet {
-        write!(params, "&timesheetId={}", timesheet).unwrap();
+    if let Some(timesheet) = &timesheet {
+        params.push(("timesheetId", timesheet.into()));
     }
-    if let Some(time_type) = time_type {
-        write!(params, "&typeId={}", time_type).unwrap();
+    if let Some(time_type) = &time_type {
+        params.push(("typeId", time_type.into()));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve time entries

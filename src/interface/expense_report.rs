@@ -1,8 +1,6 @@
 //! # Expense Report
 //!
 //! `interface::expense_report` consists of functions for interfacing with the Ruddr Expense Report endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::{expense_report, types};
 
@@ -33,14 +31,14 @@ pub async fn expense_reports(
     limit: Option<u8>,
 ) -> Result<expense_report::ExpenseReports, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve expense reports

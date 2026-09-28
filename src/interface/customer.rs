@@ -1,8 +1,6 @@
 //! # Customer
 //!
 //! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoints. This module and base Read function are named differently from the endpoint so as to avoid naming collisions with the API client module in external usage. All other code associated with this endpoint utilizes the endpoint name `client`.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model;
 
@@ -40,18 +38,18 @@ pub async fn clients(
     limit: Option<u8>,
 ) -> Result<model::client::Clients, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(code) = code {
-        write!(params, "&code={}", code).unwrap();
+    if let Some(code) = &code {
+        params.push(("code", code));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve clients

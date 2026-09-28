@@ -1,8 +1,6 @@
 //! # Role
 //!
 //! `interface::role` consists of functions for interfacing with the Ruddr Role endpoints.
-use std::fmt::Write;
-
 use crate::client::client;
 use crate::model::role;
 use crate::model::types;
@@ -38,18 +36,18 @@ pub async fn roles(
     limit: Option<u8>,
 ) -> Result<role::Roles, reqwest::Error> {
     // initialize params with limit
-    let limit = limit.unwrap_or(100);
-    let mut params = format!("limit={limit}");
+    let limit = limit.unwrap_or(100).to_string();
+    let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
-    if let Some(project) = project {
-        write!(params, "&projectId={}", project).unwrap();
+    if let Some(project) = &project {
+        params.push(("projectId", project.into()));
     }
-    if let Some(starting_after) = starting_after {
-        write!(params, "&startingAfter={}", starting_after).unwrap();
+    if let Some(starting_after) = &starting_after {
+        params.push(("startingAfter", starting_after.into()));
     }
-    if let Some(ending_before) = ending_before {
-        write!(params, "&endingBefore={}", ending_before).unwrap();
+    if let Some(ending_before) = &ending_before {
+        params.push(("endingBefore", ending_before.into()));
     }
 
     // retrieve roles
