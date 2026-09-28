@@ -74,7 +74,7 @@ impl Client {
     pub(crate) async fn read<Response: de::DeserializeOwned>(
         &self,
         endpoint: &str,
-        params: Option<&str>,
+        params: Option<&[(&str, &str)]>,
     ) -> Result<Response, reqwest::Error> {
         // construct and assign client request
         let request = request::Request::new(endpoint, params);

@@ -44,7 +44,7 @@ async fn test_client_list() {
     let client = Client::new(Some("abcdefghi123456789"))
         .expect("client with token could not be constructed");
     let response = client
-        .read::<project::Projects>("projects", Some("limit=100"))
+        .read::<project::Projects>("projects", Some(&[("limit", "100")]))
         .await
         .expect_err("list did not fail on auth");
     assert_eq!(response.status(), Some(reqwest::StatusCode::UNAUTHORIZED));
