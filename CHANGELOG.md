@@ -1,3 +1,6 @@
+### 1.2.1 (Next)
+- Safely encode query parameters during requests.
+
 ### 1.2.0
 - Move `enums` back to respective models because `enum` now generally `pub`.
 - Add optional `limit` parameter to interface functions instead of hardcoded to 100.

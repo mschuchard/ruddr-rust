@@ -3,7 +3,7 @@ use super::*;
 #[test]
 fn test_request_new_params() {
     assert_eq!(
-        Request::new("endpoint", Some("params")).url,
+        Request::new("endpoint", Some(&[("foo", "bar")])).url,
         Url::parse("https://www.ruddr.io/api/workspace/endpoint?params")
             .expect("failed to parse URL")
     )
@@ -20,7 +20,7 @@ fn test_request_new_empty_params() {
 #[test]
 #[should_panic(expected = "endpoint must not be empty")]
 fn test_request_new_empty_endpoint_error() {
-    Request::new("", Some("params"));
+    Request::new("", Some(&[("foo", "bar")]));
 }
 
 #[tokio::test]
