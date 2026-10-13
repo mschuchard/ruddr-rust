@@ -43,6 +43,8 @@ pub async fn projects(
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
 ) -> Result<project::Projects, reqwest::Error> {
+    // convert enum to owned string so the borrow in params remains valid
+    let status = status.map(|status| status.to_string());
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];
@@ -52,10 +54,10 @@ pub async fn projects(
         params.push(("clientId", client_id.into()));
     }
     if let Some(project_type) = &project_type {
-        params.push(("projectTypeId={}", project_type.into()));
+        params.push(("projectTypeId", project_type.into()));
     }
     if let Some(status) = &status {
-        params.push(("statusId", status.into()));
+        params.push(("statusId", status.as_str()));
     }
     if let Some(name_contains) = &name_contains {
         params.push(("nameContains", name_contains));

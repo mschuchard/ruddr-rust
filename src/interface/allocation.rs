@@ -44,13 +44,15 @@ pub async fn allocations(
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
 ) -> Result<allocation::Allocations, reqwest::Error> {
+    // convert enum to owned string so the borrow in params remains valid
+    let assignment_type = assignment_type.map(|assignment_type| assignment_type.to_string());
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];
 
     // optional parameters for LIST
     if let Some(assignment_type) = &assignment_type {
-        params.push(("assignmentTypeId", assignment_type.into()));
+        params.push(("assignmentTypeId", assignment_type.as_str()));
     }
     if let Some(member) = &member {
         params.push(("memberId", member.into()));

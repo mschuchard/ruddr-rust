@@ -53,6 +53,8 @@ pub async fn time_entries(
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
 ) -> Result<time::TimeEntries, reqwest::Error> {
+    // convert enum to owned string so the borrow in params remains valid
+    let time_type = time_type.map(|time_type| time_type.to_string());
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];
@@ -83,7 +85,7 @@ pub async fn time_entries(
         params.push(("timesheetId", timesheet.into()));
     }
     if let Some(time_type) = &time_type {
-        params.push(("typeId", time_type.into()));
+        params.push(("typeId", time_type.as_str()));
     }
     if let Some(starting_after) = &starting_after {
         params.push(("startingAfter", starting_after.into()));
