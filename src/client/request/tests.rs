@@ -4,7 +4,7 @@ use super::*;
 fn test_request_new_params() {
     assert_eq!(
         Request::new("endpoint", Some(&[("foo", "bar")])).url,
-        Url::parse("https://www.ruddr.io/api/workspace/endpoint?params")
+        Url::parse("https://www.ruddr.io/api/workspace/endpoint?foo=bar")
             .expect("failed to parse URL")
     )
 }

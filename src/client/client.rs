@@ -68,7 +68,7 @@ impl Client {
     /// ).await?;
     /// let deser_response_list = client.read::<project::Projects>(
     ///     "projects",
-    ///     Some("limit=100"),
+    ///     Some(&[("limit", "100")]),
     /// ).await?;
     /// ```
     pub(crate) async fn read<Response: de::DeserializeOwned>(
