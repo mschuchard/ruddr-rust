@@ -11,9 +11,9 @@ use crate::model::{cost, types};
 /// ```
 pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost, reqwest::Error> {
     // retrieve cost target period
-    Ok(client
+    client
         .read::<cost::Cost>(&format!("cost-periods/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Cost period objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -50,9 +50,9 @@ pub async fn costs(
     }
 
     // retrieve cost target periods
-    Ok(client
+    client
         .read::<cost::Costs>("cost-periods", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

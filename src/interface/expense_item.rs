@@ -14,9 +14,9 @@ pub async fn expense_item(
     id: types::UUID,
 ) -> Result<expense_item::ExpenseItem, reqwest::Error> {
     // retrieve expense item
-    Ok(client
+    client
         .read::<expense_item::ExpenseItem>(&format!("expense-items/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Expense Item objects, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -53,9 +53,9 @@ pub async fn expense_items(
     }
 
     // retrieve expense items
-    Ok(client
+    client
         .read::<expense_item::ExpenseItems>("expense-items", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

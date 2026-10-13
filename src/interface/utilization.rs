@@ -14,9 +14,9 @@ pub async fn utilization(
     id: types::UUID,
 ) -> Result<utilization::Utilization, reqwest::Error> {
     // retrieve utilization target period
-    Ok(client
+    client
         .read::<utilization::Utilization>(&format!("utilization-target-periods/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Utilization target period objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -53,9 +53,9 @@ pub async fn utilizations(
     }
 
     // retrieve utilization target periods
-    Ok(client
+    client
         .read::<utilization::Utilizations>("utilization-target-periods", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

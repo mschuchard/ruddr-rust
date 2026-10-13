@@ -14,9 +14,9 @@ pub async fn member(
     id: types::UUID,
 ) -> Result<member::Member, reqwest::Error> {
     // retrieve member
-    Ok(client
+    client
         .read::<member::Member>(&format!("members/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Workspace Member objects, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -58,9 +58,9 @@ pub async fn members(
     }
 
     // retrieve members
-    Ok(client
+    client
         .read::<member::Members>("members", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

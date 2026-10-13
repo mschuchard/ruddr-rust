@@ -12,9 +12,9 @@ use crate::model::types;
 /// ```
 pub async fn role(client: &client::Client, id: types::UUID) -> Result<role::Role, reqwest::Error> {
     // retrieve role
-    Ok(client
+    client
         .read::<role::Role>(&format!("project-roles/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Role objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -51,9 +51,9 @@ pub async fn roles(
     }
 
     // retrieve roles
-    Ok(client
+    client
         .read::<role::Roles>("project-roles", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

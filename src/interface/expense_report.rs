@@ -14,9 +14,9 @@ pub async fn expense_report(
     id: types::UUID,
 ) -> Result<expense_report::ExpenseReport, reqwest::Error> {
     // retrieve expense report
-    Ok(client
+    client
         .read::<expense_report::ExpenseReport>(&format!("expense-reports/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Expense Report objects, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -42,9 +42,9 @@ pub async fn expense_reports(
     }
 
     // retrieve expense reports
-    Ok(client
+    client
         .read::<expense_report::ExpenseReports>("expense-reports", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

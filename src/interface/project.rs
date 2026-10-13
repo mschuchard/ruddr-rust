@@ -14,9 +14,9 @@ pub async fn project(
     id: types::UUID,
 ) -> Result<project::Project, reqwest::Error> {
     // retrieve project
-    Ok(client
+    client
         .read::<project::Project>(&format!("projects/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Project objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -70,9 +70,9 @@ pub async fn projects(
     }
 
     // retrieve projects
-    Ok(client
+    client
         .read::<project::Projects>("projects", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

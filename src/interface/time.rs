@@ -14,9 +14,9 @@ pub async fn time_entry(
     id: types::UUID,
 ) -> Result<time::TimeEntry, reqwest::Error> {
     // retrieve time entry
-    Ok(client
+    client
         .read::<time::TimeEntry>(&format!("time-entries/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Time Entry objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -95,9 +95,9 @@ pub async fn time_entries(
     }
 
     // retrieve time entries
-    Ok(client
+    client
         .read::<time::TimeEntries>("time-entries", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

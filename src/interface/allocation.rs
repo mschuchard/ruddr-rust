@@ -15,9 +15,9 @@ pub async fn allocation(
     id: types::UUID,
 ) -> Result<allocation::Allocation, reqwest::Error> {
     // retrieve allocation
-    Ok(client
+    client
         .read::<allocation::Allocation>(&format!("allocations/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Allocation objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -71,9 +71,9 @@ pub async fn allocations(
     }
 
     // retrieve allocations
-    Ok(client
+    client
         .read::<allocation::Allocations>("allocations", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]

@@ -14,9 +14,9 @@ pub async fn customer(
     id: model::types::UUID,
 ) -> Result<model::client::Client, reqwest::Error> {
     // retrieve client
-    Ok(client
+    client
         .read::<model::client::Client>(&format!("clients/{id}"), None)
-        .await?)
+        .await
 }
 
 /// Retrieves the Ruddr Client objects by filters, and deserializes it to the corresponding vector of model structs. Default value for limit is 100.
@@ -53,9 +53,9 @@ pub async fn clients(
     }
 
     // retrieve clients
-    Ok(client
+    client
         .read::<model::client::Clients>("clients", Some(&params))
-        .await?)
+        .await
 }
 
 #[cfg(test)]
