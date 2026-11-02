@@ -27,8 +27,15 @@ pub async fn allocation(
 ///     &client,
 ///     Some(allocation::AssignmentType::Project),
 ///     Some(types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885").expect("uuid conversion failed")),
+///     Some(types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c").expect("uuid conversion failed")),
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+///     None,
 ///     Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+///     None,
+///     None,
+///     None,
+///     None,
+///     None,
 ///     None,
 ///     None,
 ///     None,
@@ -38,8 +45,15 @@ pub async fn allocations(
     client: &client::Client,
     assignment_type: Option<allocation::AssignmentType>,
     member: Option<types::UUID>,
+    project: Option<types::UUID>,
     start_date: Option<types::Date>,
+    start_before: Option<types::Date>,
     end_date: Option<types::Date>,
+    end_after: Option<types::Date>,
+    modified_at_after: Option<types::Timestamp>,
+    modified_at_on_after: Option<types::Timestamp>,
+    modified_at_before: Option<types::Timestamp>,
+    modified_at_on_before: Option<types::Timestamp>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
@@ -57,11 +71,32 @@ pub async fn allocations(
     if let Some(member) = &member {
         params.push(("memberId", member.into()));
     }
+    if let Some(project) = &project {
+        params.push(("projectId", project.into()));
+    }
     if let Some(start_date) = &start_date {
         params.push(("endOnAfter", start_date.into()));
     }
+    if let Some(start_before) = &start_before {
+        params.push(("startBefore", start_before.into()));
+    }
     if let Some(end_date) = &end_date {
         params.push(("startOnBefore", end_date.into()));
+    }
+    if let Some(end_after) = &end_after {
+        params.push(("endAfter", end_after.into()));
+    }
+    if let Some(modified_at_after) = &modified_at_after {
+        params.push(("modifiedAtAfter", modified_at_after.into()));
+    }
+    if let Some(modified_at_on_after) = &modified_at_on_after {
+        params.push(("modifiedAtOnAfter", modified_at_on_after.into()));
+    }
+    if let Some(modified_at_before) = &modified_at_before {
+        params.push(("modifiedAtBefore", modified_at_before.into()));
+    }
+    if let Some(modified_at_on_before) = &modified_at_on_before {
+        params.push(("modifiedAtOnBefore", modified_at_on_before.into()));
     }
     if let Some(starting_after) = &starting_after {
         params.push(("startingAfter", starting_after.into()));

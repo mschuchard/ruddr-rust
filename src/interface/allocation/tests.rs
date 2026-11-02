@@ -29,8 +29,18 @@ async fn test_allocations() {
                 types::UUID::try_from("ec5543de-3b0f-47a0-b8ef-a6e18dc4b885")
                     .expect("invalid UUID")
             ),
+            Some(
+                types::UUID::try_from("095e0780-48bf-472c-8deb-2fc3ebc7d90c")
+                    .expect("invalid UUID")
+            ),
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
             Some(types::Date::try_from("2024-01-01").expect("date conversion failed")),
+            None,
+            None,
+            None,
+            None,
+            None,
             None,
             None,
             None,

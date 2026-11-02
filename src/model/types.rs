@@ -100,7 +100,6 @@ impl fmt::Display for Date {
 /// ```ignore
 /// Timestamp::try_from("1234-56-78T12:34:56.789Z")
 /// ```
-/// This type is currently unused in input parameters to interface functions, but is still public for potential unforeseen usage.
 #[derive(PartialEq, Eq, Debug, Clone, Serialize)]
 // public access to the type should exist, but not to the implicit constructor as users are expected to instantiate through type converters each containing an invocation to the explicit constructor
 pub struct Timestamp(pub(super) String);

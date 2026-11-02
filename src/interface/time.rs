@@ -36,6 +36,10 @@ pub async fn time_entry(
 ///     None,
 ///     None,
 ///     None,
+///     None,
+///     None,
+///     None,
+///     None,
 /// ).await?;
 /// ```
 pub async fn time_entries(
@@ -49,6 +53,10 @@ pub async fn time_entries(
     begin_date: Option<types::Date>,
     date_before: Option<types::Date>,
     end_date: Option<types::Date>,
+    modified_at_after: Option<types::Timestamp>,
+    modified_at_on_after: Option<types::Timestamp>,
+    modified_at_before: Option<types::Timestamp>,
+    modified_at_on_before: Option<types::Timestamp>,
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
@@ -80,6 +88,18 @@ pub async fn time_entries(
     }
     if let Some(end_date) = &end_date {
         params.push(("dateOnBefore", end_date.into()));
+    }
+    if let Some(modified_at_after) = &modified_at_after {
+        params.push(("modifiedAtAfter", modified_at_after.into()));
+    }
+    if let Some(modified_at_on_after) = &modified_at_on_after {
+        params.push(("modifiedAtOnAfter", modified_at_on_after.into()));
+    }
+    if let Some(modified_at_before) = &modified_at_before {
+        params.push(("modifiedAtBefore", modified_at_before.into()));
+    }
+    if let Some(modified_at_on_before) = &modified_at_on_before {
+        params.push(("modifiedAtOnBefore", modified_at_on_before.into()));
     }
     if let Some(timesheet) = &timesheet {
         params.push(("timesheetId", timesheet.into()));
