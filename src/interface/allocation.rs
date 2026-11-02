@@ -58,10 +58,10 @@ pub async fn allocations(
         params.push(("memberId", member.into()));
     }
     if let Some(start_date) = &start_date {
-        params.push(("startOnBefore", start_date.into()));
+        params.push(("endOnAfter", start_date.into()));
     }
     if let Some(end_date) = &end_date {
-        params.push(("endOnAfter", end_date.into()));
+        params.push(("startOnBefore", end_date.into()));
     }
     if let Some(starting_after) = &starting_after {
         params.push(("startingAfter", starting_after.into()));

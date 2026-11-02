@@ -1,5 +1,6 @@
 ### 1.2.1 (Next)
 - Safely encode query parameters during requests.
+- Fix reversed `start_date` and `end_date` parameters in `allocations` interface.
 
 ### 1.2.0
 - Move `enums` back to respective models because `enum` now generally `pub`.
