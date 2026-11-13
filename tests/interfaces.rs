@@ -5,7 +5,7 @@ use ruddr::model::types;
 
 #[tokio::test]
 async fn test_allocations() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         allocation::allocations(
@@ -40,7 +40,7 @@ async fn test_allocations() {
 
 #[tokio::test]
 async fn test_customers() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         customer::clients(&client, Some("JOE"), None, None, None)
@@ -53,7 +53,7 @@ async fn test_customers() {
 
 #[tokio::test]
 async fn test_costs() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         cost::costs(
@@ -75,7 +75,7 @@ async fn test_costs() {
 
 #[tokio::test]
 async fn test_expense_items() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         expense_item::expense_items(
@@ -97,7 +97,7 @@ async fn test_expense_items() {
 
 #[tokio::test]
 async fn test_expense_reports() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         expense_report::expense_reports(&client, None, None, None)
@@ -110,7 +110,7 @@ async fn test_expense_reports() {
 
 #[tokio::test]
 async fn test_members() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         member::members(&client, Some("Joe"), Some("foo@bar.com"), None, None, None)
@@ -123,7 +123,7 @@ async fn test_members() {
 
 #[tokio::test]
 async fn test_projects() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         project::projects(
@@ -151,7 +151,7 @@ async fn test_projects() {
 
 #[tokio::test]
 async fn test_roles() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         role::roles(
@@ -173,7 +173,7 @@ async fn test_roles() {
 
 #[tokio::test]
 async fn test_time_entries() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         time::time_entries(
@@ -210,7 +210,7 @@ async fn test_time_entries() {
 
 #[tokio::test]
 async fn test_utilizations() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         utilization::utilizations(

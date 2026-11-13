@@ -2,7 +2,7 @@ use super::*;
 
 #[tokio::test]
 async fn test_project() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         project(
@@ -18,7 +18,7 @@ async fn test_project() {
 
 #[tokio::test]
 async fn test_projects() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         projects(

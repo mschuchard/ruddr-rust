@@ -2,7 +2,7 @@ use super::*;
 
 #[tokio::test]
 async fn test_role() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         role(
@@ -19,7 +19,7 @@ async fn test_role() {
 
 #[tokio::test]
 async fn test_roles() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         roles(

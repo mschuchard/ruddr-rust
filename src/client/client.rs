@@ -15,7 +15,7 @@ pub struct Client {
 }
 
 impl Client {
-    /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error.
+    /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error. Default timeout is sixty seconds.
     /// ```ignore
     /// // token as environment variable with two minute timeout
     /// unsafe { std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789"); }

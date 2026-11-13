@@ -2,7 +2,7 @@ use super::*;
 
 #[tokio::test]
 async fn test_time_entry() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         time_entry(
@@ -18,7 +18,7 @@ async fn test_time_entry() {
 
 #[tokio::test]
 async fn test_time_entries() {
-    let client = client::Client::new(Some("abcdefghi123456789"))
+    let client = client::Client::new(Some("abcdefghi123456789"), None)
         .expect("client with token could not be constructed");
     assert_eq!(
         time_entries(
