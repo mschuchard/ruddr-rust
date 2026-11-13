@@ -1,8 +1,9 @@
-### 1.2.1 (Next)
+### 1.3.0 (Next)
 - Safely encode query parameters during requests.
 - Fix reversed `start_date` and `end_date` parameters in `allocations` interface.
 - Add `modified_at_after`, `modified_at_on_after`, `modified_at_before`, and `modified_at_on_before` filters to `time_entries` and `allocations` interfaces.
 - Add `project`, `start_before`, and `end_after` filters to `allocations` interface.
+- Improve date and time validation.
 
 ### 1.2.0
 - Move `enums` back to respective models because `enum` now generally `pub`.

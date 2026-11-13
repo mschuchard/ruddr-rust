@@ -39,7 +39,7 @@ pub struct Date(pub(super) String);
 impl Date {
     // constructor with validation used within type converters
     fn new(date: String) -> Result<Self, TypeError> {
-        let date_validator = Regex::new(r"^\d{4}-\d{2}-\d{2}$").unwrap();
+        let date_validator = Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$").unwrap();
         if date_validator.is_match(&date) {
             Ok(Date(date))
         } else {
@@ -108,7 +108,7 @@ impl Timestamp {
     // constructor with validation used within type converters
     fn new(timestamp: String) -> Result<Self, TypeError> {
         let timestamp_validator =
-            Regex::new(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$").unwrap();
+            Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$").unwrap();
         if timestamp_validator.is_match(&timestamp) {
             Ok(Timestamp(timestamp))
         } else {
@@ -177,7 +177,7 @@ pub struct Time(pub(super) String);
 impl Time {
     // constructor with validation used within type converters
     fn new(time: String) -> Result<Self, TypeError> {
-        let time_validator = Regex::new(r"^\d{2}:\d{2}$").unwrap();
+        let time_validator = Regex::new(r"^[0-9]{2}:[0-9]{2}$").unwrap();
         if time_validator.is_match(&time) {
             Ok(Time(time))
         } else {
