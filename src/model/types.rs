@@ -4,6 +4,7 @@
 use regex::Regex;
 use serde::{Deserializer, Serialize};
 use std::fmt;
+use std::sync::LazyLock;
 
 /// Aggregation of error types for conversions defined as tuple variants.
 #[derive(Debug, PartialEq)]
@@ -27,6 +28,20 @@ impl fmt::Display for TypeError {
     }
 }
 
+// static regex compilations
+static DATE_VALIDATOR: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$").unwrap());
+static TIMESTAMP_VALIDATOR: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$").unwrap()
+});
+static TIME_VALIDATOR: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"^[0-9]{2}:[0-9]{2}$").unwrap());
+static SLUG_VALIDATOR: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^[a-z0-9-]+$").unwrap());
+static UUID_VALIDATOR: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$")
+        .unwrap()
+});
+
 /// Custom type for Ruddr Date type in YYYY-MM-DD format.
 /// Consumers are expected to instantiate this through type conversion, and not the implicit or explicit constructors.
 /// ```ignore
@@ -39,8 +54,7 @@ pub struct Date(pub(super) String);
 impl Date {
     // constructor with validation used within type converters
     fn new(date: String) -> Result<Self, TypeError> {
-        let date_validator = Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$").unwrap();
-        if date_validator.is_match(&date) {
+        if DATE_VALIDATOR.is_match(&date) {
             Ok(Date(date))
         } else {
             Err(TypeError::DateError(format!("invalid date: {date}")))
@@ -107,9 +121,7 @@ pub struct Timestamp(pub(super) String);
 impl Timestamp {
     // constructor with validation used within type converters
     fn new(timestamp: String) -> Result<Self, TypeError> {
-        let timestamp_validator =
-            Regex::new(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{3}Z$").unwrap();
-        if timestamp_validator.is_match(&timestamp) {
+        if TIMESTAMP_VALIDATOR.is_match(&timestamp) {
             Ok(Timestamp(timestamp))
         } else {
             Err(TypeError::TimestampError(format!(
@@ -177,8 +189,7 @@ pub struct Time(pub(super) String);
 impl Time {
     // constructor with validation used within type converters
     fn new(time: String) -> Result<Self, TypeError> {
-        let time_validator = Regex::new(r"^[0-9]{2}:[0-9]{2}$").unwrap();
-        if time_validator.is_match(&time) {
+        if TIME_VALIDATOR.is_match(&time) {
             Ok(Time(time))
         } else {
             Err(TypeError::TimeError(format!("invalid time: {time}")))
@@ -244,11 +255,7 @@ pub struct UUID(pub(super) String);
 impl UUID {
     // constructor with validation used within type converters
     fn new(uuid: String) -> Result<Self, TypeError> {
-        let uuid_validator = Regex::new(
-            r"^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
-        )
-        .unwrap();
-        if uuid_validator.is_match(&uuid) {
+        if UUID_VALIDATOR.is_match(&uuid) {
             Ok(UUID(uuid))
         } else {
             Err(TypeError::UUIDError(format!("invalid uuid: {uuid}")))
@@ -314,8 +321,7 @@ pub struct Slug(pub(super) String);
 impl Slug {
     // constructor with validation used within type converters
     fn new(slug: String) -> Result<Self, TypeError> {
-        let slug_validator = Regex::new(r"^[a-z0-9-]+$").unwrap();
-        if slug_validator.is_match(&slug) {
+        if SLUG_VALIDATOR.is_match(&slug) {
             Ok(Slug(slug))
         } else {
             Err(TypeError::SlugError(format!("invalid slug: {slug}")))
