@@ -17,13 +17,16 @@ pub struct Client {
 impl Client {
     /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error.
     /// ```ignore
-    /// // token as environment variable
+    /// // token as environment variable with two minute timeout
     /// unsafe { std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789"); }
-    /// let client = Client::new(None)?;
+    /// let client = Client::new(None, Some(120))?;
     /// // token as parameter value
-    /// let client = Client::new(Some("abcdefghi123456789"))?;
+    /// let client = Client::new(Some("abcdefghi123456789"), None)?;
     /// ```
-    pub fn new(token: Option<&str>) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn new(
+        token: Option<&str>,
+        timeout: Option<u64>,
+    ) -> Result<Self, Box<dyn std::error::Error>> {
         // initialize headers and establish json encoding
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
@@ -49,9 +52,18 @@ impl Client {
 
         log::debug!("built headers are {headers:?}");
 
+        // determine timeout
+        let timeout = match timeout {
+            Some(timeout) => std::time::Duration::from_secs(timeout),
+            None => std::time::Duration::from_secs(60),
+        };
+
+        log::debug!("timeout is {timeout:?}");
+
         // build client
         let client = reqwest::Client::builder()
             .default_headers(headers)
+            .timeout(timeout)
             .build()?;
 
         log::debug!("built client is {client:?}");
