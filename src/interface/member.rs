@@ -2,6 +2,7 @@
 //!
 //! `interface::member` consists of functions for interfacing with the Ruddr Member endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{member, types};
 
 /// Retrieves a specific Ruddr Workspace Member object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{member, types};
 pub async fn member(
     client: &client::Client,
     id: types::UUID,
-) -> Result<member::Member, reqwest::Error> {
+) -> Result<member::Member, ClientError> {
     // retrieve member
     client
         .read::<member::Member>(&format!("members/{id}"), None)
@@ -38,7 +39,7 @@ pub async fn members(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<member::Members, reqwest::Error> {
+) -> Result<member::Members, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];

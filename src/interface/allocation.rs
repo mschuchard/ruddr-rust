@@ -2,6 +2,7 @@
 //!
 //! `interface::allocation` consists of functions for interfacing with the Ruddr Allocation endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::allocation;
 use crate::model::types;
 
@@ -13,7 +14,7 @@ use crate::model::types;
 pub async fn allocation(
     client: &client::Client,
     id: types::UUID,
-) -> Result<allocation::Allocation, reqwest::Error> {
+) -> Result<allocation::Allocation, ClientError> {
     // retrieve allocation
     client
         .read::<allocation::Allocation>(&format!("allocations/{id}"), None)
@@ -57,7 +58,7 @@ pub async fn allocations(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<allocation::Allocations, reqwest::Error> {
+) -> Result<allocation::Allocations, ClientError> {
     // convert enum to owned string so the borrow in params remains valid
     let assignment_type = assignment_type.map(|assignment_type| assignment_type.to_string());
     // initialize params with limit

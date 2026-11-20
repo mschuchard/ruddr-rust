@@ -5,6 +5,7 @@
 - Add `project`, `start_before`, and `end_after` filters to `allocations` interface.
 - Improve date and time validation.
 - Add timeout parameter to the `client` constructor.
+- Add `ClientError` type for client constructor and request errors.
 
 ### 1.2.0
 - Move `enums` back to respective models because `enum` now generally `pub`.

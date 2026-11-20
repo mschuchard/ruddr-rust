@@ -2,6 +2,7 @@
 //!
 //! `interface::customer` consists of functions for interfacing with the Ruddr Client endpoints. This module and base Read function are named differently from the endpoint so as to avoid naming collisions with the API client module in external usage. All other code associated with this endpoint utilizes the endpoint name `client`.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model;
 
 /// Retrieves a specific Ruddr Client object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model;
 pub async fn customer(
     client: &client::Client,
     id: model::types::UUID,
-) -> Result<model::client::Client, reqwest::Error> {
+) -> Result<model::client::Client, ClientError> {
     // retrieve client
     client
         .read::<model::client::Client>(&format!("clients/{id}"), None)
@@ -36,7 +37,7 @@ pub async fn clients(
     starting_after: Option<model::types::UUID>,
     ending_before: Option<model::types::UUID>,
     limit: Option<u8>,
-) -> Result<model::client::Clients, reqwest::Error> {
+) -> Result<model::client::Clients, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];

@@ -2,6 +2,7 @@
 //!
 //! `interface::expense_item` consists of functions for interfacing with the Ruddr Expense Item endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{expense_item, types};
 
 /// Retrieves a specific Ruddr Expense Item object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{expense_item, types};
 pub async fn expense_item(
     client: &client::Client,
     id: types::UUID,
-) -> Result<expense_item::ExpenseItem, reqwest::Error> {
+) -> Result<expense_item::ExpenseItem, ClientError> {
     // retrieve expense item
     client
         .read::<expense_item::ExpenseItem>(&format!("expense-items/{id}"), None)
@@ -36,7 +37,7 @@ pub async fn expense_items(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<expense_item::ExpenseItems, reqwest::Error> {
+) -> Result<expense_item::ExpenseItems, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];

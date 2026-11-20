@@ -6,6 +6,7 @@ use reqwest;
 use serde::de;
 use std::env;
 
+use super::error::ClientError;
 use super::request;
 
 /// Client struct for reuse with various and multiple requests without explicit reqwest type usage.
@@ -15,7 +16,7 @@ pub struct Client {
 }
 
 impl Client {
-    /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and boxed error. Default timeout is sixty seconds.
+    /// Instantiate a reusable Ruddr client through a constructor that returns a wrapped `Client` struct and `ClientError`. Default timeout is sixty seconds.
     /// ```ignore
     /// // token as environment variable with two minute timeout
     /// unsafe { std::env::set_var("RUDDR_TOKEN", "abcdefghi123456789"); }
@@ -23,10 +24,7 @@ impl Client {
     /// // token as parameter value
     /// let client = Client::new(Some("abcdefghi123456789"), None)?;
     /// ```
-    pub fn new(
-        token: Option<&str>,
-        timeout: Option<u64>,
-    ) -> Result<Self, Box<dyn std::error::Error>> {
+    pub fn new(token: Option<&str>, timeout: Option<u64>) -> Result<Self, ClientError> {
         // initialize headers and establish json encoding
         let mut headers = reqwest::header::HeaderMap::new();
         headers.insert(
@@ -38,11 +36,7 @@ impl Client {
             Some(token) => format!("Bearer {token}"),
             None => match env::var("RUDDR_TOKEN") {
                 Ok(token) => format!("Bearer {token}"),
-                Err(_) => {
-                    return Err(Box::from(
-                        "ruddr api token was not input through code or RUDDR_TOKEN environment variable",
-                    ));
-                }
+                Err(_) => return Err(ClientError::MissingToken),
             },
         };
         // establish authentication and mark as sensitive
@@ -64,7 +58,8 @@ impl Client {
         let client = reqwest::Client::builder()
             .default_headers(headers)
             .timeout(timeout)
-            .build()?;
+            .build()
+            .map_err(|error| ClientError::Build(error.without_url()))?;
 
         log::debug!("built client is {client:?}");
         Ok(Self { client })
@@ -87,23 +82,28 @@ impl Client {
         &self,
         endpoint: &str,
         params: Option<&[(&str, &str)]>,
-    ) -> Result<Response, reqwest::Error> {
+    ) -> Result<Response, ClientError> {
         // construct and assign client request
         let request = request::Request::new(endpoint, params);
         log::debug!("request is {request:?}");
 
-        // retrieve object and deser
+        // retrieve response and status
         let response = request.get(&self.client).await?;
-        let deser = match response.error_for_status() {
-            // deser if successful
-            Ok(response) => response.json::<Response>().await?,
-            // provide information if failure
-            Err(error) => {
-                log::error!("request failed with status {:?}", error.status().unwrap());
-                log::error!("{error}");
-                return Err(error.without_url());
-            }
-        };
+        let status = response.status();
+
+        // preserve the api error body (e.g. validation message on a 400) before the response is consumed
+        if !status.is_success() {
+            let body = response.text().await.unwrap_or_else(|error| {
+                log::warn!("response body of failed request could not be read: {error}");
+                String::new()
+            });
+            log::error!("request failed with status {status:?}");
+            log::error!("{body}");
+            return Err(ClientError::Status { status, body });
+        }
+
+        // deser
+        let deser = response.json::<Response>().await?;
 
         log::debug!("successful read from Ruddr API");
         Ok(deser)

@@ -2,6 +2,7 @@
 //!
 //! `interface::project` consists of functions for interfacing with the Ruddr Project endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{project, types};
 
 /// Retrieves a specific Ruddr Project object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{project, types};
 pub async fn project(
     client: &client::Client,
     id: types::UUID,
-) -> Result<project::Project, reqwest::Error> {
+) -> Result<project::Project, ClientError> {
     // retrieve project
     client
         .read::<project::Project>(&format!("projects/{id}"), None)
@@ -42,7 +43,7 @@ pub async fn projects(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<project::Projects, reqwest::Error> {
+) -> Result<project::Projects, ClientError> {
     // convert enum to owned string so the borrow in params remains valid
     let status = status.map(|status| status.to_string());
     // initialize params with limit

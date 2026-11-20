@@ -2,6 +2,7 @@
 //!
 //! `interface::time` consists of functions for interfacing with the Ruddr Time Entry endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{time, types};
 
 /// Retrieves a specific Ruddr Time Entry object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{time, types};
 pub async fn time_entry(
     client: &client::Client,
     id: types::UUID,
-) -> Result<time::TimeEntry, reqwest::Error> {
+) -> Result<time::TimeEntry, ClientError> {
     // retrieve time entry
     client
         .read::<time::TimeEntry>(&format!("time-entries/{id}"), None)
@@ -60,7 +61,7 @@ pub async fn time_entries(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<time::TimeEntries, reqwest::Error> {
+) -> Result<time::TimeEntries, ClientError> {
     // convert enum to owned string so the borrow in params remains valid
     let time_type = time_type.map(|time_type| time_type.to_string());
     // initialize params with limit

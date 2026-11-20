@@ -2,6 +2,7 @@
 //!
 //! `interface::cost` consists of functions for interfacing with the Ruddr Cost period endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{cost, types};
 
 /// Retrieves a specific Ruddr Cost period object by id, and deserializes it to the corresponding model struct.
@@ -9,7 +10,7 @@ use crate::model::{cost, types};
 /// ```ignore
 /// let cost = cost(&client, types::UUID::try_from("b3a100b0-8e71-4f39-9d96-32f11838aa8c").expect("invalid UUID")).await?;
 /// ```
-pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost, reqwest::Error> {
+pub async fn cost(client: &client::Client, id: types::UUID) -> Result<cost::Cost, ClientError> {
     // retrieve cost target period
     client
         .read::<cost::Cost>(&format!("cost-periods/{id}"), None)
@@ -33,7 +34,7 @@ pub async fn costs(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<cost::Costs, reqwest::Error> {
+) -> Result<cost::Costs, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];

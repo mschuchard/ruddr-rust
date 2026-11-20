@@ -1,5 +1,6 @@
 pub mod client {
     pub mod client;
+    pub mod error;
     mod request;
 }
 pub mod interface {

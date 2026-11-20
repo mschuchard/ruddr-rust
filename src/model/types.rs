@@ -6,7 +6,7 @@ use serde::{Deserializer, Serialize};
 use std::fmt;
 use std::sync::LazyLock;
 
-/// Aggregation of error types for conversions defined as tuple variants.
+/// Aggregation of error types, which are defined as tuple variants, for type conversions.
 #[derive(Debug, PartialEq)]
 pub enum TypeError {
     DateError(String),

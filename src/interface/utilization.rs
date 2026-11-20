@@ -2,6 +2,7 @@
 //!
 //! `interface::utilization` consists of functions for interfacing with the Ruddr Utilization target period endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{types, utilization};
 
 /// Retrieves a specific Ruddr Utilization target period object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{types, utilization};
 pub async fn utilization(
     client: &client::Client,
     id: types::UUID,
-) -> Result<utilization::Utilization, reqwest::Error> {
+) -> Result<utilization::Utilization, ClientError> {
     // retrieve utilization target period
     client
         .read::<utilization::Utilization>(&format!("utilization-target-periods/{id}"), None)
@@ -36,7 +37,7 @@ pub async fn utilizations(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<utilization::Utilizations, reqwest::Error> {
+) -> Result<utilization::Utilizations, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];

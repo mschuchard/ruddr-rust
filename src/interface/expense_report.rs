@@ -2,6 +2,7 @@
 //!
 //! `interface::expense_report` consists of functions for interfacing with the Ruddr Expense Report endpoints.
 use crate::client::client;
+use crate::client::error::ClientError;
 use crate::model::{expense_report, types};
 
 /// Retrieves a specific Ruddr Expense Report object by id, and deserializes it to the corresponding model struct.
@@ -12,7 +13,7 @@ use crate::model::{expense_report, types};
 pub async fn expense_report(
     client: &client::Client,
     id: types::UUID,
-) -> Result<expense_report::ExpenseReport, reqwest::Error> {
+) -> Result<expense_report::ExpenseReport, ClientError> {
     // retrieve expense report
     client
         .read::<expense_report::ExpenseReport>(&format!("expense-reports/{id}"), None)
@@ -29,7 +30,7 @@ pub async fn expense_reports(
     starting_after: Option<types::UUID>,
     ending_before: Option<types::UUID>,
     limit: Option<u8>,
-) -> Result<expense_report::ExpenseReports, reqwest::Error> {
+) -> Result<expense_report::ExpenseReports, ClientError> {
     // initialize params with limit
     let limit = limit.unwrap_or(100).to_string();
     let mut params = vec![("limit", limit.as_str())];
